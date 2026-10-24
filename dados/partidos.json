@@ -1,0 +1,68 @@
+[
+ {
+  "k": "GOV",
+  "sigla": "Governo",
+  "nome": "Governo",
+  "campo": "governo"
+ },
+ {
+  "k": "PSD",
+  "sigla": "PSD",
+  "nome": "PSD",
+  "campo": "governo"
+ },
+ {
+  "k": "CDS",
+  "sigla": "CDS-PP",
+  "nome": "CDS-PP",
+  "campo": "governo"
+ },
+ {
+  "k": "PS",
+  "sigla": "PS",
+  "nome": "PS",
+  "campo": "oposicao"
+ },
+ {
+  "k": "CH",
+  "sigla": "Chega",
+  "nome": "Chega",
+  "campo": "oposicao"
+ },
+ {
+  "k": "IL",
+  "sigla": "IL",
+  "nome": "Iniciativa Liberal",
+  "campo": "oposicao"
+ },
+ {
+  "k": "L",
+  "sigla": "Livre",
+  "nome": "Livre",
+  "campo": "oposicao"
+ },
+ {
+  "k": "PCP",
+  "sigla": "PCP",
+  "nome": "PCP",
+  "campo": "oposicao"
+ },
+ {
+  "k": "BE",
+  "sigla": "BE",
+  "nome": "Bloco de Esquerda",
+  "campo": "oposicao"
+ },
+ {
+  "k": "PAN",
+  "sigla": "PAN",
+  "nome": "PAN",
+  "campo": "oposicao"
+ },
+ {
+  "k": "JPP",
+  "sigla": "JPP",
+  "nome": "JPP",
+  "campo": "oposicao"
+ }
+]

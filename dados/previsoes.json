@@ -1,0 +1,215 @@
+{
+ "indicadores": {
+  "pib": {
+   "nome": "PIB, crescimento real",
+   "curto": "PIB",
+   "unid": "%",
+   "bom": "alto",
+   "limiar": 0.5,
+   "dec": 1
+  },
+  "ihpc": {
+   "nome": "Inflação (IHPC)",
+   "curto": "INFLAÇÃO",
+   "unid": "%",
+   "bom": "baixo",
+   "limiar": 0.5,
+   "dec": 1
+  },
+  "emprego": {
+   "nome": "Emprego, crescimento",
+   "curto": "EMPREGO",
+   "unid": "%",
+   "bom": "alto",
+   "limiar": 0.5,
+   "dec": 1
+  },
+  "desemprego": {
+   "nome": "Taxa de desemprego",
+   "curto": "DESEMPREGO",
+   "unid": "%",
+   "bom": "baixo",
+   "limiar": 0.5,
+   "dec": 1
+  },
+  "saldo": {
+   "nome": "Saldo orçamental",
+   "curto": "SALDO",
+   "unid": "% do PIB",
+   "bom": "alto",
+   "limiar": 0.5,
+   "dec": 1
+  },
+  "divida": {
+   "nome": "Dívida pública",
+   "curto": "DÍVIDA",
+   "unid": "% do PIB",
+   "bom": "baixo",
+   "limiar": 2.0,
+   "dec": 1,
+   "passo": 1
+  }
+ },
+ "instituicoes": [
+  {
+   "k": "GOV",
+   "curto": "Governo",
+   "nome": "Governo, proposta do OE 2027",
+   "quando": "out. 2026",
+   "fonte": "Relatório do OE 2027 (via CNN Portugal)",
+   "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+  },
+  {
+   "k": "BdP",
+   "curto": "BdP",
+   "nome": "Banco de Portugal",
+   "quando": "out. 2026 (saldo e dívida: jun. 2026)",
+   "fonte": "Boletim Económico (via Forbes Portugal)",
+   "url": "https://www.forbespt.com/?p=196632"
+  },
+  {
+   "k": "FMI",
+   "curto": "FMI",
+   "nome": "FMI, World Economic Outlook",
+   "quando": "out. 2026",
+   "fonte": "WEO de outubro (via RTP e DN)",
+   "url": "https://www.rtp.pt/noticias/economia/fmi-reve-em-alta-crescimento-de-portugal-para-21-este-ano-e-19-em-2027_n1771310"
+  },
+  {
+   "k": "CE",
+   "curto": "CE",
+   "nome": "Comissão Europeia",
+   "quando": "mai. 2026",
+   "antiga": true,
+   "fonte": "Previsões da primavera (via ECO)",
+   "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"
+  },
+  {
+   "k": "OCDE",
+   "curto": "OCDE",
+   "nome": "OCDE, Economic Outlook",
+   "quando": "jun. 2026",
+   "antiga": true,
+   "fonte": "Economic Outlook (via ECO e RTP)",
+   "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"
+  }
+ ],
+ "valores": {
+  "pib": {
+   "2026": {
+    "GOV": 2.3,
+    "BdP": 2.3,
+    "FMI": 2.1,
+    "CE": 1.7,
+    "OCDE": 1.8
+   },
+   "2027": {
+    "GOV": 2.1,
+    "BdP": 1.8,
+    "FMI": 1.9,
+    "CE": 1.8,
+    "OCDE": 1.7
+   }
+  },
+  "ihpc": {
+   "2026": {
+    "GOV": 2.9,
+    "BdP": 3.1,
+    "FMI": 3.2,
+    "CE": 3.0
+   },
+   "2027": {
+    "GOV": 2.3,
+    "BdP": 2.4,
+    "FMI": 3.0,
+    "CE": 2.3
+   }
+  },
+  "emprego": {
+   "2027": {
+    "GOV": 1.4,
+    "BdP": 0.7
+   }
+  },
+  "desemprego": {
+   "2026": {
+    "GOV": 5.8,
+    "FMI": 5.9
+   },
+   "2027": {
+    "GOV": 5.7,
+    "FMI": 5.9
+   }
+  },
+  "saldo": {
+   "2026": {
+    "GOV": 0.0,
+    "BdP": -0.2,
+    "CE": -0.1,
+    "OCDE": 0.0
+   },
+   "2027": {
+    "GOV": 0.1,
+    "BdP": -0.5,
+    "CE": -0.4,
+    "OCDE": -0.1
+   }
+  },
+  "divida": {
+   "2026": {
+    "GOV": 87.5,
+    "BdP": 85.7,
+    "CE": 86.7,
+    "OCDE": 86.3
+   },
+   "2027": {
+    "GOV": 84.5,
+    "BdP": 82.5,
+    "CE": 86.0,
+    "OCDE": 83.3
+   }
+  }
+ },
+ "destaque": [
+  [
+   "pib",
+   "2027"
+  ],
+  [
+   "saldo",
+   "2027"
+  ],
+  [
+   "divida",
+   "2027"
+  ],
+  [
+   "ihpc",
+   "2027"
+  ],
+  [
+   "pib",
+   "2026"
+  ],
+  [
+   "ihpc",
+   "2026"
+  ],
+  [
+   "saldo",
+   "2026"
+  ],
+  [
+   "divida",
+   "2026"
+  ],
+  [
+   "emprego",
+   "2027"
+  ],
+  [
+   "desemprego",
+   "2027"
+  ]
+ ]
+}

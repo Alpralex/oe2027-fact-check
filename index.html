@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Checagem do OE 2027</title>
+<meta name="description" content="Checagem independente das afirmações sobre factos e números no debate do Orçamento do Estado para 2027 na Assembleia da República.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: painel de checagem — barra fixa com navegação e filtros globais; visão geral → tema → ficha (drill-down), ficha abre em painel lateral */
+/* Paleta dos vereditos validada (validate_palette.js) para daltonismo nos dois temas. Âmbar fica reservado à interface e à série principal dos gráficos. */
+:root{
+  --bg:#F4F2EE; --surface:#FFFFFF; --surface-2:#F8F7F4; --ink:#1A1814; --muted:#5E5A52; --faint:#8C877D; --line:#DDD9D1;
+  --accent:#A34F00; --accent-ink:#FFFFFF; --accent-soft:#FBEBD6; --accent-2:#5C2D00;
+  --v:#1F7A35; --vr:#1666AA; --i:#9A6C00; --e:#7444B4; --f:#C13C3B; --n:#00969F; --nv:#7C8490;
+  --v-bg:#E3F1E6; --vr-bg:#E1ECF7; --i-bg:#F6EDD6; --e-bg:#EEE6F7; --f-bg:#F8E2E1; --n-bg:#DDF2F3; --nv-bg:#ECEEF1;
+  --p-mp:#256ABF; --p-p:#6DA7EC; --p-c:#8F8B84; --p-o:#EC835A; --p-mo:#C13C3B;
+  --band:rgba(163,79,0,.05); --scrim:rgba(26,24,20,.42);
+  --shadow:0 1px 2px rgba(26,24,20,.06),0 4px 14px rgba(26,24,20,.05);
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-ui:"Archivo",system-ui,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12110F; --surface:#1B1A17; --surface-2:#22201C; --ink:#EDEAE4; --muted:#A8A296; --faint:#77726A; --line:#33302A;
+  --accent:#F2A33A; --accent-ink:#12110F; --accent-soft:#3A2A14; --accent-2:#FFD9A3;
+  --v:#3D9A4C; --vr:#4A8FE0; --i:#B98712; --e:#9A7AE0; --f:#E0625C; --n:#21A8B0; --nv:#9AA2AE;
+  --v-bg:#17301D; --vr-bg:#172A42; --i-bg:#33280E; --e-bg:#2A2140; --f-bg:#3A1B1A; --n-bg:#123234; --nv-bg:#262626;
+  --p-mp:#3987E5; --p-p:#86B6EF; --p-c:#8F8B84; --p-o:#EC835A; --p-mo:#E66767;
+  --band:rgba(242,163,58,.06); --scrim:rgba(0,0,0,.6);
+  --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12110F; --surface:#1B1A17; --surface-2:#22201C; --ink:#EDEAE4; --muted:#A8A296; --faint:#77726A; --line:#33302A;
+  --accent:#F2A33A; --accent-ink:#12110F; --accent-soft:#3A2A14; --accent-2:#FFD9A3;
+  --v:#3D9A4C; --vr:#4A8FE0; --i:#B98712; --e:#9A7AE0; --f:#E0625C; --n:#21A8B0; --nv:#9AA2AE;
+  --v-bg:#17301D; --vr-bg:#172A42; --i-bg:#33280E; --e-bg:#2A2140; --f-bg:#3A1B1A; --n-bg:#123234; --nv-bg:#262626;
+  --p-mp:#3987E5; --p-p:#86B6EF; --p-c:#8F8B84; --p-o:#EC835A; --p-mo:#E66767;
+  --band:rgba(242,163,58,.06); --scrim:rgba(0,0,0,.6);
+  --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-block:0 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+body.lock{overflow:hidden}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+
+/* Barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:20px;min-height:56px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex-shrink:0;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand .nums{display:flex;gap:3px}
+.brand .nums span{font:700 13px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:4px;padding:3px 5px}
+.brand b{font:800 18px var(--f-display);font-stretch:75%;white-space:nowrap}
+.brand small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav::-webkit-scrollbar{display:none}
+.nav button{appearance:none;background:none;border:0;border-bottom:3px solid transparent;padding:16px 12px 13px;font:600 15px var(--f-ui);color:var(--muted);cursor:pointer;white-space:nowrap}
+.nav button[aria-current="page"]{color:var(--ink);border-color:var(--accent)}
+.nav button .ct{font:500 11px var(--f-mono);margin-left:5px;color:var(--faint)}
+
+/* Trilha */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted);padding-block:14px 0}
+.crumbs button{appearance:none;background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font:600 13px var(--f-ui)}
+.crumbs span[aria-current]{color:var(--ink);font-weight:600}
+.crumbs i{font-style:normal;color:var(--faint)}
+
+/* Faixa de filtros globais */
+.fbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:14px}
+.fbar .grp{display:flex;align-items:center;gap:8px;min-width:0}
+.fbar .lab{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.seg-ctl{display:inline-grid;grid-auto-flow:column;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:2px;gap:2px}
+.seg-ctl button{appearance:none;border:0;background:none;border-radius:6px;padding:5px 10px;font:600 14px var(--f-ui);color:var(--muted);cursor:pointer;white-space:nowrap}
+.seg-ctl button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+select{font:15px var(--f-ui);padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2}
+.search{width:100%;font:15px var(--f-ui);padding:7px 10px 7px 32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.active{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.active:empty{display:none}
+.tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 6px 3px 10px;font:600 13px var(--f-ui)}
+.tag button{appearance:none;border:0;background:var(--surface-2);width:20px;height:20px;border-radius:50%;cursor:pointer;color:var(--muted);line-height:1}
+.mfilter{display:none;margin-top:14px}
+.linkbtn{appearance:none;background:none;border:0;padding:0;font:600 13px var(--f-ui);color:var(--accent);cursor:pointer}
+
+/* Grade e blocos */
+.view{display:grid;gap:18px;margin-top:18px}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-h h2{font-size:22px;font-stretch:80%;font-weight:750}
+.sec-h p{color:var(--muted);font-size:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:14px;min-width:0}
+.panel h3{font-size:17px;font-stretch:85%;font-weight:700}
+.panel .sub{color:var(--muted);font-size:14px;margin-top:-8px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grid-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}
+.grid-ch{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid2.atop{align-items:start}
+.claims{align-content:start}
+
+.hero{margin-top:22px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:end;padding-block:4px 6px}
+.hero h1{font-size:clamp(32px,4.6vw,54px);line-height:1;font-weight:800;font-stretch:72%;margin-top:10px}
+.hero h1 span{color:var(--muted);font-weight:650}
+.hero .lede{color:var(--muted);font-size:17px;max-width:62ch;margin-top:12px}
+.howto{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.howto summary{cursor:pointer;font:600 15px var(--f-ui)}
+.howto .kv{margin-top:12px;font-size:14px}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:2px;align-content:start;min-width:0}
+.kpi .l{font:500 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font:800 30px var(--f-display);font-stretch:72%;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:13px;color:var(--muted)}
+.kpi .src{font:500 10px var(--f-mono);color:var(--faint);margin-top:4px}
+.kpi .split{display:flex;gap:14px;flex-wrap:wrap}
+.kpi .split div{display:grid}
+.kpi .split b{font:800 26px var(--f-display);font-stretch:72%;font-variant-numeric:tabular-nums}
+.kpi .split small{font:600 12px var(--f-ui);color:var(--muted)}
+button.kpi{appearance:none;text-align:left;cursor:pointer}
+button.kpi:hover{border-color:var(--accent)}
+
+/* Placar */
+.board{display:grid;gap:12px}
+.board-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center}
+.ballot{display:grid;grid-template-columns:38px auto;gap:9px;align-items:center}
+.num{font:700 18px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:6px;height:38px;display:grid;place-items:center}
+.who{font:700 17px var(--f-display);font-stretch:80%;line-height:1.1}
+.who small{display:block;font:400 12px var(--f-ui);color:var(--muted)}
+.bar{display:flex;height:38px;border-radius:6px;overflow:hidden;gap:2px;background:var(--surface)}
+.seg{border:0;padding:0;cursor:pointer;display:grid;place-items:center;color:var(--surface);font:700 12px var(--f-mono);min-width:0;transition:filter .15s}
+.seg:hover,.seg:focus-visible{filter:brightness(1.1)}
+.seg span{overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* Matriz tema × veredito */
+.mx{display:grid;gap:4px}
+.mx-row{display:grid;grid-template-columns:minmax(150px,210px) 40px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--line)}
+.mx-row:last-child{border-bottom:0}
+.mx-head{font:500 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.mx-name{appearance:none;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:600 14px var(--f-ui);color:var(--ink);display:flex;gap:8px;align-items:center;min-width:0}
+.mx-name:hover{color:var(--accent)}
+.mx-name .dz{font:700 9px var(--f-mono);letter-spacing:.05em;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 4px}
+.mx-n{font:600 13px var(--f-mono);color:var(--muted);text-align:right}
+.mini{display:flex;height:16px;gap:2px;min-width:0}
+.mini button{border:0;padding:0;cursor:pointer;min-width:3px;border-radius:2px}
+.mini button:hover{filter:brightness(1.12)}
+.mini .zero{font:500 11px var(--f-mono);color:var(--faint)}
+
+/* Cartões de tema */
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.tlegend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.tlegend i,.tc-nums i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tcard{appearance:none;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:14px;cursor:pointer;align-content:start;font:inherit;color:inherit}
+.tcard:hover,.tcard:focus-visible{border-color:var(--accent)}
+.tcard:hover .tc-cta{text-decoration:underline}
+.tc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.tc-top h3{font-size:20px;font-stretch:80%;line-height:1.15}
+.tc-count{font:800 24px var(--f-display);font-stretch:72%;text-align:right;line-height:1}
+.tc-count small{display:block;font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.tc-tese{font-size:14px;color:var(--muted);line-height:1.45}
+.tc-rows{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:12px}
+.tc-row{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center}
+.tc-who{display:flex;align-items:center;gap:6px;font:600 14px var(--f-ui)}
+.tc-score{justify-self:end;font-size:13px;color:var(--muted)}
+.tc-score b{font:700 15px var(--f-mono);color:var(--ink)}
+.tc-bar{grid-column:1 / -1;display:flex;gap:2px;height:12px;border-radius:3px;overflow:hidden}
+.tc-bar i{display:block;min-width:4px}
+.tc-nums{grid-column:1 / -1;display:flex;gap:14px;font:600 12px var(--f-mono);color:var(--muted)}
+.tc-none{justify-self:end;font-size:13px;color:var(--faint)}
+.tc-cta{font:600 14px var(--f-ui);color:var(--accent)}
+
+/* Dossiê */
+.dz-head{display:grid;gap:10px;padding-block:6px}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.dz-head h1{font-size:clamp(30px,4.4vw,48px);line-height:1;font-weight:800;font-stretch:72%}
+.dz-head .tese{font-size:18px;max-width:70ch;color:var(--muted)}
+.prose{display:grid;gap:10px;max-width:72ch}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;display:grid;align-content:start;min-width:0}
+.side-h{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.side-h .num{width:34px;height:34px;font-size:15px}
+.side-h h3{font-size:19px;font-stretch:80%}
+.side-b{display:grid;gap:16px;padding:16px 18px 18px}
+.lbl{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.blk{display:grid;gap:8px}
+.planlist{display:flex;flex-wrap:wrap;gap:6px}
+.planlist span{font-size:13px;border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
+.planlist span i{font:500 11px var(--f-mono);font-style:normal;color:var(--muted);margin-left:5px}
+.mech{display:grid;gap:8px}
+.mech div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;font-size:15px}
+.mech b{font:600 13px var(--f-ui);color:var(--muted)}
+.crit{display:grid;gap:8px}
+.crit li{list-style:none;display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:15px}
+.crit ul{margin:0;padding:0;display:grid;gap:10px}
+.crit .ic{width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font:700 13px var(--f-mono)}
+.crit .pro .ic{background:var(--v-bg);color:var(--v)}
+.crit .con .ic{background:var(--f-bg);color:var(--f)}
+.crit small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.campo{font:700 9px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:3px;padding:0 4px;color:var(--muted);margin-left:4px;vertical-align:1px}
+.fv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.fv ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 12px;font-size:15px}
+.claims{display:grid;gap:6px}
+.claim{appearance:none;width:100%;text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;cursor:pointer}
+.claim:hover{border-color:var(--accent)}
+.claim .t{font-size:15px;min-width:0}
+.claim .t small{display:block;color:var(--muted);font-size:13px}
+
+/* Gráficos */
+.chart{position:relative;min-width:0}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.chart .grid line{stroke:var(--line);stroke-width:1}
+.chart .ax{stroke:var(--line)}
+.chart .lab-end{font-weight:700;font-size:12px}
+.chart .gov{fill:var(--band)}
+.chart .govt{font-size:10px;fill:var(--faint)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);border-radius:6px;padding:7px 10px;font:500 12px var(--f-mono);line-height:1.45;white-space:nowrap;z-index:5;transform:translate(-50%,calc(-100% - 10px))}
+.tip[hidden]{display:none}
+.ch-legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted)}
+.ch-legend i{display:inline-block;width:18px;height:0;border-top:2px solid;vertical-align:4px;margin-right:6px}
+.ch-legend i.dash{border-top-style:dashed}
+.ch-legend i.box{width:10px;height:10px;border:0;border-radius:2px;vertical-align:-1px}
+.ch-foot{font:500 11px var(--f-mono);color:var(--faint)}
+.rank{display:grid;gap:3px}
+.rank-row{display:grid;grid-template-columns:130px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:13px}
+.rank-row .bar2{height:14px;display:flex;align-items:center;position:relative}
+.rank-row .bar2 span{display:block;height:12px;border-radius:0 3px 3px 0;background:var(--faint);opacity:.55}
+.rank-row.me .bar2 span{background:var(--accent);opacity:1}
+.rank-row.me{font-weight:700}
+.rank-row.reg{font-style:italic;color:var(--muted)}
+.rank-row.reg .bar2 span{background:transparent;border:1.5px dashed var(--muted);opacity:1;height:10px}
+.rank-row .neg{background:var(--faint);opacity:.35}
+.rank-row b{font:600 12px var(--f-mono);text-align:right}
+
+.metas{display:grid;gap:22px;padding-top:6px}
+.meta-h{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:15px}
+.meta-h i{font-style:normal;color:var(--muted);font-size:12px;margin-left:6px}
+.meta-bar{position:relative;height:16px;background:var(--surface-2);border:1px solid var(--line);border-radius:4px}
+.meta-bar span{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:3px 0 0 3px}
+.meta-bar i{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--ink)}
+.casos{display:grid;gap:8px}
+.caso{appearance:none;text-align:left;font:inherit;color:inherit;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:12px;align-items:start;cursor:pointer}
+.caso:hover{border-color:var(--accent)}
+.caso-st{font:700 11px var(--f-mono);letter-spacing:.03em;text-transform:uppercase;color:var(--c);border:1.5px solid var(--c);border-radius:4px;padding:2px 6px;justify-self:start}
+.caso-t b{display:block;font-size:15px}
+.caso-t small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.caso-id{font-size:12px;color:var(--accent)}
+@media (max-width:700px){.caso{grid-template-columns:1fr}.caso-id{justify-self:start}}
+.g1tag{display:inline-block;font:700 11px var(--f-mono);letter-spacing:.03em;text-transform:uppercase;color:var(--c);border:1.5px solid var(--c);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.divt td:first-child{min-width:230px}
+.divt td:nth-child(n+5){white-space:nowrap}
+.divt td:nth-child(2),.divt td:nth-child(3),.divt td:nth-child(4){min-width:110px;font-size:13px;color:var(--muted)}
+a.claim{text-decoration:none;color:inherit}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.tl li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.tl li:last-child{border-bottom:0}
+.tl-y{font-weight:700;color:var(--accent)}
+/* Lista de alegações (tabela) */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+th button{appearance:none;background:none;border:0;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;cursor:pointer}
+th button[aria-sort]::after{content:" ↕";color:var(--faint)}
+th button[aria-sort="ascending"]::after{content:" ↑";color:var(--accent)}
+th button[aria-sort="descending"]::after{content:" ↓";color:var(--accent)}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+td.id{font:700 13px var(--f-mono);white-space:nowrap}
+td.q{min-width:260px}
+td.q small{display:block;color:var(--muted);font-size:12px}
+.cb{font:700 11px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 5px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--cbg);color:var(--c);border-radius:6px;padding:2px 8px 2px 3px;font:700 13px var(--f-ui);white-space:nowrap}
+.pill .g{width:18px;height:18px;border-radius:4px;background:var(--c);color:var(--surface);display:grid;place-items:center;font-size:11px}
+.tier{display:inline-block;text-align:center;font:700 10px var(--f-mono);padding:1px 5px;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tier.N1{color:var(--v);border-color:var(--v)}
+.tier.N1s{color:var(--vr);border-color:var(--vr);border-style:dashed}
+.tier.N2{color:var(--accent);border-color:var(--accent)}
+.tier.N4{color:var(--e);border-color:var(--e);border-style:dotted}
+.rev{font:600 11px var(--f-mono);color:var(--muted);white-space:nowrap}
+.rev.p{color:var(--accent)}
+.listhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.listhead p{color:var(--muted);font-size:14px}
+.listhead b{color:var(--ink);font-family:var(--f-mono)}
+.empty{padding:36px;text-align:center;color:var(--muted)}
+
+/* Painel lateral da ficha */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--surface);z-index:41;display:grid;grid-template-rows:auto minmax(0,1fr) auto;box-shadow:-8px 0 30px rgba(0,0,0,.18);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.dr-top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dr-top .id{font:700 14px var(--f-mono)}
+.dr-top .sp{flex:1}
+.iconbtn{appearance:none;border:1px solid var(--line);background:var(--surface);border-radius:8px;min-width:36px;height:36px;padding:0 10px;cursor:pointer;font:600 14px var(--f-ui);color:var(--ink)}
+.iconbtn:disabled{opacity:.4;cursor:default}
+.dr-body{overflow-y:auto;padding:18px 20px 28px;display:grid;gap:18px;align-content:start}
+.dr-foot{display:flex;justify-content:space-between;gap:10px;padding:10px 16px;border-top:1px solid var(--line)}
+.quote{font-size:19px;line-height:1.45;margin:0}
+.quote::before{content:"“";color:var(--muted)} .quote::after{content:"”";color:var(--muted)}
+.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.chg{font-size:13px;color:var(--muted)}
+.chg s{color:var(--faint)}
+.seal{font-size:12px;border:1px dashed var(--line);border-radius:4px;padding:1px 6px;color:var(--muted)}
+.conc{display:inline-flex;gap:3px;align-items:center;font:500 11px var(--f-mono);color:var(--muted)}
+.conc i{width:7px;height:14px;border-radius:2px;background:var(--line)}
+.conc i.on{background:var(--ink)}
+.conc .div{color:var(--e);font-weight:700;margin-left:4px}
+.resumo{font-size:17px;font-weight:600}
+.subs{display:grid;gap:6px}
+.subrow{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:start;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2)}
+.subrow.central{border-color:var(--ink)}
+.subrow .st{display:grid;gap:3px;justify-items:start}
+.subrow .ty{font:500 10px var(--f-mono);color:var(--muted);letter-spacing:.05em}
+.subrow .r{font:700 11px var(--f-mono);border-radius:4px;padding:1px 6px;color:var(--surface);background:var(--c)}
+.subrow small{color:var(--muted);display:block}
+.dados{font:500 12px var(--f-mono);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:8px 10px;white-space:pre-wrap;word-break:break-word}
+.srcs{display:grid;gap:7px}
+.src{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:baseline;font-size:15px}
+.src a{word-break:break-word}
+.src .host{font:500 11px var(--f-mono);color:var(--muted);margin-left:6px;word-break:break-all}
+.agency{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.agency div{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px}
+.agency b{display:block;font:500 10px var(--f-mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+
+/* Metodologia */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.step{border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:6px;background:var(--surface-2);align-content:start}
+.step .mono{font-size:12px;color:var(--accent);font-weight:700}
+.step p{font-size:14px;color:var(--muted)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;align-items:baseline}
+.rule td:first-child{font-family:var(--f-mono);font-weight:700}
+.mtab{min-width:640px}
+footer{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:9px 16px;border-radius:8px;font-weight:600;font-size:14px;z-index:60}
+
+@media (max-width:1000px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-hero,.grid2,.grid-ch,.cols,.fv,.hero{grid-template-columns:1fr}
+  .brand small{display:none}
+}
+@media (max-width:700px){
+  .top-in{flex-wrap:wrap;gap:0}
+  .brand{padding-top:10px}
+  .nav{flex-basis:100%}
+  .nav button{padding:10px 10px 9px}
+  .mx-row{grid-template-columns:minmax(0,1fr) 30px;row-gap:4px}
+  .mx-row .mini{grid-column:1 / -1}
+  .mx-head .h-cand{display:none}
+  .board-row{grid-template-columns:1fr}
+  .seg span{display:none}
+  .steps{grid-template-columns:1fr}
+  .mech div{grid-template-columns:1fr;gap:2px}
+  .rank-row{grid-template-columns:96px minmax(0,1fr) 46px}
+  .fbar .search-wrap{flex-basis:100%}
+  .mfilter{display:inline-flex;align-items:center;gap:6px}
+  .fbar[data-open="0"]{display:none}
+  .claim{grid-template-columns:auto minmax(0,1fr)}
+  .claim .pill{grid-column:2}
+  .kpi .v{font-size:26px}
+  .aleg{overflow:visible;border:0;background:none}
+  .aleg thead{display:none}
+  .aleg table,.aleg tbody{display:block}
+  .aleg tbody{display:grid;gap:8px}
+  .aleg tr{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .aleg td{border:0;padding:0;background:none!important}
+  .aleg td.q{min-width:0}
+  .aleg td:nth-child(3){display:none}
+  .aleg td:nth-child(4),.aleg td:nth-child(5){grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* Acrescentos OE 2027 */
+[hidden]{display:none!important}
+table,.mx,.board,.tcard,.kpi,.fc{font-family:var(--f-ui)}
+.brand .nums span{background:var(--accent);color:var(--accent-ink)}
+.cb{background:var(--ink);color:var(--surface)}
+.banner{margin-top:14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:10px 14px;font:500 14px var(--f-ui);color:var(--ink)}
+.banner b{color:var(--accent-2)}
+/* Previsões: intervalo das instituições independentes + ponto do Governo */
+.fc{display:grid;gap:4px}
+.fc-row{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr) minmax(130px,auto);gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.fc-row:last-child{border-bottom:0}
+.fc-name{font:600 14px var(--f-ui)}
+.fc-name small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.03em}
+.fc-track{position:relative;height:34px}
+.fc-axis{position:absolute;left:0;right:0;top:16px;height:2px;background:var(--line)}
+.fc-range{position:absolute;top:10px;height:14px;background:var(--surface-2);border:1.5px solid var(--muted);border-radius:4px}
+.fc-dot{position:absolute;top:11px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--faint);border:2px solid var(--surface);cursor:default}
+.fc-gov{position:absolute;top:8px;width:18px;height:18px;margin-left:-9px;transform:rotate(45deg);background:var(--accent);border:2px solid var(--surface);border-radius:3px}
+.fc-tick{position:absolute;top:26px;font:500 10px var(--f-mono);color:var(--faint);transform:translateX(-50%)}
+.fc-v{justify-self:end}
+.fc-legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);font-family:var(--f-ui)}
+.fc-legend i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px}
+.fc-legend .g{background:var(--accent);transform:rotate(45deg) scale(.85);border-radius:2px}
+.fc-legend .d{background:var(--faint);border-radius:50%}
+.fc-legend .r{background:var(--surface-2);border:1.5px solid var(--muted);border-radius:3px;width:22px}
+.fc-tbl td,.fc-tbl th{text-align:right}
+.fc-tbl td:first-child,.fc-tbl th:first-child{text-align:left}
+.fc-tbl .gov{font-weight:700;color:var(--accent-2)}
+.old{color:var(--faint);font-size:11px}
+.ptag{display:inline-block;font:700 11px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.ptag.gov{background:var(--accent);color:var(--accent-ink)}
+.pos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;align-items:start}
+@media (max-width:700px){
+  .fc-row{grid-template-columns:1fr;gap:6px}
+  .fc-v{justify-self:start}
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .banner b,:root:not([data-theme="light"]) .fc-tbl .gov{color:var(--accent)}}
+:root[data-theme="dark"] .banner b,:root[data-theme="dark"] .fc-tbl .gov{color:var(--accent)}
+.ballot .ptag{justify-self:start;align-self:center}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <button class="brand" data-go="visao" aria-label="Ir para a visão geral">
+      <span class="nums"><span>OE</span><span>27</span></span>
+      <span><b>Checagem do OE 2027</b><small id="brand-sub">ASSEMBLEIA DA REPÚBLICA · 27–28.OUT.2026 · GENERALIDADE</small></span>
+    </button>
+    <nav class="nav" id="nav" aria-label="Secções">
+      <button data-go="visao">Visão geral</button>
+      <button data-go="previsoes">Previsões</button>
+      <button data-go="temas">Temas<span class="ct" id="ct-temas"></span></button>
+      <button data-go="alegacoes">Afirmações<span class="ct" id="ct-aleg"></span></button>
+      <button data-go="divergencias">Divergências</button>
+      <button data-go="metodo">Como verificámos</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumbs" id="crumbs" aria-label="Está em"></div>
+
+  <div class="hero" id="hero">
+    <div class="hero-t">
+      <div class="eyebrow"><span>Verificação independente</span><span id="eyebrow-data">Debate na generalidade, 27 e 28/10/2026</span><span>Proposta de Lei n.º 110/XVII/2.ª</span></div>
+      <h1 id="h-visao">O que é facto no debate <span>do Orçamento do Estado 2027</span></h1>
+      <p class="lede" id="lede"></p>
+    </div>
+    <details class="howto" id="howto">
+      <summary>Como ler os vereditos</summary>
+      <div class="kv" id="scale2"></div>
+    </details>
+  </div>
+  <div class="banner" id="banner" hidden></div>
+  <div id="fbar-wrap">
+    <button class="mfilter iconbtn" id="mfilter" aria-expanded="false" aria-controls="fbar">Filtros <span class="mono" id="mfcount"></span></button>
+    <div class="fbar" id="fbar" role="search" aria-label="Filtros">
+      <div class="grp"><span class="lab">Tipo</span>
+        <div class="seg-ctl" id="f-tipo">
+          <button data-v="all" aria-pressed="true">Todas</button>
+          <button data-v="facto" aria-pressed="false">Factos</button>
+          <button data-v="previsao" aria-pressed="false">Previsões</button>
+        </div>
+      </div>
+      <div class="grp"><label class="lab" for="f-partido">Quem</label><select id="f-partido"></select></div>
+      <div class="grp"><label class="lab" for="f-tema">Tema</label><select id="f-tema"></select></div>
+      <div class="grp"><label class="lab" for="f-cat">Veredito</label><select id="f-cat"></select></div>
+      <div class="grp"><label class="lab" for="f-src">Fonte</label>
+        <select id="f-src">
+          <option value="all">Todas</option>
+          <option value="n1">Com fonte oficial aberta (N1)</option>
+          <option value="non1">Sem fonte oficial aberta</option>
+        </select>
+      </div>
+      <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="search" id="q" type="search" placeholder="Pesquisar: IRS, dívida, PRR, SNS…" aria-label="Pesquisar afirmações"></div>
+    </div>
+    <div class="active" id="active"></div>
+  </div>
+
+  <main>
+    <!-- VISÃO GERAL -->
+    <section class="view" id="v-visao" aria-labelledby="h-visao">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid-hero">
+        <div class="panel">
+          <div class="sec-h"><h3>Factos: vereditos por bancada</h3><button class="linkbtn" data-go="alegacoes">Ver lista</button></div>
+          <p class="sub" id="board-sub">Clique num troço da barra para ver essas afirmações.</p>
+          <div class="board" id="board"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="panel">
+          <div class="sec-h"><h3>Previsões do Governo face às instituições</h3><button class="linkbtn" data-go="previsoes">Ver detalhe</button></div>
+          <p class="sub">O losango é a previsão do Governo; a caixa vai da previsão mais baixa à mais alta das instituições independentes.</p>
+          <div class="fc" id="fc-mini"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="sec-h"><h3>Vereditos por tema</h3><p>Clique no nome do tema para abrir o dossiê, ou num troço da barra para ver as afirmações.</p></div>
+        <div class="mx" id="matrix"></div>
+      </div>
+      <div class="panel">
+        <div class="sec-h"><h3>Qualidade da melhor fonte de cada ficha</h3></div>
+        <p class="sub">Nível da fonte mais forte que sustenta o veredito. Clique para filtrar.</p>
+        <div class="board" id="tierboard"></div>
+        <div class="legend" id="tierlegend"></div>
+      </div>
+    </section>
+
+    <!-- PREVISÕES -->
+    <section class="view" id="v-previsoes" hidden>
+      <div class="panel">
+        <h2 style="font-size:24px;font-stretch:80%">As previsões do Governo face às das instituições</h2>
+        <p class="prose">Uma previsão não é verdadeira nem falsa no dia em que é feita. Por isso não lhe damos um veredito de verdade: comparamo-la com as previsões mais recentes do Banco de Portugal, do Conselho das Finanças Públicas, da Comissão Europeia, do FMI e da OCDE. Fica "dentro do consenso" se estiver entre a mais baixa e a mais alta.</p>
+        <div class="fc-legend"><span><i class="g"></i>Governo (OE 2027)</span><span><i class="d"></i>Cada instituição</span><span><i class="r"></i>Intervalo das instituições</span></div>
+        <div class="fc" id="fc-full"></div>
+      </div>
+      <div class="panel">
+        <h3>Os números, instituição a instituição</h3>
+        <p class="sub" id="fc-sub"></p>
+        <div class="tbl-wrap"><table class="mtab fc-tbl" id="fc-table"></table></div>
+      </div>
+    </section>
+
+    <!-- TEMAS -->
+    <section class="view" id="v-temas" hidden>
+      <div class="sec-h"><h2>Temas do debate</h2><p>Cada tema mostra quantas afirmações de cada lado estão corretas. Abra o dossiê para ver os dados oficiais e as posições.</p></div>
+      <div class="tlegend" id="tlegend" aria-label="Legenda"></div>
+      <div class="tcards" id="tcards"></div>
+    </section>
+
+    <!-- DOSSIÊ -->
+    <section class="view" id="v-dossie" hidden></section>
+
+    <!-- AFIRMAÇÕES -->
+    <section class="view" id="v-alegacoes" hidden>
+      <div class="listhead"><p id="resultinfo"></p><div style="display:flex;gap:14px"><label class="lab" for="f-sort" style="font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);align-self:center">Ordenar</label><select id="f-sort"><option value="debate">Ordem do debate</option><option value="grave">Mais graves primeiro</option><option value="good">Mais corretas primeiro</option><option value="tema">Por tema</option></select></div></div>
+      <div class="tbl-wrap aleg"><table>
+        <thead><tr><th>ID</th><th>Afirmação</th><th>Tema</th><th>Veredito</th><th>Melhor fonte</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+    </section>
+
+    <!-- DIVERGÊNCIAS -->
+    <section class="view" id="v-divergencias" hidden>
+      <div class="panel">
+        <h2 style="font-size:24px;font-stretch:80%">Onde os verificadores discordam</h2>
+        <p id="div-resumo"></p>
+        <div class="tbl-wrap"><table class="mtab divt">
+          <thead id="divhead"></thead>
+          <tbody id="divtable"></tbody>
+        </table></div>
+        <p class="sub" style="margin:0">Clique numa linha para abrir a ficha. Um traço (—) indica que o verificador não analisou a frase.</p>
+      </div>
+    </section>
+
+    <!-- METODOLOGIA -->
+    <section class="view" id="v-metodo" hidden>
+      <div class="panel">
+        <h2 style="font-size:24px;font-stretch:80%">Como esta verificação foi feita</h2>
+        <div class="steps">
+          <div class="step"><span class="mono">1 · TRANSCRIÇÃO</span><h3>A frase literal</h3><p>Cada afirmação é registada a partir do vídeo do Canal Parlamento, com o minuto, e confirmada depois no Diário da Assembleia da República.</p></div>
+          <div class="step"><span class="mono">2 · VERIFICADORES</span><h3>Vereditos cruzados</h3><p>Comparamos com o Polígrafo, o Observador Fact Check e o Público, e registamos onde discordam.</p></div>
+          <div class="step"><span class="mono">3 · FONTE PRIMÁRIA</span><h3>O dado na origem</h3><p>INE, Eurostat, Banco de Portugal, DGO, IGCP, CFP, UTAO e o próprio relatório do OE 2027, abertos diretamente.</p></div>
+        </div>
+        <h3 style="font-size:19px">Factos e previsões</h3>
+        <p>Frases sobre o passado ou o presente recebem um veredito de verdade. Frases sobre o futuro (crescimento, saldo, dívida, emprego) são comparadas com as previsões das instituições independentes. Um risco apontado pelo CFP ou pela UTAO aparece na ficha como nota, sem mudar o veredito.</p>
+        <h3 style="font-size:19px">Regras de equilíbrio</h3>
+        <p>O mesmo molde de ficha para o Governo e para todas as bancadas. Bancadas com menos de 5 afirmações verificadas aparecem na lista, mas não no placar, para evitar percentagens sem base. Não há ranking de "quem mente mais": o placar mostra vereditos, não notas. Fontes partidárias ou de grupos parlamentares ficam marcadas como N4 e nunca contam como confirmação.</p>
+        <h3 style="font-size:19px">A régua dos factos</h3>
+        <p>Cada afirmação é decomposta em subafirmações (número, data, autoria, existência, causa). A subafirmação central decide o veredito, e cada uma é julgada por esta régua:</p>
+        <div class="tbl-wrap"><table class="rule mtab">
+          <thead><tr><th>Tipo</th><th>Verdadeiro</th><th>Impreciso</th><th>Exagerado</th><th>Falso</th></tr></thead>
+          <tbody>
+            <tr><td>NÚMERO</td><td>desvio até 5%</td><td>desvio de 5% a 20%</td><td>mais de 20%, direção certa</td><td>direção errada ou sem base</td></tr>
+            <tr><td>DATA</td><td>ano correto</td><td>erro até 1 ano</td><td>—</td><td>erro maior ou governo trocado</td></tr>
+            <tr><td>AUTORIA</td><td>correta</td><td>partilhada, apresentada como exclusiva</td><td>—</td><td>trocada</td></tr>
+            <tr><td>EXISTÊNCIA</td><td>documentada</td><td>documentada em parte</td><td>—</td><td>inexistente ou desmentida</td></tr>
+            <tr><td>CAUSA</td><td colspan="4">recebe o selo "causalidade não demonstrada", sem baixar o veredito</td></tr>
+          </tbody>
+        </table></div>
+        <h3 style="font-size:19px">A régua das previsões</h3>
+        <div class="kv" id="scale-prev"></div>
+        <div class="kv">
+          <span class="tier">CONFIRMAÇÃO</span><span>Pelo menos uma fonte oficial aberta diretamente (N1) e mais duas fontes N1 a N3 independentes entre si. Fontes N4 nunca contam.</span>
+          <span class="tier">CONTRAPROVA</span><span>Antes de fechar, procura dirigida pela melhor evidência a favor de quem falou.</span>
+        </div>
+        <h3 style="font-size:19px">Níveis de fonte</h3>
+        <div class="kv">
+          <span class="tier N1">N1</span><span>Dado ou documento oficial, aberto diretamente: INE, Eurostat, Banco de Portugal, DGO, relatório do OE, parecer do CFP ou da UTAO, Diário da República.</span>
+          <span class="tier N1s">N1*</span><span>Documento oficial citado por outra fonte e não aberto diretamente.</span>
+          <span class="tier N2">N2</span><span>Verificador com metodologia publicada.</span>
+          <span class="tier">N3</span><span>Imprensa profissional ou centro de estudos sem alinhamento partidário declarado.</span>
+          <span class="tier N4">N4</span><span>Partido, grupo parlamentar ou site de autoria individual. Registado, nunca conta para confirmar.</span>
+        </div>
+        <h3 style="font-size:19px">Escala de vereditos</h3>
+        <div class="kv" id="scale"></div>
+        <h3 style="font-size:19px">Documentos e verificadores</h3>
+        <div class="kv" id="docs"></div>
+        <h3 style="font-size:19px">Limitações</h3>
+        <p id="limites"></p>
+      </div>
+    </section>
+  </main>
+  <footer id="rodape"></footer>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="dr-id">
+  <div class="dr-top"><span class="id" id="dr-id"></span><span class="sp"></span><button class="iconbtn" id="dr-copy">Copiar ligação</button><button class="iconbtn" id="dr-close" aria-label="Fechar ficha">✕</button></div>
+  <div class="dr-body" id="dr-body"></div>
+  <div class="dr-foot"><button class="iconbtn" id="dr-prev">← Anterior</button><span class="rev" id="dr-pos" style="align-self:center"></span><button class="iconbtn" id="dr-next">Seguinte →</button></div>
+</aside>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="meta">{"sessoes": {"0": "Antes do debate", "1": "Sessão de 27/10", "2": "Sessão de 28/10"}, "lede": "Verificámos {n} afirmações sobre factos e números do Orçamento do Estado para 2027: {nf} sobre factos e {np} previsões do Governo, comparadas com as das instituições independentes. Comece pelo placar, veja as previsões ou pesquise um assunto.", "aviso": "**Pré-visualização.** O debate na generalidade decorre a 27 e 28 de outubro. Por agora, as fichas verificam as metas do OE 2027 e declarações feitas antes do debate; os dossiês por tema mostram as posições do Governo, do PS e do Chega. As afirmações do plenário entram depois do debate.", "dados_ate": "24/10/2026", "min_placar": 5, "verificadores": [{"k": "poligrafo", "nome": "Polígrafo"}, {"k": "observador", "nome": "Observador"}, {"k": "publico", "nome": "Público"}], "documentos": [{"k": "AR", "tier": "N1", "label": "Assembleia da República: Proposta de Lei n.º 110/XVII/2.ª e calendário do OE 2027", "url": "https://www.parlamento.pt/Paginas/2026/outubro/Orcamento-do-Estado-para-2026.aspx"}, {"k": "VÍDEO", "tier": "N1", "label": "Canal Parlamento: emissão do debate", "url": "https://canal.parlamento.pt/"}, {"k": "EUROSTAT", "tier": "N1", "label": "Eurostat: finanças públicas, contas nacionais, emprego e preços", "url": "https://ec.europa.eu/eurostat/databrowser/"}, {"k": "UTAO", "tier": "N3", "label": "Observador: apreciação da UTAO à proposta", "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"}, {"k": "CFP", "tier": "N3", "label": "Postal: parecer do CFP às previsões do OE 2027", "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/"}], "limitacoes": "Os valores do relatório do OE 2027 e das previsões das instituições foram lidos em reproduções da imprensa e ficam por confirmar no documento original. As séries do Eurostat foram lidas diretamente na API a 24/10/2026 (notificação orçamental de outubro). As previsões da Comissão Europeia e da OCDE são de maio e junho de 2026, anteriores à proposta. O CFP não entra no quadro de previsões porque não encontrámos números comparáveis. A transcrição oficial (Diário da Assembleia da República) sai dias depois do debate; até lá as frases vêm do vídeo.", "rodape": "Pré-visualização de 24 de outubro de 2026. Debate na generalidade a 27 e 28 de outubro; votação final global a 24 de novembro."}</script>
+<script type="application/json" id="data">[{"partido": "GOV", "orador": "Proposta do OE 2027", "cargo": "Ministério das Finanças", "sessao": 0, "tipo": "previsao", "fonte_frase": {"label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, "id": "P01", "tema": "crescimento", "quote": "O PIB cresce 2,1% em termos reais em 2027.", "short": "PIB cresce 2,1% em 2027", "prev": {"ind": "pib", "ano": "2027"}, "resumo": "A previsão do Governo é a mais alta: o FMI aponta 1,9%, o Banco de Portugal e a Comissão Europeia 1,8% e a OCDE 1,7%.", "analise": ["O Governo prevê que o crescimento abrande de 2,3% em 2026 para 2,1% em 2027. Todas as instituições preveem abrandamento, mas mais forte.", "O cenário apoia-se numa subida de mais de 10% do investimento privado em termos reais, que o próprio relatório apresenta como a maior da última década."], "riscos": ["A UTAO prevê um abrandamento do consumo privado, do consumo público e do investimento, mais acentuado neste último.", "O CFP considera o cenário plausível, mas vê risco de o crescimento ficar abaixo do previsto."], "sources": [{"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico e orçamental", "url": "https://cnnportugal.iol.pt/interativo/oe-2027", "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"}, {"tier": "N1*", "label": "Banco de Portugal, Boletim Económico de outubro de 2026", "url": "https://www.forbespt.com/?p=196632"}, {"tier": "N1*", "label": "FMI, World Economic Outlook de outubro de 2026", "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"}, {"tier": "N1*", "label": "Comissão Europeia, previsões da primavera de 2026", "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"}, {"tier": "N1*", "label": "OCDE, Economic Outlook de junho de 2026", "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"}, {"tier": "N3", "label": "Observador: UTAO questiona previsões para emprego e preços", "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"}], "cat_calculada": "O"}, {"partido": "GOV", "orador": "Proposta do OE 2027", "cargo": "Ministério das Finanças", "sessao": 0, "tipo": "previsao", "fonte_frase": {"label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, "id": "P02", "tema": "fiscal", "quote": "As contas públicas fecham 2027 com um excedente de 0,1% do PIB.", "short": "Excedente de 0,1% do PIB em 2027", "prev": {"ind": "saldo", "ano": "2027"}, "resumo": "Nenhuma instituição prevê excedente em 2027: a OCDE aponta um défice de 0,1%, a Comissão Europeia 0,4% e o Banco de Portugal 0,5%.", "analise": ["As previsões da Comissão Europeia, da OCDE e do Banco de Portugal são de maio e junho e assumem políticas inalteradas, ou seja, não incorporam as medidas da proposta. Por isso a distância face ao Governo deve ser lida com cuidado.", "Portugal registou excedentes em 2023 (1,1%), 2024 (0,7%) e 2025 (0,7%), segundo o Eurostat."], "sources": [{"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico e orçamental", "url": "https://cnnportugal.iol.pt/interativo/oe-2027", "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"}, {"tier": "N1*", "label": "Banco de Portugal, Boletim Económico de junho de 2026", "url": "https://www.forbespt.com/banco-de-portugal-preve-defice-de-02-este-ano-e-de-05-em-2027/"}, {"tier": "N1*", "label": "Comissão Europeia, previsões da primavera de 2026", "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"}, {"tier": "N1*", "label": "OCDE, Economic Outlook de junho de 2026", "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"}, {"tier": "N1", "label": "Eurostat, gov_10dd_edpt1: saldo das administrações públicas", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table"}], "cat_calculada": "O"}, {"partido": "GOV", "orador": "Proposta do OE 2027", "cargo": "Ministério das Finanças", "sessao": 0, "tipo": "previsao", "fonte_frase": {"label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, "id": "P03", "tema": "fiscal", "quote": "A dívida pública desce para 84,5% do PIB em 2027.", "short": "Dívida desce para 84,5% do PIB em 2027", "prev": {"ind": "divida", "ano": "2027"}, "resumo": "Está dentro do intervalo das instituições, que vai de 82,5% (Banco de Portugal) a 86,0% (Comissão Europeia).", "analise": ["A dívida pública caiu de 134,1% do PIB em 2020 para 89,2% em 2025, segundo o Eurostat. O Governo prevê 87,5% em 2026 e 84,5% em 2027.", "As diferenças entre instituições refletem sobretudo o crescimento nominal esperado e o saldo orçamental, que pesam no rácio."], "sources": [{"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico e orçamental", "url": "https://cnnportugal.iol.pt/interativo/oe-2027", "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"}, {"tier": "N1*", "label": "Banco de Portugal, Boletim Económico de junho de 2026", "url": "https://www.forbespt.com/banco-de-portugal-preve-defice-de-02-este-ano-e-de-05-em-2027/"}, {"tier": "N1*", "label": "Comissão Europeia, previsões da primavera de 2026", "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"}, {"tier": "N1*", "label": "OCDE, Economic Outlook de junho de 2026", "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"}, {"tier": "N1", "label": "Eurostat, gov_10dd_edpt1: dívida bruta consolidada", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table"}], "cat_calculada": "C"}, {"partido": "GOV", "orador": "Proposta do OE 2027", "cargo": "Ministério das Finanças", "sessao": 0, "tipo": "previsao", "fonte_frase": {"label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, "id": "P04", "tema": "precos", "quote": "A inflação, medida pelo IHPC, desce para 2,3% em 2027.", "short": "Inflação de 2,3% em 2027", "prev": {"ind": "ihpc", "ano": "2027"}, "resumo": "Está no limite inferior do intervalo: igual à Comissão Europeia, abaixo do Banco de Portugal (2,4%) e do FMI (3,0%).", "analise": ["O Governo prevê uma descida de 2,9% em 2026 para 2,3% em 2027."], "riscos": ["O CFP vê potencial subestimação da inflação em 2026 e em 2027.", "A UTAO nota que o Governo assume o preço do petróleo mais alto entre as instituições (86 dólares por barril, contra 79,2 em média) e, ainda assim, projeta a inflação mais baixa."], "sources": [{"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico e orçamental", "url": "https://cnnportugal.iol.pt/interativo/oe-2027", "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"}, {"tier": "N1*", "label": "Banco de Portugal, Boletim Económico de outubro de 2026", "url": "https://www.forbespt.com/?p=196632"}, {"tier": "N1*", "label": "FMI, World Economic Outlook de outubro de 2026", "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"}, {"tier": "N1*", "label": "Comissão Europeia, previsões da primavera de 2026", "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"}, {"tier": "N3", "label": "Postal: CFP alerta para subestimação da inflação", "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/"}, {"tier": "N3", "label": "Observador: UTAO questiona previsões para emprego e preços", "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"}], "cat_calculada": "C"}, {"partido": "GOV", "orador": "Proposta do OE 2027", "cargo": "Ministério das Finanças", "sessao": 0, "tipo": "previsao", "fonte_frase": {"label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, "id": "P05", "tema": "crescimento", "quote": "O emprego cresce 1,4% em 2027.", "short": "Emprego cresce 1,4% em 2027", "prev": {"ind": "emprego", "ano": "2027"}, "resumo": "Só o Banco de Portugal publicou uma previsão comparável (0,7%), por isso não há intervalo. A UTAO diz que o valor do Governo é o mais alto das instituições de referência, que vão de 0,4% a 1,3%.", "analise": ["Para crescer 1,4%, o emprego precisa de uma subida da população ativa de 1,3%, o que obriga a taxa de participação a passar de 69,7% para 70,2%.", "A população em idade ativa aumentou em média 28 mil pessoas por trimestre em 2025 e apenas 10 mil em 2026, segundo a UTAO."], "riscos": ["A UTAO considera a previsão difícil de conciliar com o abrandamento da imigração líquida. Se o emprego crescer menos, a receita fiscal e contributiva fica abaixo do previsto."], "sources": [{"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico e orçamental", "url": "https://cnnportugal.iol.pt/interativo/oe-2027", "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"}, {"tier": "N1*", "label": "Banco de Portugal, Boletim Económico de outubro de 2026", "url": "https://www.forbespt.com/?p=196632"}, {"tier": "N3", "label": "Observador: UTAO questiona previsões para emprego e preços", "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"}, {"tier": "N3", "label": "ECO: UTAO duvida da previsão de crescimento do emprego", "url": "https://eco.sapo.pt/2026/10/19/utao-duvida-da-previsao-de-crescimento-do-emprego-na-proposta-de-oe2027/"}], "cat_calculada": "SC"}, {"id": "F01", "partido": "GOV", "orador": "Joaquim Miranda Sarmento", "cargo": "Ministro de Estado e das Finanças", "sessao": 0, "tipo": "facto", "tema": "fiscal", "cat": "V", "quote": "Portugal foi o terceiro país europeu que mais reduziu dívida.", "short": "Portugal foi o 3.º país europeu que mais reduziu a dívida", "fonte_frase": {"label": "Jornal Económico, reações à entrega do OE 2027", "url": "https://jornaleconomico.sapo.pt/noticias/%F0%9F%94%B4-governo-entrega-oe2027-saiba-quais-as-prioridades-para-o-proximo-ano/"}, "resumo": "Entre 2024 e 2025, Portugal foi o 3.º país da UE que mais reduziu a dívida em pontos do PIB, atrás da Grécia e de Chipre. Em variação relativa fica em 5.º.", "analise": ["Segundo o Eurostat (notificação de outubro de 2026), a dívida pública portuguesa desceu de 93,0% para 89,2% do PIB entre 2024 e 2025, uma redução de 3,8 pontos. Só a Grécia (−8,1) e Chipre (−7,8) reduziram mais; a Irlanda ficou logo atrás (−3,6).", "A medida habitual para comparar países é a variação em pontos do PIB, e nessa medida a frase está certa.", "Em variação relativa (percentagem da própria dívida), Portugal fica em 5.º, atrás de Chipre, da Irlanda, da Dinamarca e da Grécia. A frase não diz qual das medidas usa, mas na mais comum está **Verdadeira**."], "subs": [{"t": "NÚM", "central": true, "txt": "Terceiro país europeu que mais reduziu dívida", "res": "V", "nota": "3.º na UE em pontos do PIB entre 2024 e 2025"}], "seals": [], "contra": "Testámos a variação relativa, em que Portugal desce para 5.º. Os dados de 2025 ainda podem ser revistos na notificação de abril de 2027.", "dados": "Eurostat gov_10dd_edpt1, % do PIB, 2024 → 2025: EL 153,5 → 145,4 (−8,1) · CY 60,1 → 52,3 (−7,8) · PT 93,0 → 89,2 (−3,8) · IE 38,4 → 34,8 (−3,6) · DK 29,9 → 27,2 (−2,7).", "conc": "—", "sources": [{"tier": "N1", "label": "Eurostat, gov_10dd_edpt1: dívida bruta consolidada por país", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table", "note": "lido pela API do Eurostat a 24/10/2026"}, {"tier": "N3", "label": "Jornal Económico", "url": "https://jornaleconomico.sapo.pt/noticias/%F0%9F%94%B4-governo-entrega-oe2027-saiba-quais-as-prioridades-para-o-proximo-ano/"}]}, {"id": "F02", "partido": "PS", "orador": "Eurico Brilhante Dias", "cargo": "Presidente do Grupo Parlamentar do PS", "sessao": 0, "tipo": "facto", "tema": "crescimento", "cat": "I", "quote": "Só um Governo do PS conseguiu fazer crescer a economia portuguesa a 3%.", "short": "Só governos do PS fizeram a economia crescer 3%", "fonte_frase": {"label": "DN, 28/09/2026", "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"}, "resumo": "Desde 1996, todos os anos com crescimento de 3% ou mais foram com governos do PS. Mas os governos de Cavaco Silva (PSD) cresceram acima de 3% entre 1987 e 1991.", "analise": ["Segundo o Banco Mundial, o PIB real cresceu 6,4% em 1987, 7,5% em 1988, 6,4% em 1989, 4,0% em 1990 e 4,4% em 1991, com governos do PSD liderados por Cavaco Silva. A frase, tomada à letra, é falsa.", "Se se olhar só para os últimos 30 anos, os anos com 3% ou mais foram 1996 a 2000, 2017 e 2021 a 2023, todos com governos do PS.", "Os 5,6% e 7,0% de 2021 e 2022 foram recuperação da queda de 8,2% em 2020. A frase tem um fundo verdadeiro para o período recente, mas omite os anos 80 e 90: fica como **Impreciso**."], "subs": [{"t": "NÚM", "central": true, "txt": "Só governos do PS cresceram 3%", "res": "F", "nota": "PSD cresceu 4% a 7,5% em 1987–1991"}, {"t": "CTX", "central": false, "txt": "Desde 1996, os anos com 3% ou mais foram com o PS", "res": "V", "nota": "1996–2000, 2017, 2021–2023"}], "seals": [], "contra": "Procurámos anos com crescimento de 3% ou mais com governos do PSD depois de 1995: não há nenhum.", "dados": "Banco Mundial, PIB real (%): 1987 6,4 · 1988 7,5 · 1989 6,4 · 1990 4,0 · 1991 4,4 · 1998 4,8 · 2017 3,5 · 2021 5,6 · 2022 7,0 · 2023 3,1 · 2024 2,7 · 2025 1,9.", "conc": "—", "sources": [{"tier": "N1", "label": "Banco Mundial: crescimento real do PIB de Portugal", "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT", "note": "série 1961–2025"}, {"tier": "N1", "label": "Eurostat, nama_10_gdp: PIB em volume", "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table"}, {"tier": "N3", "label": "DN: PS diz que Governo volta a falhar crescimento de 3%", "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"}]}]</script>
+<script type="application/json" id="partidos">[{"k": "GOV", "sigla": "Governo", "nome": "Governo", "campo": "governo"}, {"k": "PSD", "sigla": "PSD", "nome": "PSD", "campo": "governo"}, {"k": "CDS", "sigla": "CDS-PP", "nome": "CDS-PP", "campo": "governo"}, {"k": "PS", "sigla": "PS", "nome": "PS", "campo": "oposicao"}, {"k": "CH", "sigla": "Chega", "nome": "Chega", "campo": "oposicao"}, {"k": "IL", "sigla": "IL", "nome": "Iniciativa Liberal", "campo": "oposicao"}, {"k": "L", "sigla": "Livre", "nome": "Livre", "campo": "oposicao"}, {"k": "PCP", "sigla": "PCP", "nome": "PCP", "campo": "oposicao"}, {"k": "BE", "sigla": "BE", "nome": "Bloco de Esquerda", "campo": "oposicao"}, {"k": "PAN", "sigla": "PAN", "nome": "PAN", "campo": "oposicao"}, {"k": "JPP", "sigla": "JPP", "nome": "JPP", "campo": "oposicao"}]</script>
+<script type="application/json" id="temas">[["fiscal", "Contas públicas e dívida"], ["crescimento", "Crescimento e emprego"], ["precos", "Inflação e custo de vida"], ["impostos", "Impostos"], ["rendimentos", "Salários e pensões"], ["investimento", "Investimento público e PRR"], ["habitacao", "Habitação"], ["saude", "Saúde e SNS"], ["outros", "Outros temas"]]</script>
+<script type="application/json" id="dossies">{"fiscal": {"titulo": "Contas públicas e dívida", "tese": "Portugal tem excedentes desde 2023 e a dívida caiu 45 pontos do PIB desde 2020. O Governo promete mais um excedente em 2027, que nenhuma instituição prevê com as políticas atuais, e a oposição quer gastar parte da folga.", "kpis": [{"v": "89,2%", "l": "Dívida pública, 2025", "s": "134,1% em 2020 · UE: 81,5%", "src": "Eurostat"}, {"v": "+0,7%", "l": "Saldo orçamental, 2025", "s": "3.º excedente seguido · UE: −3,1%", "src": "Eurostat"}, {"v": "+0,1%", "l": "Meta de saldo para 2027", "s": "0,0% previsto para 2026", "src": "OE 2027"}, {"v": "8.217 M€", "l": "Juros da dívida em 2027", "s": "+23,2% face a 2026", "src": "OE 2027"}], "charts": [{"t": "linha", "serie": "divida", "chaves": ["PT", "UE"], "titulo": "Dívida pública, % do PIB", "sub": "Portugal e UE-27, 1995 a 2025", "yMin": 40, "yMax": 140, "yStep": 20, "unid": "% do PIB", "unid_eixo": "%", "xStep": 5}, {"t": "barras", "serie": "saldo", "chave": "PT", "titulo": "Saldo orçamental de Portugal, % do PIB", "sub": "2000 a 2025. Acima de zero, excedente.", "yMin": -12, "yMax": 2, "yStep": 2, "unid": "% do PIB", "unid_eixo": "%", "labelEvery": 5}, {"t": "prev", "titulo": "Saldo e dívida: Governo face às instituições", "sub": "Losango: Governo. Pontos: cada instituição.", "fonte": "OE 2027, BdP, CE, OCDE", "itens": [["saldo", "2027"], ["divida", "2027"], ["saldo", "2026"], ["divida", "2026"]]}, {"t": "hbar", "titulo": "Quem mais reduziu a dívida entre 2024 e 2025", "sub": "Variação em pontos percentuais do PIB, países da UE", "fonte": "Eurostat, gov_10dd_edpt1 (outubro de 2026)", "dec": 1, "itens": [["Grécia", -8.1], ["Chipre", -7.8], ["Portugal", -3.8, "pt"], ["Irlanda", -3.6], ["Dinamarca", -2.7], ["Eslovénia", -1.2], ["Espanha", -0.9], ["Croácia", -0.8]]}], "contexto": ["O saldo orçamental é a diferença entre a receita e a despesa das administrações públicas. Portugal teve excedentes em 2023 (1,1% do PIB), 2024 (0,7%) e 2025 (0,7%), enquanto a UE ficou em défices de 3% a 3,4%.", "A queda da dívida desde 2020 vem dos excedentes e, sobretudo, do crescimento do PIB nominal, que aumenta o denominador do rácio. Com a inflação a abrandar, esse efeito perde força, e os juros sobem 23% em 2027 com o refinanciamento a taxas mais altas.", "Em 2027 termina a execução do PRR, o que faz cair o investimento público cerca de 31%. Sem o PRR, o investimento público subiria 6,8%, segundo a proposta.", "O Governo não tem maioria. O PS anunciou que viabiliza a proposta na generalidade; o Chega e a IL condicionaram o voto; o BE vota contra."], "posicoes": [{"partido": "GOV", "defende": "Contas certas como condição para baixar impostos: excedente de 0,1% em 2027 e dívida a 84,5% do PIB. Recusa descidas de IVA sem receita que as compense.", "propostas": [{"t": "Excedente de 0,1% do PIB em 2027", "p": "Proposta de Lei 110/XVII"}, {"t": "Dívida abaixo de 84,5% do PIB", "p": "Relatório do OE"}, {"t": "Proposta \"simples\", sem cavaleiros orçamentais", "p": "Sarmento à Lusa"}], "mecanismo": [{"k": "Instrumento", "v": "Proposta de Lei do Orçamento; medidas fiscais em leis autónomas"}, {"k": "Margem", "v": "Saldo \"relativamente reduzido\", segundo o ministro"}], "pro": [{"t": "Portugal foi o 3.º país da UE que mais reduziu a dívida em 2025, em pontos do PIB.", "src": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table", "campo": "imprensa"}, {"t": "O CFP considera o cenário macroeconómico estatisticamente plausível.", "src": "RTP", "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470", "campo": "imprensa"}], "contra": [{"t": "Nenhuma instituição prevê excedente em 2027; a CE, a OCDE e o BdP apontam défices de 0,1% a 0,5%, com políticas inalteradas.", "src": "ECO", "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/", "campo": "imprensa"}, {"t": "A UTAO duvida do crescimento do emprego de 1,4%; se falhar, a receita fiscal e contributiva fica abaixo do previsto.", "src": "Observador", "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/", "campo": "imprensa"}]}, {"partido": "PS", "defende": "Viabiliza a proposta para evitar uma crise política, com quatro condições: sem revisão constitucional sem acordo PS-PSD, sem mexer nas pensões, financiamento dos investimentos pós-PRR e apoios às vítimas das tempestades.", "propostas": [{"t": "Continuar os projetos do PRR por executar", "p": "Condição de Carneiro"}, {"t": "Garantir os apoios prometidos após as tempestades de fevereiro", "p": "Condição de Carneiro"}, {"t": "IVA dos combustíveis de 23% para 13%", "p": "Proposta conjunta com o Chega"}], "mecanismo": [{"k": "Voto", "v": "Abstenção na generalidade; exigências a demonstrar na especialidade"}, {"k": "Custo", "v": "IVA dos combustíveis: cerca de 1.200 M€/ano, segundo o ministro"}], "pro": [{"t": "O PS pede que o Governo explique como financia escolas, hospitais e centros de saúde depois do PRR, que deixa de pagar em 2027.", "src": "Renascença", "url": "https://rr.pt/noticia/politica/2026/09/09/ps-impoe-quatro-condicoes-para-viabilizar-oe-2027/484755/", "campo": "imprensa"}, {"t": "Evitar duodécimos: sem orçamento aprovado, a despesa fica limitada ao do ano anterior.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "imprensa"}], "contra": [{"t": "O ministro diz que IVA mais baixo nos combustíveis e no cabaz custaria cerca de 2.000 M€ e levaria a défice em 2027.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "governo"}, {"t": "A revisão constitucional, que Carneiro pôs como condição, nem foi discutida na reunião com o Governo.", "src": "DN", "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3", "campo": "imprensa"}]}, {"partido": "CH", "defende": "Chama-lhe um \"mau orçamento\" e recusa ser \"muleta\" do Governo. Põe como condição baixar a idade da reforma e quer cortar IVA e portagens, mesmo com risco de défice.", "propostas": [{"t": "Reforma aos 65 anos ou com 40 anos de descontos", "p": "Condição-chave"}, {"t": "IVA zero no cabaz alimentar e IVA dos combustíveis a 13%", "p": "Proposta de alteração"}, {"t": "Isenção de portagens", "p": "Proposta de alteração"}], "mecanismo": [{"k": "Instrumento", "v": "Propostas de alteração na especialidade"}, {"k": "Custo", "v": "Idade da reforma: 1,9 mil M€, segundo o Chega; IVA: cerca de 2.000 M€/ano, segundo o Governo"}], "pro": [{"t": "A margem existe: Portugal teve excedente em 2025 (0,7% do PIB, cerca de 2 mil M€).", "src": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table", "campo": "imprensa"}, {"t": "A idade da reforma é hoje de 66 anos e 11 meses e sobe com a esperança de vida.", "src": "ECO", "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/", "campo": "imprensa"}], "contra": [{"t": "Ventura admite que as propostas podem pôr em causa o excedente: \"vale a pena correr o risco\".", "src": "DN", "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao", "campo": "imprensa"}, {"t": "O Governo classifica a descida da idade da reforma como \"inaceitável\" pelo custo para a Segurança Social.", "src": "ECO", "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/", "campo": "governo"}]}], "fato_valor": {"fatos": ["Portugal tem excedente desde 2023 e a dívida caiu de 134,1% (2020) para 89,2% do PIB (2025).", "Em 2025, Portugal foi o 3.º país da UE que mais reduziu a dívida, em pontos do PIB.", "Nenhuma instituição independente prevê excedente em 2027 com as políticas atuais.", "Os juros da dívida sobem 23,2% em 2027, para 8.217 M€."], "valores": ["Se a folga deve ir para baixar a dívida mais depressa ou para descer impostos e apoiar o custo de vida.", "Que nível de risco de défice é aceitável em troca de medidas como IVA mais baixo ou reforma mais cedo.", "Como financiar o investimento depois do PRR: dívida, receita ou cortes noutras despesas."]}, "debate_atual": "A votação na generalidade é a 28 de outubro. A especialidade decorre de 18 a 23 de novembro, e a votação final global é a 24 de novembro.", "debate_atual_src": {"label": "Assembleia da República", "url": "https://www.parlamento.pt/Paginas/2026/outubro/Orcamento-do-Estado-para-2026.aspx"}, "fontes": [{"tier": "N1", "label": "Eurostat, gov_10dd_edpt1: dívida e saldo (notificação de outubro de 2026)", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table"}, {"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, {"tier": "N1*", "label": "Banco de Portugal, Boletim Económico de junho de 2026", "url": "https://www.forbespt.com/banco-de-portugal-preve-defice-de-02-este-ano-e-de-05-em-2027/"}, {"tier": "N3", "label": "Sábado/Lusa: Sarmento avisa que descida do IVA levaria a défice", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"}, {"tier": "N3", "label": "Renascença/Lusa: as quatro condições do PS", "url": "https://rr.pt/noticia/politica/2026/09/09/ps-impoe-quatro-condicoes-para-viabilizar-oe-2027/484755/"}, {"tier": "N3", "label": "ECO: Chega e a idade da reforma", "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/"}, {"tier": "N3", "label": "RTP: reações à proposta", "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470"}]}, "impostos": {"titulo": "Impostos", "tese": "A carga fiscal subiu para 35,3% do PIB em 2025, apesar da promessa de a baixar. O OE 2027 desce o IRC para 18% e alivia pouco o IRS; a oposição quer cortar IVA, que o Governo diz que levaria a défice.", "kpis": [{"v": "35,3%", "l": "Carga fiscal, 2025", "s": "35,0% em 2024 · meta 2027: 35,0%", "src": "INE"}, {"v": "18%", "l": "IRC em 2027", "s": "19% em 2026 · 17% em 2028", "src": "Lei aprovada em 2025"}, {"v": "3,88%", "l": "Atualização dos escalões de IRS", "s": "referência salarial: 4,5%", "src": "OE 2027"}, {"v": "171 €", "l": "Poupança máxima de IRS por ano", "s": "solteiro sem filhos · 343 € casal com 2 filhos", "src": "Simulação EY"}], "charts": [{"t": "linha", "serie": "carga_fiscal", "chaves": ["PT", "UE"], "titulo": "Impostos e contribuições sociais, % do PIB", "sub": "Portugal e UE-27, 2000 a 2025. Inclui contribuições imputadas, por isso fica acima do valor do INE (35,3%).", "yMin": 30, "yMax": 44, "yStep": 2, "unid": "% do PIB", "unid_eixo": "%", "xStep": 5}, {"t": "timeline", "titulo": "O calendário do IRC", "sub": "Taxa geral, aprovada na generalidade a 19/09/2025 por PSD, CDS-PP, Chega, IL, PAN e JPP", "fonte": "Forbes Portugal", "itens": [["2025", "20%"], ["2026", "19%"], ["2027", "18% (custo de cerca de 300 M€)"], ["2028", "17%"], ["PME", "15% sobre a primeira parcela do lucro, desde 2026"]]}, {"t": "hbar", "titulo": "Quanto custam as medidas fiscais em discussão", "sub": "Impacto anual estimado, milhões de euros", "fonte": "OE 2027 e Ministério das Finanças (via Sábado e ECO)", "dec": 0, "itens": [["IVA combustíveis a 13% (PS e Chega)", 1200], ["IVA zero no cabaz (PS e Chega)", 800], ["Descida de taxas de IRS (OE 2027)", 431], ["IRC de 19% para 18%", 300], ["IRS sobre rendas (OE 2027)", 209]]}], "contexto": ["Há duas medidas da carga fiscal. O INE calcula 35,3% do PIB em 2025 (impostos e contribuições efetivas). O Eurostat inclui contribuições imputadas e chega a 37,1%. As duas mostram a mesma tendência: subida em 2025, depois de 2024.", "A carga fiscal sobe quando a receita cresce mais do que o PIB nominal. Em 2025 a receita fiscal subiu 6,8% e o PIB nominal 6,0%. Parte vem do emprego e dos salários, não de novas taxas.", "A descida do IRC até 17% em 2028 já foi aprovada em lei própria e não faz parte do texto do orçamento. No IRS, o OE 2027 atualiza os escalões em 3,88% e baixa taxas até ao 6.º escalão.", "PS e Chega defendem baixar temporariamente o IVA dos combustíveis de 23% para 13% e aplicar IVA zero a bens alimentares essenciais. Precisam dos dois para aprovar."], "posicoes": [{"partido": "GOV", "defende": "Baixar impostos aos poucos sem pôr em risco o excedente: IRC para 18% em 2027 e 17% em 2028, IRS com escalões atualizados e prémios de produtividade isentos.", "propostas": [{"t": "IRC a 18% em 2027", "p": "Lei de 2025"}, {"t": "Escalões de IRS +3,88% e taxas mais baixas até ao 6.º escalão", "p": "OE 2027"}, {"t": "Prémios até 6% do salário isentos de IRS e TSU, se a empresa subir salários 4,5%", "p": "OE 2027"}], "mecanismo": [{"k": "Instrumento", "v": "OE 2027 e leis fiscais autónomas"}, {"k": "Custo", "v": "IRS: cerca de 431 M€; IRC: cerca de 300 M€"}], "pro": [{"t": "O ministro chama à descida do IRC uma \"escolha estratégica\" para promover crescimento e salários.", "src": "Forbes Portugal", "url": "https://www.forbespt.com/?p=171428", "campo": "governo"}, {"t": "A descida do IRC foi aprovada com votos de seis partidos, incluindo o Chega.", "src": "Forbes Portugal", "url": "https://www.forbespt.com/?p=171428", "campo": "imprensa"}], "contra": [{"t": "A EY conclui que o alívio do IRS é \"pouco\": 171 € por ano no máximo para um solteiro.", "src": "EY", "url": "https://www.ey.com/pt_pt/services/tax/orcamento-do-estado-2027/oe-2027-e-as-familias-alivio-mas-pouco", "campo": "imprensa"}, {"t": "A AD prometeu baixar a carga fiscal, e esta subiu de 35,0% para 35,3% do PIB em 2025.", "src": "Postal", "url": "https://postal.pt/economia/governo-prometeu-baixar-a-carga-fiscal-mas-esta-voltou-a-aumentar/", "campo": "imprensa"}]}, {"partido": "PS", "defende": "Contra a descida transversal do IRC, que vê como \"cheque em branco\" sem contrapartida salarial. Quer apoio imediato ao custo de vida através do IVA.", "propostas": [{"t": "IVA dos combustíveis de 23% para 13%, temporário", "p": "Com o Chega"}, {"t": "IVA zero num cabaz de bens essenciais", "p": "Com o Chega"}, {"t": "IRC mais baixo só com aumento de salários", "p": "Posição de 2022"}], "mecanismo": [{"k": "Instrumento", "v": "Propostas de alteração na especialidade"}, {"k": "Custo", "v": "Cerca de 2.000 M€/ano para as duas medidas de IVA, segundo o Governo"}], "pro": [{"t": "O IVA é um imposto sobre o consumo que pesa mais nos rendimentos baixos; a subida dos combustíveis vem da guerra no Médio Oriente.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "imprensa"}, {"t": "Mendonça Mendes defende usar o IRC \"para ajudar a aumentar salários\", em vez de uma descida para todas as empresas.", "src": "ECO", "url": "https://eco.sapo.pt/entrevista/o-que-a-direita-nos-propoe-e-um-cheque-em-branco-de-descida-do-irc-sem-nenhuma-contrapartida-diz-ps/", "campo": "PS"}], "contra": [{"t": "O Governo estima o custo do IVA mais baixo em 2.000 M€, o que levaria o país a défice em 2027.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "governo"}, {"t": "Descidas de IVA tendem a não passar inteiras para o preço final; o PS não apresentou forma de compensar a receita.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "imprensa"}]}, {"partido": "CH", "defende": "Descer impostos sobre o consumo e a habitação já, mesmo com risco para o excedente.", "propostas": [{"t": "IVA zero no cabaz alimentar e IVA dos combustíveis a 13%", "p": "Com o PS"}, {"t": "Deduções de IRS por rendas e crédito à habitação +50%", "p": "Pacote de habitação"}, {"t": "Isenção de IMI na habitação própria até 350 mil €", "p": "Projeto de lei, chumbado"}], "mecanismo": [{"k": "Instrumento", "v": "Propostas de alteração e projetos de lei"}, {"k": "Custo", "v": "Não quantificado pelo partido"}], "pro": [{"t": "O Chega votou a favor da descida do IRC e quer alargar o alívio às famílias.", "src": "Forbes Portugal", "url": "https://www.forbespt.com/?p=171428", "campo": "imprensa"}, {"t": "A carga fiscal subiu em 2025, contra a promessa da AD.", "src": "Postal", "url": "https://postal.pt/economia/governo-prometeu-baixar-a-carga-fiscal-mas-esta-voltou-a-aumentar/", "campo": "imprensa"}], "contra": [{"t": "Ventura admite que as propostas podem pôr em causa o excedente.", "src": "DN", "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao", "campo": "imprensa"}, {"t": "O Chega não apresentou o custo nem a compensação das suas descidas de impostos.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "imprensa"}]}], "fato_valor": {"fatos": ["A carga fiscal subiu para 35,3% do PIB em 2025 (INE).", "O IRC desce para 18% em 2027 e 17% em 2028, por lei já aprovada.", "As duas descidas de IVA pedidas por PS e Chega custariam cerca de 2.000 M€ por ano, segundo o Governo."], "valores": ["Se o alívio deve ir para as empresas (IRC), para o trabalho (IRS) ou para o consumo (IVA).", "Se uma descida temporária de IVA compensa o risco de défice.", "Se a descida do IRC deve ter contrapartidas salariais."]}, "debate_atual": "As medidas de IRS e IRC com alteração legislativa seguem em leis próprias, fora do texto do orçamento, e podem ser votadas à parte.", "debate_atual_src": {"label": "Sábado/Lusa", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"}, "fontes": [{"tier": "N1", "label": "Eurostat, gov_10a_taxag: impostos e contribuições sociais", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_taxag/default/table"}, {"tier": "N1*", "label": "INE: carga fiscal de 2025 (via Forbes Portugal)", "url": "https://www.forbespt.com/?p=195783"}, {"tier": "N3", "label": "EY: OE 2027 e as famílias", "url": "https://www.ey.com/pt_pt/services/tax/orcamento-do-estado-2027/oe-2027-e-as-familias-alivio-mas-pouco"}, {"tier": "N3", "label": "Forbes Portugal: IRC até 17% em 2028", "url": "https://www.forbespt.com/?p=171428"}, {"tier": "N3", "label": "Sábado/Lusa: custo das descidas de IVA", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"}, {"tier": "N3", "label": "Postal: carga fiscal voltou a subir", "url": "https://postal.pt/economia/governo-prometeu-baixar-a-carga-fiscal-mas-esta-voltou-a-aumentar/"}, {"tier": "N3", "label": "DN: medidas da proposta", "url": "https://www.dn.pt/política/oe2027-leia-aqui-as-principais-medidas-includas-na-proposta-do-governo"}]}, "habitacao": {"titulo": "Habitação", "tese": "Os preços das casas subiram 17,6% em 2025, mais do triplo da UE, e as rendas 5,3%. O OE 2027 põe 2 mil milhões em habitação pública e apoio à renda; a oposição diz que não chega e há protestos na rua.", "kpis": [{"v": "+17,6%", "l": "Preços das casas, 2025", "s": "UE: +5,5%", "src": "Eurostat"}, {"v": "+5,3%", "l": "Rendas, 2025", "s": "+7,0% em 2024 · área do euro: +2,9%", "src": "Eurostat (IHPC)"}, {"v": "2.003 M€", "l": "Habitação no OE 2027", "s": "1.071 M€ IHRU · 917 M€ apoio à renda", "src": "OE 2027"}, {"v": "2%", "l": "Habitação pública no parque total", "s": "cerca de 120 mil casas · média europeia: 12%", "src": "PS, citado pelo DN"}], "charts": [{"t": "linha", "serie": "habitacao_precos", "chaves": ["PT", "UE"], "titulo": "Preços da habitação, variação anual", "sub": "Portugal e UE-27, 2010 a 2025", "yMin": -8, "yMax": 20, "yStep": 4, "unid": "%", "unid_eixo": "%", "xStep": 5}, {"t": "linha", "serie": "rendas", "chaves": ["PT", "UE"], "titulo": "Rendas de habitação, variação anual", "sub": "Portugal e área do euro, 2010 a 2025", "yMin": 0, "yMax": 8, "yStep": 2, "unid": "%", "unid_eixo": "%", "xStep": 5}, {"t": "hbar", "titulo": "Para onde vai o dinheiro da habitação no OE 2027", "sub": "Milhões de euros", "fonte": "OE 2027 (via DN)", "dec": 0, "itens": [["IHRU: oferta pública e reabilitação", 1071], ["Apoio à renda (Porta 65, PAER e outros)", 917], ["Redução de IRS sobre rendas", 209], ["Licenciamento urbano digital", 15]]}, {"t": "timeline", "titulo": "O que aconteceu nas últimas semanas", "sub": "Habitação no centro do debate", "fonte": "DN, RTP", "itens": [["8 out", "OE 2027 entregue: 2.003 M€ para habitação, IVA a 6% na construção a custos moderados"], ["17 out", "Acampada pela habitação no Rossio (Lisboa) e no Porto, com pelo menos 2.500 pessoas"], ["18 out", "Ventura propõe pacote de emergência e diz que a lei das rendas \"não passará\" sem mudanças"], ["20 out", "Pinto Luz admite rever a lei das rendas com o PS; meta de 40 mil casas até dezembro"]]}], "contexto": ["Os preços das casas em Portugal sobem mais do que na UE desde 2014. Em 2025 a subida acelerou para 17,6%, a mais alta da série do Eurostat, que começa em 2010.", "O parque de habitação pública ronda as 120 mil casas, cerca de 2% do total. O PRR financiava parte da construção; o OE 2027 cria um programa para as 45 mil casas que ficaram de fora do PRR.", "A nova lei do arrendamento do Governo foi aprovada na generalidade com a abstenção do Chega, mas ainda não está em vigor. Os protestos pedem a sua reversão, tetos às rendas e mais habitação pública.", "O IMT Jovem isenta compras de casa até 338.141 € por jovens até 35 anos. O Governo prevê menos receita de IMI e IMT em 2027."], "posicoes": [{"partido": "GOV", "defende": "Aumentar a oferta: construção pública e privada, IVA a 6% para casas a preços moderados, apoio à renda e incentivos fiscais a quem arrenda.", "propostas": [{"t": "2.003 M€ para habitação pública e apoio à renda", "p": "OE 2027"}, {"t": "IVA a 6% na construção a custos moderados", "p": "OE 2027"}, {"t": "IRS mais baixo sobre rendas até 2.300 €/mês", "p": "OE 2027, 209 M€"}], "mecanismo": [{"k": "Instrumento", "v": "OE 2027, nova lei do arrendamento e IHRU"}, {"k": "Meta", "v": "40 mil casas até dezembro e 50 mil em 2027"}], "pro": [{"t": "O OE 2027 financia as 45 mil casas que ficaram fora do PRR.", "src": "DN", "url": "https://www.dn.pt/pol%C3%ADtica/miranda-sarmento-na-ar-para-entregar-o-oramento", "campo": "imprensa"}, {"t": "O ministro recusa que as leis recentes tenham feito subir os preços e lembra que a lei das rendas ainda não está em vigor.", "src": "RTP", "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025", "campo": "governo"}], "contra": [{"t": "Os preços subiram 17,6% em 2025, o valor mais alto desde 2010.", "src": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table", "campo": "imprensa"}, {"t": "Milhares de pessoas acamparam no Rossio e no Porto a pedir a reversão da lei das rendas.", "src": "DN", "url": "https://www.dn.pt/sociedade/com-chaves-no-ar-e-montenegro-no-centro-dos-protestos-acampada-pela-habitao-chega-a-lisboa", "campo": "imprensa"}]}, {"partido": "PS", "defende": "Mais habitação pública e travão às rendas: teto de 2% ao ano nas subidas, IMI agravado em casas devolutas e IMT mais alto para estrangeiros não residentes.", "propostas": [{"t": "Teto de 2% por ano na subida das rendas", "p": "Pacote de janeiro de 2026"}, {"t": "IMT +10% para estrangeiros sem residência", "p": "Pacote de janeiro de 2026"}, {"t": "Câmaras podem endividar-se para construir", "p": "Pacote de janeiro de 2026"}], "mecanismo": [{"k": "Instrumento", "v": "Projetos de lei e propostas de alteração"}, {"k": "Financiamento", "v": "CGD, Banco de Fomento e BEI, além do PRR"}], "pro": [{"t": "O parque público é de 2% contra 12% na média europeia, segundo o PS.", "src": "DN", "url": "https://www.dn.pt/política/habitao-ps-quer-agravar-imi-a-devolutos-imt-a-estrangeiros-e-cmaras-a-endividar-se-para-poder-construir", "campo": "PS"}, {"t": "O Governo admite rever a lei das rendas com o PS.", "src": "RTP", "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025", "campo": "imprensa"}], "contra": [{"t": "Tetos às rendas podem reduzir a oferta de casas para arrendar; o Governo aposta em incentivos fiscais aos senhorios.", "src": "DN", "url": "https://www.dn.pt/pol%C3%ADtica/miranda-sarmento-na-ar-para-entregar-o-oramento", "campo": "governo"}, {"t": "Os governos do PS (2015–2024) estiveram em funções durante a maior parte da subida dos preços.", "src": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table", "campo": "imprensa"}]}, {"partido": "CH", "defende": "Aliviar impostos de quem compra ou arrenda casa e travar a lei das rendas do Governo; culpa os governos de Costa e Montenegro pela crise.", "propostas": [{"t": "Deduções de IRS por rendas e crédito +50%", "p": "Pacote de emergência, 18/10"}, {"t": "Isenção de IMI na habitação própria até 350 mil €", "p": "Chumbada por PS e PSD"}, {"t": "Rever benefícios fiscais a estrangeiros ricos", "p": "Pacote de emergência"}], "mecanismo": [{"k": "Instrumento", "v": "Pacote legislativo proposto aos outros partidos"}, {"k": "Custo", "v": "Não quantificado; Ventura admite risco para o excedente"}], "pro": [{"t": "As famílias de classe média pagam IMI sobre a casa onde vivem enquanto os preços sobem.", "src": "DN Madeira", "url": "https://www.dnoticias.pt/2026/1/14/477284-deputado-do-chega-acusa-ps-e-psd-de-chumbarem-isencao-de-imi-para-habitacao/", "campo": "Chega"}, {"t": "O Chega diz que a lei das rendas pode provocar subidas e despejos.", "src": "DN", "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao", "campo": "imprensa"}], "contra": [{"t": "O Chega absteve-se na lei das rendas na generalidade e agora diz que não passará sem mudanças.", "src": "RTP", "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025", "campo": "imprensa"}, {"t": "Deduções de IRS maiores ajudam pouco quem não paga IRS e não aumentam a oferta de casas.", "src": "DN", "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao", "campo": "imprensa"}]}], "fato_valor": {"fatos": ["Os preços das casas subiram 17,6% em 2025, contra 5,5% na UE.", "A habitação pública é cerca de 2% do parque.", "O OE 2027 prevê 2.003 M€ para habitação pública e apoio à renda."], "valores": ["Se a prioridade é aumentar a oferta (construção) ou travar preços (tetos às rendas).", "Se o Estado deve construir e gerir mais habitação ou incentivar privados.", "Quanto limitar a compra de casas por estrangeiros e fundos."]}, "debate_atual": "A nova lei do arrendamento está em especialidade, e o ministro admitiu rever pontos com o PS. Os protestos no Rossio continuam.", "debate_atual_src": {"label": "RTP", "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025"}, "fontes": [{"tier": "N1", "label": "Eurostat, prc_hpi_a: índice de preços da habitação", "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table"}, {"tier": "N1", "label": "Eurostat, prc_hicp_aind: rendas (CP041)", "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table"}, {"tier": "N3", "label": "DN: habitação no OE 2027", "url": "https://www.dn.pt/pol%C3%ADtica/miranda-sarmento-na-ar-para-entregar-o-oramento"}, {"tier": "N3", "label": "DN: propostas do PS para a habitação", "url": "https://www.dn.pt/política/habitao-ps-quer-agravar-imi-a-devolutos-imt-a-estrangeiros-e-cmaras-a-endividar-se-para-poder-construir"}, {"tier": "N3", "label": "DN: pacote de emergência do Chega", "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao"}, {"tier": "N3", "label": "RTP: Pinto Luz e a lei das rendas", "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025"}, {"tier": "N3", "label": "DN: acampada no Rossio", "url": "https://www.dn.pt/sociedade/com-chaves-no-ar-e-montenegro-no-centro-dos-protestos-acampada-pela-habitao-chega-a-lisboa"}]}, "saude": {"titulo": "Saúde e SNS", "tese": "O orçamento da saúde desce 1,5% em 2027 por causa do fim do PRR, mas sobe 2,9% sem ele. O investimento cai um terço e 1,56 milhões de utentes continuam sem médico de família.", "kpis": [{"v": "17.858 M€", "l": "Despesa da saúde, 2027", "s": "−1,5% · sem PRR: +2,9%", "src": "OE 2027"}, {"v": "1,56 M", "l": "Utentes sem médico de família", "s": "2025 · +41 mil face a 2024", "src": "CFP"}, {"v": "85,4%", "l": "Meta de utentes com médico, 2027", "s": "a meta anterior era 98% em 2026", "src": "QGR do SNS"}, {"v": "−33%", "l": "Investimento na saúde, 2027", "s": "de 1.022 M€ para 678 M€", "src": "OE 2027"}], "charts": [{"t": "linha", "serie": "despesa_saude", "chaves": ["PT", "UE"], "titulo": "Despesa pública em saúde, % do PIB", "sub": "Portugal e UE-27, 2010 a 2024", "yMin": 5, "yMax": 9, "yStep": 1, "unid": "% do PIB", "unid_eixo": "%", "xStep": 2}, {"t": "hbar", "titulo": "Onde gasta o SNS em 2027", "sub": "Milhões de euros", "fonte": "OE 2027 (via Notícias ao Minuto)", "dec": 0, "itens": [["Bens e serviços (−4,5%)", 8436], ["Pessoal (+5,2%)", 8184], ["Investimento (−33%)", 678]]}, {"t": "timeline", "titulo": "Como mudou a meta dos médicos de família", "sub": "Percentagem de utentes com médico atribuído", "fonte": "Sábado, QGR do SNS", "itens": [["2024", "86% (real)"], ["Meta antiga 2025", "91%"], ["Meta antiga 2026", "98%"], ["Nova meta 2027", "85,37%"]]}], "contexto": ["A despesa do SNS foi de 16.962 M€ em 2025, com um défice de 1.035 M€, muito acima dos 217 M€ previstos no orçamento, segundo o CFP.", "Em 2027 o PRR deixa de financiar obras e equipamentos. Por isso a despesa total desce 1,5%, mas a despesa sem PRR sobe 2,9%. O investimento cai de 1.022 para 678 M€.", "Os utentes inscritos voltaram a subir para cerca de 10,7 milhões. Cerca de 70% dos que não têm médico de família vivem na região de Lisboa e Vale do Tejo.", "O Quadro Global de Referência do SNS, assinado pelos ministros das Finanças e da Saúde, baixou a meta de cobertura por médico de família para 85,37% até 2027."], "posicoes": [{"partido": "GOV", "defende": "O SNS não está a falhar: mais despesa com pessoal, mais 462 mil utentes com médico de família e 3 mil camas de cuidados continuados, com controlo de custos.", "propostas": [{"t": "Pessoal da saúde +5,2%", "p": "OE 2027"}, {"t": "Mais 462 mil utentes com médico de família", "p": "Citado pela Ordem dos Médicos"}, {"t": "Mais 3 mil camas de cuidados continuados", "p": "Citado pela Ordem dos Médicos"}], "mecanismo": [{"k": "Instrumento", "v": "OE 2027 e plano plurianual de investimento na saúde"}, {"k": "Poupança", "v": "Bens e serviços −4,5% (compras centralizadas)"}], "pro": [{"t": "Sem PRR, a despesa da saúde sobe 2,9% em 2027.", "src": "Notícias ao Minuto", "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027", "campo": "imprensa"}, {"t": "A ministra diz que todos os indicadores assistenciais melhoraram face a 2024.", "src": "Sábado", "url": "https://www.sabado.pt/portugal/detalhe/ministra-diz-que-todos-os-numeros-indicam-que-o-sns-nao-esta-a-falhar", "campo": "governo"}], "contra": [{"t": "O bastonário da Ordem dos Médicos fala do primeiro corte desde a troika e de um \"orçamento travão\" da recuperação do SNS.", "src": "RTP", "url": "https://www.rtp.pt/noticias/economia/oe2027-bastonario-da-ordem-dos-medicos-critica-proposta-contraditoria-e-de-retrocesso_n1770720", "campo": "imprensa"}, {"t": "A meta de cobertura por médico de família caiu de 98% para 85,37%.", "src": "Sábado", "url": "https://www.sabado.pt/ciencia---saude/detalhe/percentagem-de-utentes-com-medico-de-familia-atribuido-deve-manter-se-ate-2027", "campo": "imprensa"}]}, {"partido": "PS", "defende": "O Governo falhou na saúde e a ministra perdeu autoridade; o PS exige saber como se financiam hospitais e centros de saúde depois do PRR e recusa privatizar a saúde.", "propostas": [{"t": "Financiar os projetos de saúde do PRR por concluir", "p": "Condição para viabilizar"}, {"t": "Não dar respaldo orçamental à privatização da saúde", "p": "Carneiro, setembro"}], "mecanismo": [{"k": "Instrumento", "v": "Condições de viabilização e propostas na especialidade"}, {"k": "Custo", "v": "Não quantificado"}], "pro": [{"t": "O investimento da saúde cai 33% em 2027, de 1.022 para 678 M€.", "src": "Notícias ao Minuto", "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027", "campo": "imprensa"}, {"t": "O número de utentes sem médico de família subiu 41 mil em 2025.", "src": "RTP", "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169", "campo": "imprensa"}], "contra": [{"t": "A despesa do SNS sem PRR sobe 2,9%, o que contraria a ideia de corte.", "src": "Notícias ao Minuto", "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027", "campo": "imprensa"}, {"t": "O défice do SNS melhorou 534 M€ em 2025 face a 2024.", "src": "RTP", "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169", "campo": "imprensa"}]}, {"partido": "CH", "defende": "Articular o público e o privado para garantir acesso, seja onde for; culpa o Governo e a imigração pela pressão no SNS.", "propostas": [{"t": "Articulação entre privado e público", "p": "Ventura, 2025"}, {"t": "Limitar acesso de estrangeiros ao SNS", "p": "Proposta de 2024"}], "mecanismo": [{"k": "Instrumento", "v": "Projetos de lei e propostas de alteração"}, {"k": "Custo", "v": "Não quantificado"}], "pro": [{"t": "Há 1,56 milhões de utentes sem médico de família, como Ventura tem dito.", "src": "RTP", "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169", "campo": "imprensa"}, {"t": "A meta de cobertura foi revista em baixa.", "src": "Sábado", "url": "https://www.sabado.pt/ciencia---saude/detalhe/percentagem-de-utentes-com-medico-de-familia-atribuido-deve-manter-se-ate-2027", "campo": "imprensa"}], "contra": [{"t": "Ventura atribui a pressão no SNS à imigração sem apresentar dados.", "src": "RTP", "url": "https://www.rtp.pt/noticias/especiais/ventura-aponta-o-dedo-ao-governo-e-aos-imigrantes-para-crise-no-sns-rocha-defende-subsistemas-de-saude_e1648720", "campo": "imprensa"}, {"t": "Os utentes inscritos subiram 680 mil em 10 anos, o que inclui portugueses e estrangeiros.", "src": "Observador", "url": "https://observador.pt/2026/04/01/utentes-inscritos-nos-centros-de-saude-aumentaram-680-mil-em-10-anos/", "campo": "imprensa"}]}], "fato_valor": {"fatos": ["A despesa da saúde desce 1,5% em 2027, mas sobe 2,9% sem o PRR.", "1,56 milhões de utentes não têm médico de família (2025).", "O investimento cai de 1.022 para 678 M€."], "valores": ["Que papel dar ao setor privado e social na resposta do SNS.", "Se o investimento pós-PRR deve ser pago com dívida, receita ou cortes.", "Como repartir médicos entre regiões, com 70% das faltas em Lisboa e Vale do Tejo."]}, "debate_atual": "A ministra da Saúde e o ministro das Finanças são ouvidos na especialidade entre 29 de outubro e 6 de novembro.", "debate_atual_src": {"label": "Assembleia da República", "url": "https://www.parlamento.pt/Paginas/2026/outubro/Orcamento-do-Estado-para-2026.aspx"}, "fontes": [{"tier": "N1", "label": "Eurostat, gov_10a_exp: despesa pública por função (COFOG GF07)", "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"}, {"tier": "N1*", "label": "CFP: Evolução do SNS em 2025 (via RTP)", "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169"}, {"tier": "N1*", "label": "QGR do SNS, Diário da República (via Sábado)", "url": "https://www.sabado.pt/ciencia---saude/detalhe/percentagem-de-utentes-com-medico-de-familia-atribuido-deve-manter-se-ate-2027"}, {"tier": "N3", "label": "Notícias ao Minuto: saúde no OE 2027", "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027"}, {"tier": "N3", "label": "RTP: bastonário da Ordem dos Médicos", "url": "https://www.rtp.pt/noticias/economia/oe2027-bastonario-da-ordem-dos-medicos-critica-proposta-contraditoria-e-de-retrocesso_n1770720"}, {"tier": "N3", "label": "Sábado: a ministra e os números do SNS", "url": "https://www.sabado.pt/portugal/detalhe/ministra-diz-que-todos-os-numeros-indicam-que-o-sns-nao-esta-a-falhar"}, {"tier": "N3", "label": "RTP: Ventura e o SNS", "url": "https://www.rtp.pt/noticias/especiais/ventura-aponta-o-dedo-ao-governo-e-aos-imigrantes-para-crise-no-sns-rocha-defende-subsistemas-de-saude_e1648720"}]}, "crescimento": {"titulo": "Crescimento e emprego", "tese": "Portugal cresce acima da UE desde 2021 e tem a taxa de emprego mais alta de sempre. O Governo prevê 2,1% em 2027, acima de todas as instituições, apoiado num salto do investimento privado e no emprego.", "kpis": [{"v": "1,9%", "l": "Crescimento do PIB, 2025", "s": "UE: 1,4%", "src": "Eurostat"}, {"v": "79,6%", "l": "Taxa de emprego (20–64), 2025", "s": "UE: 76,1% · máximo da série", "src": "Eurostat"}, {"v": "6,0%", "l": "Desemprego, 2025", "s": "UE: 6,0%", "src": "Eurostat"}, {"v": "+10%", "l": "Investimento privado em 2027", "s": "previsão do Governo, \"maior subida da década\"", "src": "OE 2027"}], "charts": [{"t": "linha", "serie": "pib", "chaves": ["PT", "UE"], "titulo": "Crescimento real do PIB", "sub": "Portugal e UE-27, 2000 a 2025", "yMin": -10, "yMax": 8, "yStep": 2, "unid": "%", "unid_eixo": "%", "xStep": 5}, {"t": "linha", "serie": "desemprego", "chaves": ["PT", "UE"], "titulo": "Taxa de desemprego", "sub": "Portugal e UE-27, 2009 a 2025", "yMin": 0, "yMax": 18, "yStep": 3, "unid": "%", "unid_eixo": "%", "xStep": 4}, {"t": "prev", "titulo": "Crescimento e emprego: Governo face às instituições", "sub": "Losango: Governo. Pontos: cada instituição.", "fonte": "OE 2027, BdP, FMI, CE, OCDE", "itens": [["pib", "2027"], ["pib", "2026"], ["emprego", "2027"], ["desemprego", "2027"]]}, {"t": "linha", "serie": "taxa_emprego", "chaves": ["PT", "UE"], "titulo": "Taxa de emprego, 20 a 64 anos", "sub": "Portugal e UE-27, 2010 a 2025", "yMin": 60, "yMax": 82, "yStep": 4, "unid": "%", "unid_eixo": "%", "xStep": 5}], "contexto": ["Depois da queda de 8,2% em 2020, Portugal cresceu acima da UE todos os anos: 5,6% em 2021, 7,0% em 2022, 3,1% em 2023, 2,7% em 2024 e 1,9% em 2025.", "O Governo prevê 2,3% em 2026 e 2,1% em 2027. Para 2027, apoia-se numa subida de mais de 10% do investimento privado, enquanto o consumo privado abranda de 3,1% para 2,1%.", "O emprego cresceu com a imigração. A UTAO nota que a população em idade ativa aumentou 28 mil pessoas por trimestre em 2025 e só 10 mil em 2026, o que torna difícil o emprego crescer 1,4% em 2027.", "O programa da AD apontava para crescimentos de 3%. O PS diz que só governos seus atingiram esse valor."], "posicoes": [{"partido": "GOV", "defende": "Crescer acima de 2% com investimento privado, IRC mais baixo e contas certas; a economia já cresce acima da média europeia.", "propostas": [{"t": "PIB de 2,1% em 2027", "p": "Relatório do OE"}, {"t": "Investimento privado +10%", "p": "Relatório do OE"}, {"t": "Prémios de produtividade isentos se os salários subirem 4,5%", "p": "OE 2027"}], "mecanismo": [{"k": "Instrumento", "v": "IRC mais baixo, incentivos fiscais, fundos europeus"}, {"k": "Risco", "v": "Abrandamento da imigração e do consumo"}], "pro": [{"t": "Portugal cresceu 1,9% em 2025, acima dos 1,4% da UE.", "src": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table", "campo": "imprensa"}, {"t": "O CFP considera o cenário estatisticamente plausível.", "src": "RTP", "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470", "campo": "imprensa"}], "contra": [{"t": "O FMI prevê 1,9% em 2027 e inflação de 3,0%, contra 2,1% e 2,3% do Governo.", "src": "DN", "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior", "campo": "imprensa"}, {"t": "A UTAO considera o crescimento do emprego de 1,4% difícil de conciliar com menos imigração.", "src": "DN", "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027", "campo": "imprensa"}]}, {"partido": "PS", "defende": "O Governo volta a falhar o crescimento de 3% que prometeu; o PS reclama ser o único a tê-lo conseguido e pede apoios ao custo de vida.", "propostas": [{"t": "Mecanismos de apoio aos combustíveis e ao cabaz", "p": "Brilhante Dias, 28/09"}, {"t": "Concluir os projetos do PRR", "p": "Condição para viabilizar"}], "mecanismo": [{"k": "Instrumento", "v": "Propostas de alteração na especialidade"}, {"k": "Custo", "v": "Não quantificado"}], "pro": [{"t": "O programa da AD apontava para 3% e o OE 2027 prevê cerca de 2%.", "src": "DN", "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3", "campo": "imprensa"}, {"t": "Os anos com crescimento de 3% ou mais desde 1996 foram todos com governos do PS (1996–2000, 2017, 2021–2023).", "src": "Banco Mundial", "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT", "campo": "imprensa"}], "contra": [{"t": "Os governos de Cavaco Silva (PSD) tiveram crescimentos de 4% a 7,5% entre 1986 e 1991.", "src": "Banco Mundial", "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT", "campo": "imprensa"}, {"t": "Os 5,6% e 7,0% de 2021 e 2022 foram recuperação da queda de 8,2% em 2020.", "src": "Eurostat", "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table", "campo": "imprensa"}]}, {"partido": "CH", "defende": "O orçamento não responde ao custo de vida e prevê um \"brutal aumento\" dos preços; liga a pressão nos serviços à imigração.", "propostas": [{"t": "IVA mais baixo nos combustíveis e no cabaz", "p": "Propostas de alteração"}, {"t": "Isenção de portagens", "p": "Propostas de alteração"}], "mecanismo": [{"k": "Instrumento", "v": "Propostas de alteração na especialidade"}, {"k": "Custo", "v": "Cerca de 2.000 M€/ano para o IVA, segundo o Governo"}], "pro": [{"t": "O FMI prevê inflação de 3,0% em 2027, bem acima dos 2,3% do Governo.", "src": "DN", "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior", "campo": "imprensa"}, {"t": "O CFP vê potencial subestimação da inflação em 2026 e 2027.", "src": "Postal", "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/", "campo": "imprensa"}], "contra": [{"t": "O emprego que sustenta o crescimento depende da imigração, que o Chega quer travar.", "src": "DN", "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027", "campo": "imprensa"}, {"t": "As descidas de IVA levariam a défice, segundo o Governo.", "src": "Sábado", "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice", "campo": "governo"}]}], "fato_valor": {"fatos": ["Portugal cresce acima da UE desde 2021.", "A taxa de emprego (79,6%) é a mais alta da série e está acima da UE.", "A previsão de 2,1% para 2027 é a mais alta entre as instituições."], "valores": ["Quanto peso dar à imigração no crescimento do emprego.", "Se a prioridade é o investimento empresarial (IRC) ou o rendimento disponível (IVA, salários).", "Que crescimento é realista sem o PRR."]}, "debate_atual": "O Banco de Portugal e o FMI reviram em alta o crescimento de 2026 em outubro, mas mantêm 2027 abaixo do Governo.", "debate_atual_src": {"label": "RTP", "url": "https://www.rtp.pt/noticias/economia/fmi-reve-em-alta-crescimento-de-portugal-para-21-este-ano-e-19-em-2027_n1771310"}, "fontes": [{"tier": "N1", "label": "Eurostat, nama_10_gdp: PIB em volume", "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table"}, {"tier": "N1", "label": "Eurostat, une_rt_a e lfsi_emp_a: desemprego e emprego", "url": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table"}, {"tier": "N1", "label": "Banco Mundial: crescimento real do PIB de Portugal desde 1980", "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT"}, {"tier": "N1*", "label": "Relatório do OE 2027: cenário macroeconómico (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, {"tier": "N3", "label": "DN: investimento privado no cenário do OE", "url": "https://www.dn.pt/economia/oe2027-governo-prev-crescimento-superior-a-2-apoiado-em-subida-explosiva-do-investimento-privado"}, {"tier": "N3", "label": "DN: UTAO e a imigração", "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027"}, {"tier": "N3", "label": "DN: PS e o crescimento de 3%", "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"}, {"tier": "N3", "label": "DN: FMI contradiz cenário do OE", "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"}]}}</script>
+<script type="application/json" id="series">{"divida": {"x": [1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [62.2, 63.3, 58.7, 55.6, 55.4, 54.2, 57.4, 60, 63.9, 67.1, 72.2, 73.7, 72.7, 75.5, 87.6, 99.9, 114, 128.6, 130.8, 132.5, 131, 131.2, 126, 121.1, 116.1, 134.1, 123.9, 111.2, 96.9, 93, 89.2], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · gov_10dd_edpt1 (dívida bruta consolidada, % do PIB; notificação de outubro de 2026)", "provisorio": false, "UE": [null, null, null, null, null, 66.6, 65.8, 65.6, 66.8, 67.1, 67.2, 65, 62.4, 65.1, 75.7, 80.4, 81.7, 85, 86.8, 86.9, 85, 84, 81.5, 79.4, 77.4, 89.4, 86.6, 82.3, 80.3, 80.3, 81.5]}, "saldo": {"x": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [-3.2, -4.7, -3.3, -5.7, -6.2, -6.1, -4.2, -2.9, -3.8, -9.9, -11.4, -7.7, -6.2, -5.2, -7.4, -4.5, -1.9, -3, -0.4, 0.1, -5.8, -2.8, -0.3, 1.1, 0.7, 0.7], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · gov_10dd_edpt1 (saldo das administrações públicas, % do PIB)", "provisorio": false, "UE": [-1.2, -2, -2.8, -3.1, -2.7, -2.4, -1.4, -0.6, -2.1, -6.1, -6, -4.1, -3.7, -3.1, -2.4, -1.9, -1.4, -0.9, -0.4, -0.5, -6.7, -4.6, -3.1, -3.4, -3.1, -3.1]}, "pib": {"x": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [3.8, 1.9, 0.8, -0.9, 1.8, 0.8, 1.6, 2.5, 0.3, -3.1, 1.7, -1.7, -4.1, -1, 0.7, 1.6, 2, 3.3, 2.9, 2.7, -8.2, 5.6, 7, 3.1, 2.7, 1.9], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · nama_10_gdp (PIB em volume, variação anual)", "provisorio": false, "UE": [3.9, 2.1, 1, 0.9, 2.5, 1.9, 3.5, 3.1, 0.6, -4.3, 2.1, 1.9, -0.8, 0, 1.6, 2.4, 2, 2.9, 2.1, 1.9, -5.5, 6.4, 3.6, 0.4, 1.4, 1.4]}, "desemprego": {"x": [2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [11.2, 12.6, 13.5, 16.6, 17.2, 14.6, 13, 11.5, 9.2, 7.2, 6.6, 7.1, 6.7, 6.2, 6.5, 6.5, 6], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · une_rt_a (taxa de desemprego, 15–74 anos)", "provisorio": false, "UE": [9.3, 10.1, 10.1, 11.1, 11.6, 11, 10.2, 9.3, 8.3, 7.4, 6.8, 7.2, 7.1, 6.2, 6.1, 6, 6]}, "ihpc": {"x": [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [2.1, 3, 2.4, 2.7, -0.9, 1.4, 3.6, 2.8, 0.4, -0.2, 0.5, 0.6, 1.6, 1.2, 0.3, -0.1, 0.9, 8.1, 5.3, 2.7, 2.2], "nomes": {"PT": "Portugal", "UE": "Área do euro"}, "fonte": "Eurostat, puxado a 24/10/2026 · prc_hicp_aind (IHPC, variação média anual)", "provisorio": false, "UE": [2.2, 2.2, 2.2, 3.4, 0.3, 1.6, 2.7, 2.5, 1.4, 0.4, 0.2, 0.2, 1.5, 1.8, 1.2, 0.3, 2.6, 8.4, 5.4, 2.4, 2.1]}, "habitacao_precos": {"x": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [0.8, -4.9, -7.1, -1.9, 4.3, 3.1, 7.1, 9.2, 10.3, 10, 8.8, 9.4, 12.6, 8.2, 9.1, 17.6], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · prc_hpi_a (índice de preços da habitação, variação média anual)", "provisorio": false, "UE": [0.5, 0.6, -2.1, -1.7, 0.7, 2.3, 4.3, 4.8, 5, 4.9, 5.6, 8.4, 8, -0.3, 3.4, 5.5]}, "divida_var_2025": {"paises": [{"geo": "EL", "pp": -8.1, "pct": -5.3, "de": 153.5, "para": 145.4}, {"geo": "CY", "pp": -7.8, "pct": -13.0, "de": 60.1, "para": 52.3}, {"geo": "PT", "pp": -3.8, "pct": -4.1, "de": 93, "para": 89.2}, {"geo": "IE", "pp": -3.6, "pct": -9.4, "de": 38.4, "para": 34.8}, {"geo": "DK", "pp": -2.7, "pct": -9.0, "de": 29.9, "para": 27.2}, {"geo": "SI", "pp": -1.2, "pct": -1.8, "de": 66.3, "para": 65.1}, {"geo": "ES", "pp": -0.9, "pct": -0.9, "de": 101.4, "para": 100.5}, {"geo": "HR", "pp": -0.8, "pct": -1.4, "de": 56.5, "para": 55.7}, {"geo": "LU", "pp": 0.1, "pct": 0.4, "de": 25.9, "para": 26}, {"geo": "MT", "pp": 0.3, "pct": 0.7, "de": 46, "para": 46.3}, {"geo": "EE", "pp": 0.5, "pct": 2.1, "de": 23.5, "para": 24}, {"geo": "LV", "pp": 0.5, "pct": 1.1, "de": 45.7, "para": 46.2}, {"geo": "NL", "pp": 0.7, "pct": 1.6, "de": 44, "para": 44.7}, {"geo": "HU", "pp": 0.9, "pct": 1.2, "de": 73.5, "para": 74.4}, {"geo": "CZ", "pp": 1.0, "pct": 2.3, "de": 43.2, "para": 44.2}, {"geo": "SE", "pp": 1.1, "pct": 3.2, "de": 34, "para": 35.1}, {"geo": "DE", "pp": 1.4, "pct": 2.3, "de": 61.4, "para": 62.8}, {"geo": "LT", "pp": 1.5, "pct": 4.0, "de": 37.8, "para": 39.3}, {"geo": "SK", "pp": 1.6, "pct": 2.7, "de": 58.9, "para": 60.5}, {"geo": "AT", "pp": 1.7, "pct": 2.2, "de": 79, "para": 80.7}, {"geo": "IT", "pp": 2.4, "pct": 1.8, "de": 134.3, "para": 136.7}, {"geo": "FR", "pp": 3.1, "pct": 2.8, "de": 112.6, "para": 115.7}, {"geo": "BE", "pp": 4.1, "pct": 3.9, "de": 104, "para": 108.1}, {"geo": "RO", "pp": 4.3, "pct": 7.9, "de": 54.6, "para": 58.9}, {"geo": "PL", "pp": 4.8, "pct": 8.8, "de": 54.8, "para": 59.6}, {"geo": "FI", "pp": 5.9, "pct": 7.2, "de": 82.5, "para": 88.4}, {"geo": "BG", "pp": 6.2, "pct": 26.2, "de": 23.7, "para": 29.9}], "fonte": "Eurostat, puxado a 24/10/2026 · gov_10dd_edpt1"}, "carga_fiscal": {"x": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [33.5, 33.2, 33.9, 33.1, 33.5, 34.4, 34.9, 35.1, 35, 33.4, 33.7, 35.4, 34.4, 37.1, 37, 37, 36.7, 36.7, 37, 36.8, 37.5, 37.4, 37.9, 37.2, 36.9, 37.1], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · gov_10a_taxag (impostos e contribuições sociais, incluindo imputadas, % do PIB)", "provisorio": false, "UE": [41.1, 40.2, 39.8, 39.8, 39.5, 39.7, 40, 40.1, 39.5, 39.2, 39, 39.4, 40.4, 41, 41, 40.8, 40.9, 41, 41.1, 40.9, 41, 41.2, 40.7, 39.9, 40.2, null]}, "inv_publico": {"x": [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [4.6, 5, 4.6, 4.4, 4.4, 4.1, 3.4, 3.2, 3.7, 4.1, 5.3, 3.5, 2.5, 2.2, 2, 2.3, 1.6, 1.8, 1.9, 1.8, 2.3, 2.6, 2.4, 2.6, 2.7, 2.9], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · gov_10a_main (formação bruta de capital fixo das administrações públicas, % do PIB)", "provisorio": false, "UE": [3.3, 3.3, 3.3, 3.5, 3.4, 3.4, 3.5, 3.6, 3.7, 4, 3.8, 3.5, 3.3, 3.2, 3.1, 3.2, 2.9, 2.9, 3.1, 3.2, 3.5, 3.4, 3.3, 3.6, 3.7, 3.9]}, "taxa_emprego": {"x": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [66.9, 66.6, 64, 63.4, 66.1, 67.9, 69.5, 72.5, 74.6, 75.4, 73.9, 75.5, 77.1, 78, 78.5, 79.6], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · lfsi_emp_a (taxa de emprego, 20–64 anos)", "provisorio": false, "UE": [67, 67.1, 66.9, 66.7, 67.5, 68.5, 69.6, 70.9, 71.9, 72.7, 71.7, 73, 74.6, 75.3, 75.7, 76.1]}, "despesa_saude": {"x": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "PT": [7.5, 6.9, 6.6, 6.5, 6.3, 6.2, 6.1, 6.3, 6.5, 6.5, 7.4, 7.6, 7.1, 6.7, 6.8], "nomes": {"PT": "Portugal", "UE": "UE-27"}, "fonte": "Eurostat, puxado a 24/10/2026 · gov_10a_exp (despesa pública em saúde, COFOG GF07, % do PIB)", "provisorio": false, "UE": [7.2, 7.1, 7.1, 7.1, 7.1, 7, 7, 6.9, 6.9, 7, 8, 8, 7.5, 7.2, 7.3]}, "rendas": {"x": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "PT": [2.1, 0.9, 2, 1.2, 4.4, 1.1, 1.7, 1, 1.9, 3.2, 2.6, 1.8, 2.7, 4.5, 7, 5.3], "nomes": {"PT": "Portugal", "UE": "Área do euro"}, "fonte": "Eurostat, puxado a 24/10/2026 · prc_hicp_aind, CP041 (rendas efetivas de habitação, variação média anual)", "provisorio": false, "UE": [1.5, 1.4, 1.5, 1.4, 1.4, 1.1, 1.1, 1.2, 1.2, 1.3, 1.3, 1.2, 1.7, 2.7, 2.9, 2.9]}}</script>
+<script type="application/json" id="previsoes">{"indicadores": {"pib": {"nome": "PIB, crescimento real", "curto": "PIB", "unid": "%", "bom": "alto", "limiar": 0.5, "dec": 1}, "ihpc": {"nome": "Inflação (IHPC)", "curto": "INFLAÇÃO", "unid": "%", "bom": "baixo", "limiar": 0.5, "dec": 1}, "emprego": {"nome": "Emprego, crescimento", "curto": "EMPREGO", "unid": "%", "bom": "alto", "limiar": 0.5, "dec": 1}, "desemprego": {"nome": "Taxa de desemprego", "curto": "DESEMPREGO", "unid": "%", "bom": "baixo", "limiar": 0.5, "dec": 1}, "saldo": {"nome": "Saldo orçamental", "curto": "SALDO", "unid": "% do PIB", "bom": "alto", "limiar": 0.5, "dec": 1}, "divida": {"nome": "Dívida pública", "curto": "DÍVIDA", "unid": "% do PIB", "bom": "baixo", "limiar": 2.0, "dec": 1, "passo": 1}}, "instituicoes": [{"k": "GOV", "curto": "Governo", "nome": "Governo, proposta do OE 2027", "quando": "out. 2026", "fonte": "Relatório do OE 2027 (via CNN Portugal)", "url": "https://cnnportugal.iol.pt/interativo/oe-2027"}, {"k": "BdP", "curto": "BdP", "nome": "Banco de Portugal", "quando": "out. 2026 (saldo e dívida: jun. 2026)", "fonte": "Boletim Económico (via Forbes Portugal)", "url": "https://www.forbespt.com/?p=196632"}, {"k": "FMI", "curto": "FMI", "nome": "FMI, World Economic Outlook", "quando": "out. 2026", "fonte": "WEO de outubro (via RTP e DN)", "url": "https://www.rtp.pt/noticias/economia/fmi-reve-em-alta-crescimento-de-portugal-para-21-este-ano-e-19-em-2027_n1771310"}, {"k": "CE", "curto": "CE", "nome": "Comissão Europeia", "quando": "mai. 2026", "antiga": true, "fonte": "Previsões da primavera (via ECO)", "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"}, {"k": "OCDE", "curto": "OCDE", "nome": "OCDE, Economic Outlook", "quando": "jun. 2026", "antiga": true, "fonte": "Economic Outlook (via ECO e RTP)", "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"}], "valores": {"pib": {"2026": {"GOV": 2.3, "BdP": 2.3, "FMI": 2.1, "CE": 1.7, "OCDE": 1.8}, "2027": {"GOV": 2.1, "BdP": 1.8, "FMI": 1.9, "CE": 1.8, "OCDE": 1.7}}, "ihpc": {"2026": {"GOV": 2.9, "BdP": 3.1, "FMI": 3.2, "CE": 3.0}, "2027": {"GOV": 2.3, "BdP": 2.4, "FMI": 3.0, "CE": 2.3}}, "emprego": {"2027": {"GOV": 1.4, "BdP": 0.7}}, "desemprego": {"2026": {"GOV": 5.8, "FMI": 5.9}, "2027": {"GOV": 5.7, "FMI": 5.9}}, "saldo": {"2026": {"GOV": 0.0, "BdP": -0.2, "CE": -0.1, "OCDE": 0.0}, "2027": {"GOV": 0.1, "BdP": -0.5, "CE": -0.4, "OCDE": -0.1}}, "divida": {"2026": {"GOV": 87.5, "BdP": 85.7, "CE": 86.7, "OCDE": 86.3}, "2027": {"GOV": 84.5, "BdP": 82.5, "CE": 86.0, "OCDE": 83.3}}}, "destaque": [["pib", "2027"], ["saldo", "2027"], ["divida", "2027"], ["ihpc", "2027"], ["pib", "2026"], ["ihpc", "2026"], ["saldo", "2026"], ["divida", "2026"], ["emprego", "2027"], ["desemprego", "2027"]]}</script>
+<script>
+(function(){
+const J = id => JSON.parse(document.getElementById(id).textContent);
+const META = J('meta'), DATA = J('data'), PART = J('partidos'), TEMAS = J('temas'), DZ = J('dossies'), S = J('series'), PV = J('previsoes');
+const TNAME = Object.fromEntries(TEMAS);
+const PBY = Object.fromEntries(PART.map(p=>[p.k,p]));
+const CAMPOS = [['governo','Governo, PSD e CDS-PP'],['oposicao','Oposição']];
+
+/* Vereditos de factos e de previsões */
+const CATS_F = [
+  {k:'V', name:'Verdadeiro', g:'✓', sev:0},
+  {k:'VR',name:'Verdadeiro com ressalva', g:'✓', sev:1},
+  {k:'I', name:'Impreciso / falta contexto', g:'≈', sev:2},
+  {k:'E', name:'Exagerado ou subestimado', g:'↕', sev:3},
+  {k:'F', name:'Falso', g:'✕', sev:5},
+  {k:'N', name:'Insustentável / não comprovado', g:'!', sev:4},
+  {k:'NV',name:'Não verificável', g:'?', sev:-1}];
+const CATS_P = [
+  {k:'MP',name:'Muito pessimista', g:'⇊', sev:3, p:'mp'},
+  {k:'P', name:'Pessimista', g:'↓', sev:2, p:'p'},
+  {k:'C', name:'Dentro do consenso', g:'=', sev:0, p:'c'},
+  {k:'O', name:'Otimista', g:'↑', sev:2, p:'o'},
+  {k:'MO',name:'Muito otimista', g:'⇈', sev:3, p:'mo'},
+  {k:'SC',name:'Sem consenso suficiente', g:'?', sev:-1, p:'c'}];
+const CAT = Object.fromEntries([...CATS_F,...CATS_P].map(c=>[c.k,c]));
+const isPrev = k => CATS_P.some(c=>c.k===k);
+const ccol = k => isPrev(k) ? `var(--p-${CAT[k].p})` : `var(--${k.toLowerCase()})`;
+const cvar = k => isPrev(k) ? `--c:var(--ink);--cbg:color-mix(in srgb,var(--p-${CAT[k].p}) 18%,var(--surface));--cg:var(--p-${CAT[k].p})` : `--c:var(--${k.toLowerCase()});--cbg:var(--${k.toLowerCase()}-bg);--cg:var(--${k.toLowerCase()})`;
+const DESC_F = {V:'O dado confere com as fontes.',VR:'Confere, mas com um pormenor que muda a leitura.',I:'Mistura acerto e erro, ou omite contexto essencial.',E:'Número na direção certa, mas inflacionado ou reduzido.',F:'Contrariado pelas fontes.',N:'Acusação sem prova disponível, ou contrariada pelos factos.',NV:'Não há dado público que permita verificar.'};
+const DESC_P = {C:'Entre a previsão mais baixa e a mais alta das instituições independentes.',O:'Mais favorável do que todas as instituições, até ao limiar do indicador.',MO:'Mais favorável do que todas as instituições, para lá do limiar.',P:'Menos favorável do que todas as instituições, até ao limiar.',MP:'Menos favorável do que todas as instituições, para lá do limiar.',SC:'Menos de duas instituições publicaram previsão comparável.'};
+const TIERS = [['N1','Oficial aberta','var(--v)'],['N1*','Oficial citada','var(--vr)'],['N2','Verificador','var(--accent)'],['N3','Imprensa','var(--faint)'],['N4','Partidária ou individual','var(--e)'],['—','Sem fonte','var(--line)']];
+const TRANK = {'N1':0,'N1*':1,'N2':2,'N3':3,'N4':4,'—':5};
+const TLAB = {'N1':'Oficial','N1*':'Oficial (citada)','N2':'Verificador','N3':'Imprensa','N4':'Partidária ou opinião','—':'Sem fonte'};
+const tcls = t => ({'N1':'N1','N1*':'N1s','N2':'N2','N4':'N4'}[t]||'');
+const tierTag = t => `<span class="tier ${tcls(t)}" title="Nível ${t}">${TLAB[t]}</span>`;
+const AGS = META.verificadores || [];
+
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const fmt = (n,d=1) => Number(n).toLocaleString('pt-PT',{minimumFractionDigits:d,maximumFractionDigits:d});
+const host = u => { try{ return new URL(u).hostname.replace(/^www\d*\./,''); }catch(e){ return ''; } };
+const ptag = k => { const p=PBY[k]||{sigla:k}; return `<span class="ptag ${p.campo==='governo'&&k==='GOV'?'gov':''}" title="${esc(p.nome||k)}">${esc(p.sigla)}</span>`; };
+
+/* Previsões: classificação face ao intervalo das instituições independentes */
+const INST = Object.fromEntries(PV.instituicoes.map(i=>[i.k,i]));
+function fcRange(ind, ano){
+  const row = (PV.valores[ind]||{})[ano]||{};
+  const vals = Object.entries(row).filter(([k,v])=>k!=='GOV' && v!=null);
+  if(!vals.length) return null;
+  const nums = vals.map(x=>x[1]);
+  return {gov:row.GOV, lo:Math.min(...nums), hi:Math.max(...nums), vals};
+}
+function classify(ind, ano, valor){
+  const I = PV.indicadores[ind], r = fcRange(ind, ano);
+  if(!r || r.vals.length<2) return 'SC';
+  const v = valor ?? r.gov, lim = I.limiar ?? 0.5;
+  if(v >= r.lo-1e-9 && v <= r.hi+1e-9) return 'C';
+  const above = v > r.hi, dist = above ? v-r.hi : r.lo-v, good = (I.bom==='alto') === above;
+  return good ? (dist>lim+1e-9?'MO':'O') : (dist>lim+1e-9?'MP':'P');
+}
+
+DATA.forEach((d,i)=>{
+  d.order = i;
+  if(d.tipo==='previsao' && d.prev) d.cat = classify(d.prev.ind, d.prev.ano, d.prev.valor);
+  d.srcs = (d.sources||[]).slice().sort((a,b)=>TRANK[a.tier]-TRANK[b.tier]);
+  d.best = d.srcs.length ? d.srcs[0].tier : '—';
+  d.campo = (PBY[d.partido]||{}).campo || 'oposicao';
+  d.hay = norm([d.id,d.quote,d.short,d.orador,(PBY[d.partido]||{}).nome,TNAME[d.tema],d.resumo,d.contra,(d.analise||[]).join(' '),(d.subs||[]).map(s=>s.txt+' '+(s.nota||'')).join(' ')].join(' '));
+});
+const BYID = Object.fromEntries(DATA.map(d=>[d.id,d]));
+const FACTOS = () => DATA.filter(d=>d.tipo!=='previsao');
+
+/* Estado */
+const state = {view:'visao', dz:null, q:'', partido:'all', tipo:'all', tema:'all', cat:'all', src:'all', sort:'debate', ficha:null};
+const pass = (d, skip) =>
+  (skip==='partido'||state.partido==='all'||d.partido===state.partido||(state.partido.startsWith('c:')&&d.campo===state.partido.slice(2))) &&
+  (skip==='tipo'||state.tipo==='all'||(state.tipo==='previsao')===(d.tipo==='previsao')) &&
+  (skip==='tema'||state.tema==='all'||d.tema===state.tema) &&
+  (skip==='cat'||state.cat==='all'||d.cat===state.cat||(state.cat==='VVR'&&(d.cat==='V'||d.cat==='VR'))||(state.cat==='FE'&&(d.cat==='F'||d.cat==='E'))||(state.cat==='FORA'&&isPrev(d.cat)&&!['C','SC'].includes(d.cat))) &&
+  (state.src==='all'||(state.src==='n1'&&d.best==='N1')||(state.src==='non1'&&d.best!=='N1')||(state.src.startsWith('t:')&&d.best===state.src.slice(2))) &&
+  (!state.q || norm(state.q.trim()).split(/\s+/).every(t=>d.hay.includes(t)));
+const filtered = () => {
+  let out = DATA.filter(d=>pass(d));
+  const sev = d => CAT[d.cat].sev<0?9:CAT[d.cat].sev;
+  if(state.sort==='grave') out.sort((a,b)=>CAT[b.cat].sev-CAT[a.cat].sev||a.order-b.order);
+  if(state.sort==='good') out.sort((a,b)=>sev(a)-sev(b)||a.order-b.order);
+  if(state.sort==='tema') out.sort((a,b)=>TEMAS.findIndex(t=>t[0]===a.tema)-TEMAS.findIndex(t=>t[0]===b.tema)||a.order-b.order);
+  return out;
+};
+
+/* Roteamento por âncora */
+const VIEWS = ['visao','previsoes','temas','alegacoes','divergencias','metodo'];
+function go(view, opts={}){
+  if(!document.getElementById('drawer').hidden){ document.getElementById('drawer').hidden=true; document.getElementById('scrim').hidden=true; document.body.classList.remove('lock'); state.ficha=null; }
+  if(DZ[view]){ state.view='dossie'; state.dz=view; }
+  else { state.view = VIEWS.includes(view)?view:'visao'; state.dz=null; }
+  if(!opts.keepScroll) window.scrollTo({top:0});
+  setHash(); render();
+}
+function setHash(){
+  const h = state.ficha || (state.view==='dossie'?state.dz:state.view);
+  try{ history.replaceState(null,'','#'+h); }catch(e){}
+}
+function fromHash(){
+  const h = decodeURIComponent((location.hash||'').slice(1));
+  if(BYID[h]){ state.view = DZ[BYID[h].tema] ? 'dossie' : 'alegacoes'; state.dz = state.view==='dossie'?BYID[h].tema:null; render(); openFicha(h); return; }
+  closeFicha();
+  if(DZ[h]){ state.view='dossie'; state.dz=h; }
+  else if(VIEWS.includes(h)) state.view=h;
+  render();
+}
+
+/* Filtros */
+function renderControls(){
+  const temaSel = document.getElementById('f-tema'), pSel = document.getElementById('f-partido');
+  if(!temaSel.options.length){
+    temaSel.innerHTML = `<option value="all">Todos</option>`+TEMAS.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
+    pSel.innerHTML = `<option value="all">Todos</option>`+CAMPOS.map(([k,n])=>`<option value="c:${k}">${esc(n)}</option>`).join('')+`<optgroup label="Por bancada">`+PART.filter(p=>DATA.some(d=>d.partido===p.k)).map(p=>`<option value="${p.k}">${esc(p.nome)}</option>`).join('')+`</optgroup>`;
+    document.getElementById('f-cat').innerHTML = `<option value="all">Todos</option><optgroup label="Factos"><option value="VVR">Verdadeiro (com ou sem ressalva)</option><option value="FE">Falso ou exagerado</option>`+CATS_F.map(c=>`<option value="${c.k}">${esc(c.name)}</option>`).join('')+`</optgroup><optgroup label="Previsões"><option value="FORA">Fora do consenso</option>`+CATS_P.map(c=>`<option value="${c.k}">${esc(c.name)}</option>`).join('')+`</optgroup>`;
+  }
+  temaSel.value = state.tema; pSel.value = state.partido; document.getElementById('f-cat').value = state.cat;
+  const srcSel = document.getElementById('f-src');
+  if(state.src.startsWith('t:') && !srcSel.querySelector(`option[value="${state.src}"]`)){ const o=document.createElement('option'); o.value=state.src; o.textContent='Melhor fonte: '+state.src.slice(2); srcSel.appendChild(o); }
+  srcSel.value = state.src;
+  document.getElementById('f-sort').value = state.sort;
+  const q=document.getElementById('q'); if(q.value!==state.q) q.value=state.q;
+  document.querySelectorAll('#f-tipo button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===state.tipo));
+  const tags=[];
+  if(state.tipo!=='all') tags.push(['tipo',state.tipo==='facto'?'Só factos':'Só previsões']);
+  if(state.partido!=='all') tags.push(['partido',pSel.options[pSel.selectedIndex]?.textContent||state.partido]);
+  if(state.tema!=='all') tags.push(['tema',TNAME[state.tema]]);
+  if(state.cat!=='all') tags.push(['cat',({VVR:'Verdadeiro (com ou sem ressalva)',FE:'Falso ou exagerado',FORA:'Previsão fora do consenso'})[state.cat]||CAT[state.cat].name]);
+  if(state.src!=='all') tags.push(['src',srcSel.options[srcSel.selectedIndex].textContent]);
+  if(state.q) tags.push(['q','“'+state.q+'”']);
+  document.getElementById('mfcount').textContent = tags.length?'· '+tags.length:'';
+  document.getElementById('active').innerHTML = tags.length ? tags.map(([k,l])=>`<span class="tag">${esc(l)}<button data-clear="${k}" aria-label="Remover filtro ${esc(l)}">×</button></span>`).join('')+`<button class="linkbtn" data-clear="all">Limpar filtros</button>` : '';
+  const n = filtered().length;
+  document.getElementById('ct-aleg').textContent = n===DATA.length ? DATA.length : `${n}/${DATA.length}`;
+  document.getElementById('ct-temas').textContent = TEMAS.length;
+}
+function drill(patch){ Object.assign(state,patch); go('alegacoes'); }
+
+/* KPIs */
+function renderKPIs(){
+  const base = DATA.filter(d=>pass(d,'tipo')), f = base.filter(d=>d.tipo!=='previsao'), p = base.filter(d=>d.tipo==='previsao');
+  const pct = (rows,fn) => rows.length?Math.round(rows.filter(fn).length/rows.length*100):0;
+  const fora = p.filter(d=>!['C','SC'].includes(d.cat)).length;
+  document.getElementById('kpis').innerHTML = `
+    <button class="kpi" data-kpi="all"><span class="l">Afirmações verificadas</span><span class="v">${base.length}</span><span class="s">${f.length} factos · ${p.length} previsões</span></button>
+    <button class="kpi" data-kpi="VVR"><span class="l">Factos corretos</span><span class="v">${f.length?pct(f,d=>d.cat==='V'||d.cat==='VR')+'%':'—'}</span><span class="s">verdadeiros, com ou sem ressalva</span></button>
+    <button class="kpi" data-kpi="FE"><span class="l">Factos falsos ou exagerados</span><span class="v">${f.length?pct(f,d=>d.cat==='F'||d.cat==='E')+'%':'—'}</span><span class="s">dos ${f.length} factos verificados</span></button>
+    <button class="kpi" data-kpi="FORA"><span class="l">Previsões fora do consenso</span><span class="v">${fora}<span style="font-size:18px;color:var(--muted)"> / ${p.length}</span></span><span class="s">acima ou abaixo de todas as instituições</span></button>`;
+}
+
+/* Placar por bancada (só factos, bancadas com 5 ou mais) */
+const MINP = META.min_placar || 5;
+function stackRow(k, label, sub, rows, keys, colorOf, labelOf, onPick){
+  const tot = rows.length;
+  const row = document.createElement('div'); row.className='board-row';
+  row.innerHTML = `<div class="ballot" style="grid-template-columns:auto auto">${PBY[k]?ptag(k):''}<span class="who">${esc(label)}<small>${esc(sub)}</small></span></div>`;
+  const bar = document.createElement('div'); bar.className='bar'; bar.setAttribute('role','group'); bar.setAttribute('aria-label',label);
+  keys.forEach(([c,n])=>{
+    if(!n) return;
+    const b=document.createElement('button'); b.className='seg';
+    b.style.cssText=`flex:${n} 1 0;background:${colorOf(c)}`;
+    b.title=`${label}: ${n} × ${labelOf(c)} (${Math.round(n/tot*100)}%)`; b.setAttribute('aria-label',b.title);
+    b.innerHTML=`<span>${n}</span>`; b.onclick=()=>onPick(k,c); bar.appendChild(b);
+  });
+  if(!tot) bar.innerHTML='<span class="empty" style="padding:8px">Nenhuma afirmação com estes filtros</span>';
+  row.appendChild(bar); return row;
+}
+function renderBoards(){
+  const board=document.getElementById('board'), tb=document.getElementById('tierboard'); board.innerHTML=''; tb.innerHTML='';
+  const f = FACTOS().filter(d=>pass(d,'partido'));
+  const keys = PART.filter(p=>f.filter(d=>d.partido===p.k).length>=MINP).filter(p=>state.partido==='all'||state.partido===p.k||state.partido==='c:'+p.campo);
+  const fora = PART.filter(p=>!keys.includes(p) && f.some(d=>d.partido===p.k));
+  keys.forEach(p=>{
+    const rows=f.filter(d=>d.partido===p.k);
+    board.appendChild(stackRow(p.k, p.nome, `${rows.length} factos`, rows, CATS_F.map(c=>[c.k,rows.filter(d=>d.cat===c.k).length]), c=>`var(--${c.toLowerCase()})`, c=>CAT[c].name, (k,c)=>drill({partido:k,cat:c,tipo:'facto'})));
+  });
+  if(!keys.length) board.innerHTML = `<p class="empty" style="padding:16px">O placar aparece quando uma bancada tiver pelo menos ${MINP} factos verificados.</p>`;
+  document.getElementById('board-sub').textContent = fora.length ? `Clique num troço da barra para ver essas afirmações. Com menos de ${MINP} factos, fora do placar: ${fora.map(p=>p.sigla).join(', ')}.` : 'Clique num troço da barra para ver essas afirmações.';
+  const all = DATA.filter(d=>pass(d,'partido'));
+  CAMPOS.forEach(([c,n])=>{
+    const rows = all.filter(d=>d.campo===c);
+    tb.appendChild(stackRow(c==='governo'?'GOV':'OPO', n, `${rows.length} fichas`, rows, TIERS.map(t=>[t[0],rows.filter(d=>d.best===t[0]).length]), k=>TIERS.find(t=>t[0]===k)[2], k=>'melhor fonte '+k+' · '+TIERS.find(t=>t[0]===k)[1], (_,k)=>drill({partido:'c:'+c,src:'t:'+k})));
+  });
+  document.getElementById('legend').innerHTML = CATS_F.map(k=>`<span><b style="background:var(--${k.k.toLowerCase()})"></b>${k.name}</span>`).join('');
+  document.getElementById('tierlegend').innerHTML = TIERS.map(t=>`<span><b style="background:${t[2]}"></b>${t[0]} · ${t[1]}</span>`).join('');
+}
+
+/* Matriz tema × veredito (factos e previsões em colunas separadas) */
+function miniBar(rows, cats, tema, tipo){
+  if(!rows.length) return `<div class="mini"><span class="zero">—</span></div>`;
+  return `<div class="mini" role="group">`+cats.map(k=>{
+    const n=rows.filter(d=>d.cat===k.k).length; if(!n) return '';
+    return `<button style="flex:${n} 1 0;background:${ccol(k.k)}" title="${esc(TNAME[tema])}: ${n} × ${k.name}" aria-label="${esc(TNAME[tema])}: ${n} ${k.name}" data-mx="${tema}|${tipo}|${k.k}"></button>`;
+  }).join('')+`</div>`;
+}
+function renderMatrix(){
+  let html = `<div class="mx-row mx-head"><span>Tema</span><span style="text-align:right">n</span><span class="h-cand">Factos</span><span class="h-cand">Previsões</span></div>`;
+  TEMAS.forEach(([k,n])=>{
+    const rows = DATA.filter(d=>d.tema===k && pass(d,'tema'));
+    if(!rows.length && !DZ[k]) return;
+    html += `<div class="mx-row"><button class="mx-name" data-tema="${k}">${esc(n)}${DZ[k]?'<span class="dz">DOSSIÊ</span>':''}</button><span class="mx-n">${rows.length}</span>${miniBar(rows.filter(d=>d.tipo!=='previsao'),CATS_F,k,'facto')}${miniBar(rows.filter(d=>d.tipo==='previsao'),CATS_P,k,'previsao')}</div>`;
+  });
+  document.getElementById('matrix').innerHTML = html;
+}
+
+/* Cartões de tema */
+const GRUPOS=[['ok','Factos corretos',['V','VR'],'var(--v)'],['meio','Imprecisos ou exagerados',['I','E'],'var(--i)'],['mal','Falsos ou insustentáveis',['F','N'],'var(--f)'],['prev','Previsões',CATS_P.map(c=>c.k),'var(--p-c)'],['nv','Não verificáveis',['NV'],'var(--nv)']];
+function campoRow(rows,c,label){
+  const tot=rows.length;
+  if(!tot) return `<div class="tc-row empty-row"><span class="tc-who">${esc(label)}</span><span class="tc-none">Sem afirmações neste tema</span></div>`;
+  const g=GRUPOS.map(([k,l,cats,col])=>[k,l,col,rows.filter(d=>cats.includes(d.cat)).length]).filter(x=>x[3]);
+  const f=rows.filter(d=>d.tipo!=='previsao'), ok=f.filter(d=>d.cat==='V'||d.cat==='VR').length;
+  return `<div class="tc-row"><span class="tc-who">${esc(label)}</span>
+    <span class="tc-score">${f.length?`<b>${ok}</b> de ${f.length} factos corretos`:`${tot} previsões`}</span>
+    <span class="tc-bar" role="img" aria-label="${esc(label)}: ${g.map(x=>x[3]+' '+x[1].toLowerCase()).join(', ')}">${g.map(([k,l,col,n])=>`<i style="flex:${n} 1 0;background:${col}" title="${n} ${l.toLowerCase()}"></i>`).join('')}</span>
+    <span class="tc-nums">${g.map(([k,l,col,n])=>`<span><i style="background:${col}"></i>${n}</span>`).join('')}</span></div>`;
+}
+function renderTemas(){
+  document.getElementById('tlegend').innerHTML = GRUPOS.map(([k,l,c,col])=>`<span><i style="background:${col}"></i>${l}</span>`).join('');
+  const lista = TEMAS.map(([k,n])=>[k,n,DATA.filter(d=>d.tema===k && pass(d,'tema'))]).sort((a,b)=>(!!DZ[b[0]])-(!!DZ[a[0]])||b[2].length-a[2].length);
+  document.getElementById('tcards').innerHTML = lista.map(([k,n,rows])=>{
+    const D=DZ[k], tese=D?D.tese.split('. ')[0].replace(/\.$/,'')+'.':'Este tema ainda não tem dossiê. As afirmações estão na lista.';
+    return `<button class="tcard" data-tema="${k}">
+      <div class="tc-top"><h3>${esc(n)}</h3><span class="tc-count mono">${rows.length}<small>afirmações</small></span></div>
+      <p class="tc-tese">${esc(tese)}</p>
+      <div class="tc-rows">${CAMPOS.map(([c,l])=>campoRow(rows.filter(d=>d.campo===c),c,l)).join('')}</div>
+      <span class="tc-cta">${D?'Abrir dossiê →':'Ver afirmações →'}</span></button>`;
+  }).join('');
+}
+
+/* Tabela de afirmações */
+const pill = k => `<span class="pill" style="${cvar(k)}"><span class="g" style="background:var(--cg)">${CAT[k].g}</span>${CAT[k].name}</span>`;
+const quem = d => `${ptag(d.partido)} ${esc(d.orador||'')}${d.sessao!=null?' · '+esc(META.sessoes[d.sessao]||''):''}`;
+function renderRows(){
+  const rows = filtered();
+  document.getElementById('resultinfo').innerHTML = `<b>${rows.length}</b> de ${DATA.length} afirmações`;
+  document.getElementById('rows').innerHTML = rows.length ? rows.map(d=>`<tr data-id="${d.id}" tabindex="0" aria-label="Abrir ficha ${d.id}"><td class="id">${d.id}</td><td class="q">${esc(d.short)}<small>${quem(d)}</small></td><td>${esc(TNAME[d.tema])}</td><td>${pill(d.cat)}</td><td>${tierTag(d.best)}</td></tr>`).join('') : `<tr><td colspan="5"><div class="empty">Nenhuma afirmação com estes filtros. <button class="linkbtn" data-clear="all">Limpar filtros</button></div></td></tr>`;
+}
+
+/* Divergências com os verificadores */
+function renderDiv(){
+  const comAg = DATA.filter(d=>d.agencias && Object.keys(d.agencias).length);
+  document.getElementById('divhead').innerHTML = `<tr><th>Afirmação</th>${AGS.map(a=>`<th>${esc(a.nome)}</th>`).join('')}<th>Esta verificação</th></tr>`;
+  document.getElementById('div-resumo').textContent = comAg.length ? `${comAg.length} das ${DATA.length} afirmações desta verificação também foram analisadas por pelo menos um verificador. A última coluna mostra o nosso veredito, depois de consultar a fonte primária.` : 'Os verificadores ainda não publicaram análises do debate. Esta tabela é preenchida à medida que publicarem.';
+  document.getElementById('divtable').innerHTML = comAg.length ? comAg.map(d=>`<tr data-id="${d.id}" tabindex="0"><td><b class="mono">${d.id}</b> ${esc(d.short)}</td>${AGS.map(a=>{ const v=d.agencias[a.k]; return `<td>${v?`<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.v)}</a>`:'—'}</td>`; }).join('')}<td>${pill(d.cat)}</td></tr>`).join('') : `<tr><td colspan="${AGS.length+2}"><div class="empty">Sem dados ainda.</div></td></tr>`;
+  document.getElementById('scale').innerHTML = document.getElementById('scale2').innerHTML = CATS_F.map(k=>`${pill(k.k)}<span>${DESC_F[k.k]}</span>`).join('') + CATS_P.map(k=>`${pill(k.k)}<span>${DESC_P[k.k]}</span>`).join('');
+  document.getElementById('scale-prev').innerHTML = Object.entries(PV.indicadores).map(([k,I])=>`<span class="tier">${esc(I.curto||I.nome)}</span><span>${esc(I.nome)}: melhor quando ${I.bom==='alto'?'mais alto':'mais baixo'}; limiar de ${fmt(I.limiar??0.5,1)} ${esc(I.unid_limiar||'p.p.')} entre "otimista" e "muito otimista".</span>`).join('');
+}
+
+/* Previsões */
+function fcRow(ind, ano, opts={}){
+  const I = PV.indicadores[ind], r = fcRange(ind, ano); if(!r) return '';
+  const all = [...r.vals.map(x=>x[1]), r.gov].filter(v=>v!=null);
+  let lo = Math.min(...all), hi = Math.max(...all); const pad = Math.max((hi-lo)*0.25, I.passo||0.2); lo-=pad; hi+=pad;
+  const X = v => ((v-lo)/(hi-lo)*100).toFixed(2)+'%';
+  const k = classify(ind, ano);
+  const dots = r.vals.map(([i,v])=>`<span class="fc-dot" style="left:${X(v)}" title="${esc(INST[i].nome)}: ${fmt(v,I.dec??1)}${esc(I.unid)} (${esc(INST[i].quando)})"></span>`).join('');
+  const ticks = [r.lo, r.hi].filter((v,j,a)=>a.indexOf(v)===j).map(v=>`<span class="fc-tick" style="left:${X(v)}">${fmt(v,I.dec??1)}</span>`).join('');
+  return `<div class="fc-row"><div class="fc-name">${esc(I.nome)} ${ano}<small>GOVERNO ${fmt(r.gov,I.dec??1)}${esc(I.unid)} · ${r.vals.length} INSTITUIÇÕES</small></div>
+    <div class="fc-track" role="img" aria-label="${esc(I.nome)} ${ano}: Governo ${fmt(r.gov,I.dec??1)}${esc(I.unid)}; instituições entre ${fmt(r.lo,I.dec??1)} e ${fmt(r.hi,I.dec??1)}"><span class="fc-axis"></span><span class="fc-range" style="left:${X(r.lo)};width:calc(${X(r.hi)} - ${X(r.lo)})"></span>${dots}${ticks}<span class="fc-gov" style="left:${X(r.gov)}" title="Governo: ${fmt(r.gov,I.dec??1)}${esc(I.unid)}"></span></div>
+    <div class="fc-v">${opts.button?`<button class="linkbtn" data-cat-prev="${k}" style="text-decoration:none">${pill(k)}</button>`:pill(k)}</div></div>`;
+}
+function renderPrev(mini){
+  const lista = PV.destaque;
+  if(mini){ document.getElementById('fc-mini').innerHTML = lista.slice(0,5).map(([i,a])=>fcRow(i,a)).join(''); return; }
+  document.getElementById('fc-full').innerHTML = lista.map(([i,a])=>fcRow(i,a)).join('');
+  const insts = PV.instituicoes;
+  const anos = [...new Set(lista.map(x=>x[1]))];
+  let html = `<thead><tr><th>Indicador</th>${insts.map(i=>`<th>${esc(i.curto)}</th>`).join('')}<th>Veredito</th></tr></thead><tbody>`;
+  lista.forEach(([ind,ano])=>{ const I=PV.indicadores[ind], row=PV.valores[ind][ano]||{};
+    html += `<tr><td>${esc(I.nome)} ${ano} <span class="old">${esc(I.unid)}</span></td>${insts.map(i=>`<td class="${i.k==='GOV'?'gov':''}">${row[i.k]!=null?fmt(row[i.k],I.dec??1):'—'}</td>`).join('')}<td>${pill(classify(ind,ano))}</td></tr>`; });
+  html += `</tbody>`;
+  document.getElementById('fc-table').innerHTML = html;
+  document.getElementById('fc-sub').innerHTML = insts.filter(i=>i.k!=='GOV').map(i=>`<b>${esc(i.curto)}</b>: <a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.fonte)}</a> (${esc(i.quando)})${i.antiga?' <span class="old">anterior à proposta</span>':''}`).join(' · ') + '. As previsões anteriores à proposta podem não incorporar dados recentes.';
+}
+
+/* Gráficos (SVG desenhado à mão, uma escala por eixo) */
+function tipFor(box){ let t=box.querySelector('.tip'); if(!t){ t=document.createElement('div'); t.className='tip'; t.hidden=true; box.appendChild(t);} return t; }
+function lineChart(box, cfg){
+  const W=Math.max(320,Math.round(box.clientWidth||760)), narrow=W<560, H=narrow?250:300, ml=narrow?38:44, mr=narrow?78:92, mt=22, mb=34, iw=W-ml-mr, ih=H-mt-mb, n=cfg.x.length;
+  const xt=(cfg.xTicks||[]).filter((_,j)=>!narrow||j%2===0);
+  const X=i=>ml+(n<=1?0:i/(n-1)*iw), Y=v=>mt+ih-(v-cfg.yMin)/(cfg.yMax-cfg.yMin)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.aria)}">`;
+  (cfg.bands||[]).forEach(([a,b,l],j)=>{ if(j%2===0) s+=`<rect class="gov" x="${X(a)}" y="${mt}" width="${Math.max(0,X(b)-X(a))}" height="${ih}"/>`; if(X(b)-X(a)>(narrow?40:56)) s+=`<text class="govt" x="${(X(a)+X(b))/2}" y="${mt-8}" text-anchor="middle">${esc(l)}</text>`; });
+  s+=`<g class="grid">`; for(let v=cfg.yMin; v<=cfg.yMax+1e-9; v+=cfg.yStep){ s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${cfg.fmtY(v)}</text>`; } s+=`</g>`;
+  xt.forEach(i=>{ s+=`<text x="${X(i)}" y="${H-12}" text-anchor="middle">${esc(cfg.fmtX(cfg.x[i]))}</text>`; });
+  cfg.series.forEach(se=>{
+    let d='',pen=false; se.vals.forEach((v,i)=>{ if(v==null){pen=false;return;} d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)+' '; pen=true; });
+    s+=`<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2" ${se.dash?'stroke-dasharray="5 4"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
+    let li=se.vals.length-1; while(li>0&&se.vals[li]==null) li--;
+    s+=`<circle cx="${X(li)}" cy="${Y(se.vals[li])}" r="4" fill="${se.color}" stroke="var(--surface)" stroke-width="2"/>`;
+    s+=`<text class="lab-end" x="${X(li)+8}" y="${Y(se.vals[li])+(se.dy||0)+4}" style="fill:var(--ink)">${esc(se.end||'')}</text>`;
+  });
+  s+=`<line class="cross" x1="0" x2="0" y1="${mt}" y2="${mt+ih}" stroke="var(--muted)" stroke-width="1" visibility="hidden"/>`;
+  s+=`<rect x="${ml}" y="${mt}" width="${iw}" height="${ih}" fill="transparent" class="hit"/></svg>`;
+  box.innerHTML=s;
+  const svg=box.querySelector('svg'), cross=svg.querySelector('.cross'), tip=tipFor(box);
+  const move=e=>{
+    const r=svg.getBoundingClientRect(), px=(e.touches?e.touches[0].clientX:e.clientX)-r.left, sx=px*(W/r.width);
+    const i=Math.max(0,Math.min(n-1,Math.round((sx-ml)/iw*(n-1)))); const x=X(i);
+    cross.setAttribute('x1',x); cross.setAttribute('x2',x); cross.setAttribute('visibility','visible');
+    tip.innerHTML = `<b>${esc(cfg.x[i])}</b><br>`+cfg.series.map(se=>se.vals[i]==null?'':`${esc(se.name)}: ${cfg.fmtV(se.vals[i])}`).filter(Boolean).join('<br>');
+    tip.hidden=false; tip.style.left=(x*r.width/W)+'px'; tip.style.top=(mt*r.height/H+8)+'px';
+  };
+  svg.querySelector('.hit').addEventListener('pointermove',move);
+  svg.querySelector('.hit').addEventListener('pointerleave',()=>{ tip.hidden=true; cross.setAttribute('visibility','hidden'); });
+}
+function barChart(box, cfg){
+  const W=Math.max(320,Math.round(box.clientWidth||760)), narrow=W<560, H=narrow?240:280, ml=narrow?38:44, mr=12, mt=22, mb=30, iw=W-ml-mr, ih=H-mt-mb, n=cfg.x.length;
+  const bw=iw/n, Y=v=>mt+ih-(v-cfg.yMin)/(cfg.yMax-cfg.yMin)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.aria)}">`;
+  (cfg.bands||[]).forEach(([a,b,l],j)=>{ const x0=ml+a*bw, x1=ml+(b+1)*bw; if(j%2===0) s+=`<rect class="gov" x="${x0}" y="${mt}" width="${x1-x0}" height="${ih}"/>`; if(x1-x0>(narrow?40:56)) s+=`<text class="govt" x="${(x0+x1)/2}" y="${mt-8}" text-anchor="middle">${esc(l)}</text>`; });
+  s+=`<g class="grid">`; for(let v=cfg.yMin; v<=cfg.yMax+1e-9; v+=cfg.yStep){ s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${cfg.fmtY(v)}</text>`; } s+=`</g>`;
+  if(cfg.ref!=null) s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(cfg.ref)}" y2="${Y(cfg.ref)}" stroke="var(--ink)" stroke-dasharray="4 4"/><text x="${ml+iw}" y="${Y(cfg.ref)-5}" text-anchor="end" style="fill:var(--ink)">${esc(cfg.refLabel||'')}</text>`;
+  const pad=Math.min(4,bw*.18);
+  cfg.vals.forEach((v,i)=>{ if(v==null) return; const x=ml+i*bw+pad, w=Math.max(2,bw-2*pad), y0=Y(Math.max(0,cfg.yMin)), y=Y(v);
+    const col = v<0?'var(--faint)':'var(--accent)';
+    s+=`<rect class="bar-m" data-i="${i}" x="${x}" y="${Math.min(y,y0)}" width="${w}" height="${Math.max(1,Math.abs(y0-y))}" rx="2" fill="${col}"/>`; });
+  cfg.x.forEach((k,i)=>{ if((cfg.labelEvery&&i%cfg.labelEvery===0)||i===n-1) s+=`<text x="${ml+i*bw+bw/2}" y="${H-10}" text-anchor="middle">${esc(cfg.fmtX(k))}</text>`; });
+  s+=`</svg>`; box.innerHTML=s;
+  const svg=box.querySelector('svg'), tip=tipFor(box);
+  svg.addEventListener('pointermove',e=>{ const m=e.target.closest('.bar-m'); if(!m){ tip.hidden=true; return; } const i=+m.dataset.i, r=svg.getBoundingClientRect(); tip.innerHTML=`<b>${esc(cfg.x[i])}</b><br>${esc(cfg.name)}: ${cfg.fmtV(cfg.vals[i])}`; tip.hidden=false; tip.style.left=((ml+(i+.5)*bw)*r.width/W)+'px'; tip.style.top=(Y(Math.max(cfg.vals[i],0))*r.height/H)+'px'; });
+  svg.addEventListener('pointerleave',()=>tip.hidden=true);
+}
+const COLS = ['var(--accent)','var(--muted)'];
+function chartLinha(box,c){
+  const se=S[c.serie], x=se.x.map(String), n=x.length, step=c.xStep||5;
+  lineChart(box,{aria:c.titulo,x,xTicks:x.map((_,i)=>i).filter(i=>(+x[i])%step===0||i===n-1),fmtX:k=>k,yMin:c.yMin,yMax:c.yMax,yStep:c.yStep,fmtY:v=>fmt(v,0)+(c.unid_eixo||''),fmtV:v=>fmt(v,c.dec??1)+(c.unid||''),
+    bands:(c.bandas||[]).map(([a,b,l])=>[Math.max(0,x.indexOf(String(a))),x.indexOf(String(b))<0?n-1:x.indexOf(String(b)),l]),
+    series:c.chaves.map((k,j)=>({name:se.nomes[k]||k,vals:se[k],color:COLS[j],dash:j>0,end:(se.nomes[k]||k)+' '+fmt(se[k][se[k].length-1],c.dec??1)}))});
+}
+function chartBarras(box,c){
+  const se=S[c.serie], x=se.x.map(String);
+  barChart(box,{aria:c.titulo,name:se.nomes[c.chave]||c.chave,x,vals:se[c.chave],yMin:c.yMin,yMax:c.yMax,yStep:c.yStep,fmtY:v=>fmt(v,0)+(c.unid_eixo||''),fmtV:v=>fmt(v,c.dec??1)+(c.unid||''),fmtX:k=>"'"+k.slice(2),labelEvery:c.labelEvery||3,ref:c.ref,refLabel:c.refLabel});
+}
+function chartPrev(box,c){ box.innerHTML = `<div class="fc">${c.itens.map(([i,a])=>fcRow(i,a)).join('')}</div>`; }
+function chartTimeline(box,c){ box.innerHTML=`<ol class="tl">${c.itens.map(([a,t])=>`<li><span class="tl-y mono">${esc(a)}</span><span>${esc(t)}</span></li>`).join('')}</ol>`; }
+function chartHbar(box,c){
+  const max=Math.max(...c.itens.map(i=>Math.abs(i[1])));
+  box.innerHTML=`<div class="rank" role="list">${c.itens.map(([l,v,k])=>`<div class="rank-row ${k==='pt'?'me':''}" role="listitem"><span>${esc(l)}</span><span class="bar2"><span style="width:${Math.abs(v)/max*100}%"></span></span><b>${fmt(v,c.dec??1)}</b></div>`).join('')}</div>`;
+}
+const CHARTS = {linha:chartLinha,barras:chartBarras,prev:chartPrev,timeline:chartTimeline,hbar:chartHbar};
+const legendFor = c => c.t==='linha' && c.chaves.length>1 ? c.chaves.map((k,j)=>`<span><i class="${j?'dash':''}" style="border-color:${COLS[j]}"></i>${esc(S[c.serie].nomes[k]||k)}</span>`).join('') : c.t==='prev' ? '<span><i class="box" style="background:var(--accent);transform:rotate(45deg) scale(.8)"></i>Governo</span><span><i class="box" style="background:var(--faint);border-radius:50%"></i>Instituições</span>' : '';
+
+/* Dossiê */
+function critList(items, cls, ic){ return `<ul>`+items.map(c=>`<li class="${cls}"><span class="ic">${ic}</span><span>${esc(c.t)}<small><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.src)}</a>${c.campo&&c.campo!=='imprensa'?`<span class="campo">${esc(c.campo)}</span>`:''}</small></span></li>`).join('')+`</ul>`; }
+function posHTML(P){
+  const p = PBY[P.partido]||{nome:P.partido};
+  return `<div class="side"><div class="side-h">${ptag(P.partido)}<h3>${esc(p.nome)}</h3></div><div class="side-b">
+    <div class="blk"><span class="lbl">O que defende</span><p>${esc(P.defende)}</p></div>
+    ${P.propostas&&P.propostas.length?`<div class="blk"><span class="lbl">Propostas</span><div class="planlist">${P.propostas.map(x=>`<span>${esc(x.t)}${x.p?`<i>${esc(x.p)}</i>`:''}</span>`).join('')}</div></div>`:''}
+    ${P.mecanismo&&P.mecanismo.length?`<div class="blk"><span class="lbl">Como faria (mecanismo)</span><div class="mech">${P.mecanismo.map(m=>`<div><b>${esc(m.k)}</b><span>${esc(m.v)}</span></div>`).join('')}</div></div>`:''}
+    ${P.pro&&P.pro.length?`<div class="blk crit"><span class="lbl">Argumentos a favor</span>${critList(P.pro,'pro','+')}</div>`:''}
+    ${P.contra&&P.contra.length?`<div class="blk crit"><span class="lbl">Críticas</span>${critList(P.contra,'con','−')}</div>`:''}
+  </div></div>`;
+}
+function renderDossie(){
+  const k=state.dz, D=DZ[k], el=document.getElementById('v-dossie');
+  const rows = DATA.filter(d=>d.tema===k && pass(d,'tema'));
+  const claimRow = d => `<button class="claim" data-id="${d.id}">${ptag(d.partido)}<span class="t">${esc(d.short)}<small>${d.id} · ${esc(d.resumo||'')}</small></span>${pill(d.cat)}</button>`;
+  const charts = `<div class="${D.charts.length>1?'grid2 atop':''}">`+D.charts.map((c,i)=>`<div class="panel"><h3>${esc(c.titulo)}</h3><p class="sub">${esc(c.sub||'')}</p>${legendFor(c)?`<div class="ch-legend">${legendFor(c)}</div>`:''}<div class="chart" id="ch-${i}"></div><p class="ch-foot">Fonte: ${esc(c.fonte||(S[c.serie]||{}).fonte||'')}</p></div>`).join('')+`</div>`;
+  el.innerHTML = `
+    <div class="dz-head"><div class="eyebrow"><span>Dossiê do tema</span><span>${rows.length} afirmações</span><span>dados até ${esc(META.dados_ate)}</span></div><h1>${esc(D.titulo)}</h1><p class="tese">${esc(D.tese)}</p></div>
+    <div class="kpis">${D.kpis.map(x=>`<div class="kpi"><span class="l">${esc(x.l)}</span><span class="v">${esc(x.v)}</span><span class="s">${esc(x.s)}</span><span class="src">FONTE: ${esc(x.src)}</span></div>`).join('')}</div>
+    ${charts}
+    <div class="panel"><h3>Contexto</h3><div class="prose">${D.contexto.map(p=>`<p>${esc(p)}</p>`).join('')}</div></div>
+    <div class="panel"><div class="sec-h"><h3>O que foi dito</h3><button class="linkbtn" data-drill-tema="${k}">Ver na tabela</button></div><div class="grid2 atop">${CAMPOS.map(([c,l])=>`<div class="claims"><span class="lbl">${esc(l)}</span>${rows.filter(d=>d.campo===c).map(claimRow).join('')||'<p class="sub">Nenhuma com os filtros atuais.</p>'}</div>`).join('')}</div></div>
+    ${D.posicoes&&D.posicoes.length?`<div class="sec-h"><h2>Onde está a discussão</h2><p>Mesmo molde para o Governo e para os dois maiores partidos da oposição (PS e Chega), com o mesmo número de argumentos e de críticas. Críticas marcadas por campo quando a fonte tem posição política.</p></div><div class="pos">${D.posicoes.map(posHTML).join('')}</div>`:''}
+    ${D.fato_valor?`<div class="panel"><h3>O que os dados resolvem e o que é escolha de valores</h3><div class="fv"><div class="blk"><span class="lbl">Os dados resolvem</span><ul>${D.fato_valor.fatos.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div><div class="blk"><span class="lbl">É escolha de valores</span><ul>${D.fato_valor.valores.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div></div>${D.debate_atual?`<p class="note">${esc(D.debate_atual)}${D.debate_atual_src?` <a href="${esc(D.debate_atual_src.url)}" target="_blank" rel="noopener">${esc(D.debate_atual_src.label)}</a>`:''}</p>`:''}</div>`:''}
+    <div class="panel"><h3>Fontes do dossiê</h3><div class="srcs">${D.fontes.map(srcHTML).join('')}</div></div>`;
+  D.charts.forEach((c,i)=>CHARTS[c.t](el.querySelector('#ch-'+i),c));
+}
+
+/* Ficha no painel lateral */
+function srcHTML(s){
+  const h=host(s.url||''); const label=s.label||h||'fonte';
+  return `<div class="src">${tierTag(s.tier)}<div>${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(label)}</a><span class="host">${esc(h)}</span>`:`<span>${esc(label)}</span><span class="host">sem ligação direta</span>`}${s.note?` <span class="host">${esc(s.note)}</span>`:''}</div></div>`;
+}
+function concMeter(c){
+  if(!c || c==='-') return `<span class="conc">sem fontes suficientes</span>`;
+  const n=parseInt(c)||0, div=String(c).includes('div');
+  return `<span class="conc" title="${n} de 3 verificações concordam">${[0,1,2].map(i=>`<i class="${i<n?'on':''}"></i>`).join('')}<span style="margin-left:5px">${n}/3 concordam</span>${div?'<span class="div">divergência</span>':''}</span>`;
+}
+let navList=[];
+function openFicha(id, list){
+  const d=BYID[id]; if(!d) return;
+  navList = list || (filtered().some(x=>x.id===id)?filtered():DATA);
+  state.ficha=id; setHash();
+  const idx=navList.findIndex(x=>x.id===id);
+  const subs = d.subs&&d.subs.length ? `<div class="blk"><span class="lbl">Subafirmações</span><div class="subs">${d.subs.map(s=>`<div class="subrow ${s.central?'central':''}"><div class="st"><span class="ty">${esc(s.t)}${s.central?' · central':''}</span>${CAT[s.res]?`<span class="r" style="--c:${ccol(s.res)}">${CAT[s.res].name.split(' /')[0]}</span>`:`<span class="seal">selo</span>`}</div><div><p>${esc(s.txt)}</p>${s.nota?`<small>${esc(s.nota)}</small>`:''}</div></div>`).join('')}</div></div>` : '';
+  const prev = d.tipo==='previsao'&&d.prev ? `<div class="blk"><span class="lbl">A previsão face às instituições</span><div class="fc">${fcRow(d.prev.ind,d.prev.ano)}</div></div>` : '';
+  const dar = d.sessao>0 ? `<span class="seal">${d.dar?'conferida no Diário da AR':'a conferir no Diário da AR'}</span>` : '';
+  const ags = AGS.filter(a=>d.agencias&&d.agencias[a.k]);
+  document.getElementById('dr-id').textContent = `${d.id} · ${(PBY[d.partido]||{}).nome||d.partido}`;
+  document.getElementById('dr-body').innerHTML = `
+    <div class="meta">${ptag(d.partido)}<span>${esc(d.orador||'')}${d.cargo?', '+esc(d.cargo):''}</span><span>·</span><span>${esc(META.sessoes[d.sessao]||'')}${d.minuto?' · min. '+esc(d.minuto):''}</span><span>·</span><button class="linkbtn" data-tema-open="${d.tema}">${esc(TNAME[d.tema])}${DZ[d.tema]?' → dossiê':''}</button></div>
+    <p class="quote">${esc(d.quote)}</p>
+    ${d.fonte_frase?`<p class="sub" style="margin:0">Frase registada em <a href="${esc(d.fonte_frase.url)}" target="_blank" rel="noopener">${esc(d.fonte_frase.label)}</a></p>`:''}
+    <div class="meta">${pill(d.cat)}${d.tipo!=='previsao'?concMeter(d.conc):''}${(d.seals||[]).map(s=>`<span class="seal">${esc(s)}</span>`).join('')}${dar}</div>
+    ${d.resumo?`<p class="resumo">${esc(d.resumo)}</p>`:''}
+    ${prev}
+    ${d.analise&&d.analise.length?`<div class="blk"><span class="lbl">Análise</span><div class="prose">${d.analise.map(p=>`<p>${md(p)}</p>`).join('')}</div></div>`:''}
+    ${subs}
+    ${d.riscos&&d.riscos.length?`<div class="blk"><span class="lbl">Riscos apontados (não mudam o veredito)</span><div class="prose">${d.riscos.map(p=>`<p class="note">${md(p)}</p>`).join('')}</div></div>`:''}
+    ${d.contra?`<div class="blk"><span class="lbl">Contraprova</span><p class="note">${esc(d.contra)}</p></div>`:''}
+    ${d.dados?`<div class="blk"><span class="lbl">Dado e cálculo</span><div class="dados">${esc(d.dados)}</div></div>`:''}
+    <div class="blk"><span class="lbl">Fontes, da mais forte para a mais fraca</span><div class="srcs">${d.srcs.map(srcHTML).join('')||'<p class="sub">Sem fontes registadas.</p>'}</div></div>
+    ${ags.length?`<div class="blk"><span class="lbl">Outros verificadores</span><div class="srcs">${ags.map(a=>`<div class="src"><span class="tier N2">${esc(a.nome)}</span><div><a href="${esc(d.agencias[a.k].url)}" target="_blank" rel="noopener">${esc(d.agencias[a.k].v)}</a></div></div>`).join('')}</div></div>`:''}`;
+  document.getElementById('dr-pos').textContent = idx>=0?`${idx+1} de ${navList.length}`:'';
+  document.getElementById('dr-prev').disabled = idx<=0; document.getElementById('dr-next').disabled = idx<0||idx>=navList.length-1;
+  const dr=document.getElementById('drawer'), sc=document.getElementById('scrim');
+  if(dr.hidden){ dr.hidden=false; sc.hidden=false; document.body.classList.add('lock'); document.getElementById('dr-close').focus(); }
+  document.getElementById('dr-body').scrollTop=0;
+}
+function closeFicha(){ const dr=document.getElementById('drawer'); if(dr.hidden) return; dr.hidden=true; document.getElementById('scrim').hidden=true; document.body.classList.remove('lock'); state.ficha=null; setHash(); }
+
+/* Trilha */
+function renderCrumbs(){
+  const parts=[['visao','Visão geral']];
+  if(state.view==='previsoes') parts.push(['previsoes','Previsões']);
+  if(state.view==='temas') parts.push(['temas','Temas']);
+  if(state.view==='dossie') parts.push(['temas','Temas'],[state.dz,DZ[state.dz].titulo]);
+  if(state.view==='alegacoes'){ if(state.tema!=='all') parts.push(['temas','Temas'],[DZ[state.tema]?state.tema:'temas',TNAME[state.tema]]); parts.push(['alegacoes','Afirmações']); }
+  if(state.view==='divergencias') parts.push(['divergencias','Divergências']);
+  if(state.view==='metodo') parts.push(['metodo','Como verificámos']);
+  document.getElementById('crumbs').innerHTML = parts.map((p,i)=>i===parts.length-1?`<span aria-current="page">${esc(p[1])}</span>`:`<button data-go="${p[0]}">${esc(p[1])}</button><i>›</i>`).join('');
+}
+
+/* Textos fixos vindos dos metadados */
+function renderStatic(){
+  const nf = FACTOS().length, np = DATA.length-nf;
+  document.getElementById('lede').textContent = META.lede.replace('{n}',DATA.length).replace('{nf}',nf).replace('{np}',np);
+  const b = document.getElementById('banner'); if(META.aviso){ b.hidden=false; b.innerHTML = md(META.aviso); }
+  document.getElementById('docs').innerHTML = META.documentos.map(x=>`<span class="tier ${tcls(x.tier)}">${esc(x.k)}</span><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join('');
+  document.getElementById('limites').textContent = META.limitacoes;
+  document.getElementById('rodape').textContent = META.rodape;
+}
+
+function render(){
+  ['visao','previsoes','temas','dossie','alegacoes','divergencias','metodo'].forEach(v=>document.getElementById('v-'+v).hidden = state.view!==v);
+  document.getElementById('hero').hidden = state.view!=='visao';
+  document.getElementById('crumbs').hidden = state.view==='visao';
+  document.getElementById('fbar-wrap').hidden = !['visao','temas','alegacoes','dossie'].includes(state.view);
+  document.querySelectorAll('#nav button').forEach(b=>{ const on = b.dataset.go===state.view || (state.view==='dossie'&&b.dataset.go==='temas'); on?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'); });
+  renderControls(); renderCrumbs();
+  if(state.view==='visao'){ renderKPIs(); renderBoards(); renderPrev(true); renderMatrix(); renderDiv(); }
+  if(state.view==='previsoes') renderPrev(false);
+  if(state.view==='temas') renderTemas();
+  if(state.view==='dossie') renderDossie();
+  if(state.view==='alegacoes') renderRows();
+  if(state.view==='divergencias'||state.view==='metodo') renderDiv();
+}
+
+/* Eventos */
+function toast(t){ const el=document.getElementById('toast'); el.textContent=t; el.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>el.hidden=true,2200); }
+document.addEventListener('click', e=>{
+  const t=e.target.closest('button,tr[data-id]'); if(!t) return;
+  if(t.dataset.go){ go(t.dataset.go); return; }
+  if(t.dataset.clear){ const k=t.dataset.clear; if(k==='all') Object.assign(state,{partido:'all',tipo:'all',tema:'all',cat:'all',src:'all',q:''}); else state[k]= k==='q'?'':'all'; render(); return; }
+  if(t.dataset.tema){ const k=t.dataset.tema; if(DZ[k]) go(k); else drill({tema:k}); return; }
+  if(t.dataset.temaOpen){ const k=t.dataset.temaOpen; closeFicha(); if(DZ[k]) go(k); else drill({tema:k}); return; }
+  if(t.dataset.drillTema){ drill({tema:t.dataset.drillTema}); return; }
+  if(t.dataset.mx){ const [tema,tipo,k]=t.dataset.mx.split('|'); drill({tema,tipo,cat:k}); return; }
+  if(t.dataset.catPrev){ drill({tipo:'previsao',cat:t.dataset.catPrev}); return; }
+  if(t.dataset.kpi){ const k=t.dataset.kpi; if(k==='all') drill({}); else if(k==='FORA') drill({tipo:'previsao',cat:'FORA'}); else drill({tipo:'facto',cat:k}); return; }
+  if(t.dataset.id){ const list = state.view==='dossie' ? DATA.filter(d=>d.tema===state.dz&&pass(d,'tema')) : null; openFicha(t.dataset.id, list); return; }
+  if(t.closest('#f-tipo')){ state.tipo=t.dataset.v; if(state.cat!=='all' && (state.tipo==='facto')===isPrev(state.cat)) state.cat='all'; render(); return; }
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeFicha();
+  if(e.key==='Enter' && e.target.matches('tr[data-id]')) e.target.click();
+  if(!document.getElementById('drawer').hidden && (e.key==='ArrowRight'||e.key==='ArrowLeft') && !e.target.matches('input,select')){ (e.key==='ArrowRight'?document.getElementById('dr-next'):document.getElementById('dr-prev')).click(); }
+});
+document.getElementById('fbar').dataset.open='0';
+document.getElementById('mfilter').onclick=e=>{ const f=document.getElementById('fbar'), o=f.dataset.open!=='1'; f.dataset.open=o?'1':'0'; e.currentTarget.setAttribute('aria-expanded',o); };
+document.getElementById('scrim').onclick=closeFicha;
+document.getElementById('dr-close').onclick=closeFicha;
+document.getElementById('dr-prev').onclick=()=>{ const i=navList.findIndex(x=>x.id===state.ficha); if(i>0) openFicha(navList[i-1].id,navList); };
+document.getElementById('dr-next').onclick=()=>{ const i=navList.findIndex(x=>x.id===state.ficha); if(i>=0&&i<navList.length-1) openFicha(navList[i+1].id,navList); };
+document.getElementById('dr-copy').onclick=()=>{ const u=location.href.split('#')[0]+'#'+state.ficha; navigator.clipboard.writeText(u).then(()=>toast('Ligação da ficha copiada'),()=>toast('Copie o endereço: #'+state.ficha)); };
+[['f-partido','partido'],['f-tema','tema'],['f-cat','cat'],['f-src','src'],['f-sort','sort']].forEach(([id,k])=>document.getElementById(id).addEventListener('change',e=>{ state[k]=e.target.value; render(); }));
+let qt; document.getElementById('q').addEventListener('input',e=>{ clearTimeout(qt); qt=setTimeout(()=>{ state.q=e.target.value; render(); },150); });
+let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(state.view==='dossie') renderDossie(); },200); });
+window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(h!==(state.ficha||state.dz||state.view)) fromHash(); });
+renderStatic();
+fromHash();
+})();
+</script>
+</body>
+</html>

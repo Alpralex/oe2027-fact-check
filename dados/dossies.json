@@ -1,0 +1,1684 @@
+{
+ "fiscal": {
+  "titulo": "Contas públicas e dívida",
+  "tese": "Portugal tem excedentes desde 2023 e a dívida caiu 45 pontos do PIB desde 2020. O Governo promete mais um excedente em 2027, que nenhuma instituição prevê com as políticas atuais, e a oposição quer gastar parte da folga.",
+  "kpis": [
+   {
+    "v": "89,2%",
+    "l": "Dívida pública, 2025",
+    "s": "134,1% em 2020 · UE: 81,5%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "+0,7%",
+    "l": "Saldo orçamental, 2025",
+    "s": "3.º excedente seguido · UE: −3,1%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "+0,1%",
+    "l": "Meta de saldo para 2027",
+    "s": "0,0% previsto para 2026",
+    "src": "OE 2027"
+   },
+   {
+    "v": "8.217 M€",
+    "l": "Juros da dívida em 2027",
+    "s": "+23,2% face a 2026",
+    "src": "OE 2027"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "divida",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Dívida pública, % do PIB",
+    "sub": "Portugal e UE-27, 1995 a 2025",
+    "yMin": 40,
+    "yMax": 140,
+    "yStep": 20,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "barras",
+    "serie": "saldo",
+    "chave": "PT",
+    "titulo": "Saldo orçamental de Portugal, % do PIB",
+    "sub": "2000 a 2025. Acima de zero, excedente.",
+    "yMin": -12,
+    "yMax": 2,
+    "yStep": 2,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "labelEvery": 5
+   },
+   {
+    "t": "prev",
+    "titulo": "Saldo e dívida: Governo face às instituições",
+    "sub": "Losango: Governo. Pontos: cada instituição.",
+    "fonte": "OE 2027, BdP, CE, OCDE",
+    "itens": [
+     [
+      "saldo",
+      "2027"
+     ],
+     [
+      "divida",
+      "2027"
+     ],
+     [
+      "saldo",
+      "2026"
+     ],
+     [
+      "divida",
+      "2026"
+     ]
+    ]
+   },
+   {
+    "t": "hbar",
+    "titulo": "Quem mais reduziu a dívida entre 2024 e 2025",
+    "sub": "Variação em pontos percentuais do PIB, países da UE",
+    "fonte": "Eurostat, gov_10dd_edpt1 (outubro de 2026)",
+    "dec": 1,
+    "itens": [
+     [
+      "Grécia",
+      -8.1
+     ],
+     [
+      "Chipre",
+      -7.8
+     ],
+     [
+      "Portugal",
+      -3.8,
+      "pt"
+     ],
+     [
+      "Irlanda",
+      -3.6
+     ],
+     [
+      "Dinamarca",
+      -2.7
+     ],
+     [
+      "Eslovénia",
+      -1.2
+     ],
+     [
+      "Espanha",
+      -0.9
+     ],
+     [
+      "Croácia",
+      -0.8
+     ]
+    ]
+   }
+  ],
+  "contexto": [
+   "O saldo orçamental é a diferença entre a receita e a despesa das administrações públicas. Portugal teve excedentes em 2023 (1,1% do PIB), 2024 (0,7%) e 2025 (0,7%), enquanto a UE ficou em défices de 3% a 3,4%.",
+   "A queda da dívida desde 2020 vem dos excedentes e, sobretudo, do crescimento do PIB nominal, que aumenta o denominador do rácio. Com a inflação a abrandar, esse efeito perde força, e os juros sobem 23% em 2027 com o refinanciamento a taxas mais altas.",
+   "Em 2027 termina a execução do PRR, o que faz cair o investimento público cerca de 31%. Sem o PRR, o investimento público subiria 6,8%, segundo a proposta.",
+   "O Governo não tem maioria. O PS anunciou que viabiliza a proposta na generalidade; o Chega e a IL condicionaram o voto; o BE vota contra."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "Contas certas como condição para baixar impostos: excedente de 0,1% em 2027 e dívida a 84,5% do PIB. Recusa descidas de IVA sem receita que as compense.",
+    "propostas": [
+     {
+      "t": "Excedente de 0,1% do PIB em 2027",
+      "p": "Proposta de Lei 110/XVII"
+     },
+     {
+      "t": "Dívida abaixo de 84,5% do PIB",
+      "p": "Relatório do OE"
+     },
+     {
+      "t": "Proposta \"simples\", sem cavaleiros orçamentais",
+      "p": "Sarmento à Lusa"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Proposta de Lei do Orçamento; medidas fiscais em leis autónomas"
+     },
+     {
+      "k": "Margem",
+      "v": "Saldo \"relativamente reduzido\", segundo o ministro"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Portugal foi o 3.º país da UE que mais reduziu a dívida em 2025, em pontos do PIB.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP considera o cenário macroeconómico estatisticamente plausível.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Nenhuma instituição prevê excedente em 2027; a CE, a OCDE e o BdP apontam défices de 0,1% a 0,5%, com políticas inalteradas.",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A UTAO duvida do crescimento do emprego de 1,4%; se falhar, a receita fiscal e contributiva fica abaixo do previsto.",
+      "src": "Observador",
+      "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "Viabiliza a proposta para evitar uma crise política, com quatro condições: sem revisão constitucional sem acordo PS-PSD, sem mexer nas pensões, financiamento dos investimentos pós-PRR e apoios às vítimas das tempestades.",
+    "propostas": [
+     {
+      "t": "Continuar os projetos do PRR por executar",
+      "p": "Condição de Carneiro"
+     },
+     {
+      "t": "Garantir os apoios prometidos após as tempestades de fevereiro",
+      "p": "Condição de Carneiro"
+     },
+     {
+      "t": "IVA dos combustíveis de 23% para 13%",
+      "p": "Proposta conjunta com o Chega"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Voto",
+      "v": "Abstenção na generalidade; exigências a demonstrar na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "IVA dos combustíveis: cerca de 1.200 M€/ano, segundo o ministro"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O PS pede que o Governo explique como financia escolas, hospitais e centros de saúde depois do PRR, que deixa de pagar em 2027.",
+      "src": "Renascença",
+      "url": "https://rr.pt/noticia/politica/2026/09/09/ps-impoe-quatro-condicoes-para-viabilizar-oe-2027/484755/",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Evitar duodécimos: sem orçamento aprovado, a despesa fica limitada ao do ano anterior.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O ministro diz que IVA mais baixo nos combustíveis e no cabaz custaria cerca de 2.000 M€ e levaria a défice em 2027.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     },
+     {
+      "t": "A revisão constitucional, que Carneiro pôs como condição, nem foi discutida na reunião com o Governo.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "Chama-lhe um \"mau orçamento\" e recusa ser \"muleta\" do Governo. Põe como condição baixar a idade da reforma e quer cortar IVA e portagens, mesmo com risco de défice.",
+    "propostas": [
+     {
+      "t": "Reforma aos 65 anos ou com 40 anos de descontos",
+      "p": "Condição-chave"
+     },
+     {
+      "t": "IVA zero no cabaz alimentar e IVA dos combustíveis a 13%",
+      "p": "Proposta de alteração"
+     },
+     {
+      "t": "Isenção de portagens",
+      "p": "Proposta de alteração"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Idade da reforma: 1,9 mil M€, segundo o Chega; IVA: cerca de 2.000 M€/ano, segundo o Governo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "A margem existe: Portugal teve excedente em 2025 (0,7% do PIB, cerca de 2 mil M€).",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A idade da reforma é hoje de 66 anos e 11 meses e sobe com a esperança de vida.",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Ventura admite que as propostas podem pôr em causa o excedente: \"vale a pena correr o risco\".",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O Governo classifica a descida da idade da reforma como \"inaceitável\" pelo custo para a Segurança Social.",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/",
+      "campo": "governo"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "Portugal tem excedente desde 2023 e a dívida caiu de 134,1% (2020) para 89,2% do PIB (2025).",
+    "Em 2025, Portugal foi o 3.º país da UE que mais reduziu a dívida, em pontos do PIB.",
+    "Nenhuma instituição independente prevê excedente em 2027 com as políticas atuais.",
+    "Os juros da dívida sobem 23,2% em 2027, para 8.217 M€."
+   ],
+   "valores": [
+    "Se a folga deve ir para baixar a dívida mais depressa ou para descer impostos e apoiar o custo de vida.",
+    "Que nível de risco de défice é aceitável em troca de medidas como IVA mais baixo ou reforma mais cedo.",
+    "Como financiar o investimento depois do PRR: dívida, receita ou cortes noutras despesas."
+   ]
+  },
+  "debate_atual": "A votação na generalidade é a 28 de outubro. A especialidade decorre de 18 a 23 de novembro, e a votação final global é a 24 de novembro.",
+  "debate_atual_src": {
+   "label": "Assembleia da República",
+   "url": "https://www.parlamento.pt/Paginas/2026/outubro/Orcamento-do-Estado-para-2026.aspx"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10dd_edpt1: dívida e saldo (notificação de outubro de 2026)",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table"
+   },
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico (via CNN Portugal)",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+   },
+   {
+    "tier": "N1*",
+    "label": "Banco de Portugal, Boletim Económico de junho de 2026",
+    "url": "https://www.forbespt.com/banco-de-portugal-preve-defice-de-02-este-ano-e-de-05-em-2027/"
+   },
+   {
+    "tier": "N3",
+    "label": "Sábado/Lusa: Sarmento avisa que descida do IVA levaria a défice",
+    "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"
+   },
+   {
+    "tier": "N3",
+    "label": "Renascença/Lusa: as quatro condições do PS",
+    "url": "https://rr.pt/noticia/politica/2026/09/09/ps-impoe-quatro-condicoes-para-viabilizar-oe-2027/484755/"
+   },
+   {
+    "tier": "N3",
+    "label": "ECO: Chega e a idade da reforma",
+    "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/"
+   },
+   {
+    "tier": "N3",
+    "label": "RTP: reações à proposta",
+    "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470"
+   }
+  ]
+ },
+ "impostos": {
+  "titulo": "Impostos",
+  "tese": "A carga fiscal subiu para 35,3% do PIB em 2025, apesar da promessa de a baixar. O OE 2027 desce o IRC para 18% e alivia pouco o IRS; a oposição quer cortar IVA, que o Governo diz que levaria a défice.",
+  "kpis": [
+   {
+    "v": "35,3%",
+    "l": "Carga fiscal, 2025",
+    "s": "35,0% em 2024 · meta 2027: 35,0%",
+    "src": "INE"
+   },
+   {
+    "v": "18%",
+    "l": "IRC em 2027",
+    "s": "19% em 2026 · 17% em 2028",
+    "src": "Lei aprovada em 2025"
+   },
+   {
+    "v": "3,88%",
+    "l": "Atualização dos escalões de IRS",
+    "s": "referência salarial: 4,5%",
+    "src": "OE 2027"
+   },
+   {
+    "v": "171 €",
+    "l": "Poupança máxima de IRS por ano",
+    "s": "solteiro sem filhos · 343 € casal com 2 filhos",
+    "src": "Simulação EY"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "carga_fiscal",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Impostos e contribuições sociais, % do PIB",
+    "sub": "Portugal e UE-27, 2000 a 2025. Inclui contribuições imputadas, por isso fica acima do valor do INE (35,3%).",
+    "yMin": 30,
+    "yMax": 44,
+    "yStep": 2,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "timeline",
+    "titulo": "O calendário do IRC",
+    "sub": "Taxa geral, aprovada na generalidade a 19/09/2025 por PSD, CDS-PP, Chega, IL, PAN e JPP",
+    "fonte": "Forbes Portugal",
+    "itens": [
+     [
+      "2025",
+      "20%"
+     ],
+     [
+      "2026",
+      "19%"
+     ],
+     [
+      "2027",
+      "18% (custo de cerca de 300 M€)"
+     ],
+     [
+      "2028",
+      "17%"
+     ],
+     [
+      "PME",
+      "15% sobre a primeira parcela do lucro, desde 2026"
+     ]
+    ]
+   },
+   {
+    "t": "hbar",
+    "titulo": "Quanto custam as medidas fiscais em discussão",
+    "sub": "Impacto anual estimado, milhões de euros",
+    "fonte": "OE 2027 e Ministério das Finanças (via Sábado e ECO)",
+    "dec": 0,
+    "itens": [
+     [
+      "IVA combustíveis a 13% (PS e Chega)",
+      1200
+     ],
+     [
+      "IVA zero no cabaz (PS e Chega)",
+      800
+     ],
+     [
+      "Descida de taxas de IRS (OE 2027)",
+      431
+     ],
+     [
+      "IRC de 19% para 18%",
+      300
+     ],
+     [
+      "IRS sobre rendas (OE 2027)",
+      209
+     ]
+    ]
+   }
+  ],
+  "contexto": [
+   "Há duas medidas da carga fiscal. O INE calcula 35,3% do PIB em 2025 (impostos e contribuições efetivas). O Eurostat inclui contribuições imputadas e chega a 37,1%. As duas mostram a mesma tendência: subida em 2025, depois de 2024.",
+   "A carga fiscal sobe quando a receita cresce mais do que o PIB nominal. Em 2025 a receita fiscal subiu 6,8% e o PIB nominal 6,0%. Parte vem do emprego e dos salários, não de novas taxas.",
+   "A descida do IRC até 17% em 2028 já foi aprovada em lei própria e não faz parte do texto do orçamento. No IRS, o OE 2027 atualiza os escalões em 3,88% e baixa taxas até ao 6.º escalão.",
+   "PS e Chega defendem baixar temporariamente o IVA dos combustíveis de 23% para 13% e aplicar IVA zero a bens alimentares essenciais. Precisam dos dois para aprovar."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "Baixar impostos aos poucos sem pôr em risco o excedente: IRC para 18% em 2027 e 17% em 2028, IRS com escalões atualizados e prémios de produtividade isentos.",
+    "propostas": [
+     {
+      "t": "IRC a 18% em 2027",
+      "p": "Lei de 2025"
+     },
+     {
+      "t": "Escalões de IRS +3,88% e taxas mais baixas até ao 6.º escalão",
+      "p": "OE 2027"
+     },
+     {
+      "t": "Prémios até 6% do salário isentos de IRS e TSU, se a empresa subir salários 4,5%",
+      "p": "OE 2027"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "OE 2027 e leis fiscais autónomas"
+     },
+     {
+      "k": "Custo",
+      "v": "IRS: cerca de 431 M€; IRC: cerca de 300 M€"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O ministro chama à descida do IRC uma \"escolha estratégica\" para promover crescimento e salários.",
+      "src": "Forbes Portugal",
+      "url": "https://www.forbespt.com/?p=171428",
+      "campo": "governo"
+     },
+     {
+      "t": "A descida do IRC foi aprovada com votos de seis partidos, incluindo o Chega.",
+      "src": "Forbes Portugal",
+      "url": "https://www.forbespt.com/?p=171428",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "A EY conclui que o alívio do IRS é \"pouco\": 171 € por ano no máximo para um solteiro.",
+      "src": "EY",
+      "url": "https://www.ey.com/pt_pt/services/tax/orcamento-do-estado-2027/oe-2027-e-as-familias-alivio-mas-pouco",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A AD prometeu baixar a carga fiscal, e esta subiu de 35,0% para 35,3% do PIB em 2025.",
+      "src": "Postal",
+      "url": "https://postal.pt/economia/governo-prometeu-baixar-a-carga-fiscal-mas-esta-voltou-a-aumentar/",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "Contra a descida transversal do IRC, que vê como \"cheque em branco\" sem contrapartida salarial. Quer apoio imediato ao custo de vida através do IVA.",
+    "propostas": [
+     {
+      "t": "IVA dos combustíveis de 23% para 13%, temporário",
+      "p": "Com o Chega"
+     },
+     {
+      "t": "IVA zero num cabaz de bens essenciais",
+      "p": "Com o Chega"
+     },
+     {
+      "t": "IRC mais baixo só com aumento de salários",
+      "p": "Posição de 2022"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Cerca de 2.000 M€/ano para as duas medidas de IVA, segundo o Governo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O IVA é um imposto sobre o consumo que pesa mais nos rendimentos baixos; a subida dos combustíveis vem da guerra no Médio Oriente.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Mendonça Mendes defende usar o IRC \"para ajudar a aumentar salários\", em vez de uma descida para todas as empresas.",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/entrevista/o-que-a-direita-nos-propoe-e-um-cheque-em-branco-de-descida-do-irc-sem-nenhuma-contrapartida-diz-ps/",
+      "campo": "PS"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O Governo estima o custo do IVA mais baixo em 2.000 M€, o que levaria o país a défice em 2027.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     },
+     {
+      "t": "Descidas de IVA tendem a não passar inteiras para o preço final; o PS não apresentou forma de compensar a receita.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "Descer impostos sobre o consumo e a habitação já, mesmo com risco para o excedente.",
+    "propostas": [
+     {
+      "t": "IVA zero no cabaz alimentar e IVA dos combustíveis a 13%",
+      "p": "Com o PS"
+     },
+     {
+      "t": "Deduções de IRS por rendas e crédito à habitação +50%",
+      "p": "Pacote de habitação"
+     },
+     {
+      "t": "Isenção de IMI na habitação própria até 350 mil €",
+      "p": "Projeto de lei, chumbado"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração e projetos de lei"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado pelo partido"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O Chega votou a favor da descida do IRC e quer alargar o alívio às famílias.",
+      "src": "Forbes Portugal",
+      "url": "https://www.forbespt.com/?p=171428",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A carga fiscal subiu em 2025, contra a promessa da AD.",
+      "src": "Postal",
+      "url": "https://postal.pt/economia/governo-prometeu-baixar-a-carga-fiscal-mas-esta-voltou-a-aumentar/",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Ventura admite que as propostas podem pôr em causa o excedente.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O Chega não apresentou o custo nem a compensação das suas descidas de impostos.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "imprensa"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "A carga fiscal subiu para 35,3% do PIB em 2025 (INE).",
+    "O IRC desce para 18% em 2027 e 17% em 2028, por lei já aprovada.",
+    "As duas descidas de IVA pedidas por PS e Chega custariam cerca de 2.000 M€ por ano, segundo o Governo."
+   ],
+   "valores": [
+    "Se o alívio deve ir para as empresas (IRC), para o trabalho (IRS) ou para o consumo (IVA).",
+    "Se uma descida temporária de IVA compensa o risco de défice.",
+    "Se a descida do IRC deve ter contrapartidas salariais."
+   ]
+  },
+  "debate_atual": "As medidas de IRS e IRC com alteração legislativa seguem em leis próprias, fora do texto do orçamento, e podem ser votadas à parte.",
+  "debate_atual_src": {
+   "label": "Sábado/Lusa",
+   "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10a_taxag: impostos e contribuições sociais",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_taxag/default/table"
+   },
+   {
+    "tier": "N1*",
+    "label": "INE: carga fiscal de 2025 (via Forbes Portugal)",
+    "url": "https://www.forbespt.com/?p=195783"
+   },
+   {
+    "tier": "N3",
+    "label": "EY: OE 2027 e as famílias",
+    "url": "https://www.ey.com/pt_pt/services/tax/orcamento-do-estado-2027/oe-2027-e-as-familias-alivio-mas-pouco"
+   },
+   {
+    "tier": "N3",
+    "label": "Forbes Portugal: IRC até 17% em 2028",
+    "url": "https://www.forbespt.com/?p=171428"
+   },
+   {
+    "tier": "N3",
+    "label": "Sábado/Lusa: custo das descidas de IVA",
+    "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"
+   },
+   {
+    "tier": "N3",
+    "label": "Postal: carga fiscal voltou a subir",
+    "url": "https://postal.pt/economia/governo-prometeu-baixar-a-carga-fiscal-mas-esta-voltou-a-aumentar/"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: medidas da proposta",
+    "url": "https://www.dn.pt/política/oe2027-leia-aqui-as-principais-medidas-includas-na-proposta-do-governo"
+   }
+  ]
+ },
+ "habitacao": {
+  "titulo": "Habitação",
+  "tese": "Os preços das casas subiram 17,6% em 2025, mais do triplo da UE, e as rendas 5,3%. O OE 2027 põe 2 mil milhões em habitação pública e apoio à renda; a oposição diz que não chega e há protestos na rua.",
+  "kpis": [
+   {
+    "v": "+17,6%",
+    "l": "Preços das casas, 2025",
+    "s": "UE: +5,5%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "+5,3%",
+    "l": "Rendas, 2025",
+    "s": "+7,0% em 2024 · área do euro: +2,9%",
+    "src": "Eurostat (IHPC)"
+   },
+   {
+    "v": "2.003 M€",
+    "l": "Habitação no OE 2027",
+    "s": "1.071 M€ IHRU · 917 M€ apoio à renda",
+    "src": "OE 2027"
+   },
+   {
+    "v": "2%",
+    "l": "Habitação pública no parque total",
+    "s": "cerca de 120 mil casas · média europeia: 12%",
+    "src": "PS, citado pelo DN"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "habitacao_precos",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Preços da habitação, variação anual",
+    "sub": "Portugal e UE-27, 2010 a 2025",
+    "yMin": -8,
+    "yMax": 20,
+    "yStep": 4,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "linha",
+    "serie": "rendas",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Rendas de habitação, variação anual",
+    "sub": "Portugal e área do euro, 2010 a 2025",
+    "yMin": 0,
+    "yMax": 8,
+    "yStep": 2,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "hbar",
+    "titulo": "Para onde vai o dinheiro da habitação no OE 2027",
+    "sub": "Milhões de euros",
+    "fonte": "OE 2027 (via DN)",
+    "dec": 0,
+    "itens": [
+     [
+      "IHRU: oferta pública e reabilitação",
+      1071
+     ],
+     [
+      "Apoio à renda (Porta 65, PAER e outros)",
+      917
+     ],
+     [
+      "Redução de IRS sobre rendas",
+      209
+     ],
+     [
+      "Licenciamento urbano digital",
+      15
+     ]
+    ]
+   },
+   {
+    "t": "timeline",
+    "titulo": "O que aconteceu nas últimas semanas",
+    "sub": "Habitação no centro do debate",
+    "fonte": "DN, RTP",
+    "itens": [
+     [
+      "8 out",
+      "OE 2027 entregue: 2.003 M€ para habitação, IVA a 6% na construção a custos moderados"
+     ],
+     [
+      "17 out",
+      "Acampada pela habitação no Rossio (Lisboa) e no Porto, com pelo menos 2.500 pessoas"
+     ],
+     [
+      "18 out",
+      "Ventura propõe pacote de emergência e diz que a lei das rendas \"não passará\" sem mudanças"
+     ],
+     [
+      "20 out",
+      "Pinto Luz admite rever a lei das rendas com o PS; meta de 40 mil casas até dezembro"
+     ]
+    ]
+   }
+  ],
+  "contexto": [
+   "Os preços das casas em Portugal sobem mais do que na UE desde 2014. Em 2025 a subida acelerou para 17,6%, a mais alta da série do Eurostat, que começa em 2010.",
+   "O parque de habitação pública ronda as 120 mil casas, cerca de 2% do total. O PRR financiava parte da construção; o OE 2027 cria um programa para as 45 mil casas que ficaram de fora do PRR.",
+   "A nova lei do arrendamento do Governo foi aprovada na generalidade com a abstenção do Chega, mas ainda não está em vigor. Os protestos pedem a sua reversão, tetos às rendas e mais habitação pública.",
+   "O IMT Jovem isenta compras de casa até 338.141 € por jovens até 35 anos. O Governo prevê menos receita de IMI e IMT em 2027."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "Aumentar a oferta: construção pública e privada, IVA a 6% para casas a preços moderados, apoio à renda e incentivos fiscais a quem arrenda.",
+    "propostas": [
+     {
+      "t": "2.003 M€ para habitação pública e apoio à renda",
+      "p": "OE 2027"
+     },
+     {
+      "t": "IVA a 6% na construção a custos moderados",
+      "p": "OE 2027"
+     },
+     {
+      "t": "IRS mais baixo sobre rendas até 2.300 €/mês",
+      "p": "OE 2027, 209 M€"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "OE 2027, nova lei do arrendamento e IHRU"
+     },
+     {
+      "k": "Meta",
+      "v": "40 mil casas até dezembro e 50 mil em 2027"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O OE 2027 financia as 45 mil casas que ficaram fora do PRR.",
+      "src": "DN",
+      "url": "https://www.dn.pt/pol%C3%ADtica/miranda-sarmento-na-ar-para-entregar-o-oramento",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O ministro recusa que as leis recentes tenham feito subir os preços e lembra que a lei das rendas ainda não está em vigor.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025",
+      "campo": "governo"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Os preços subiram 17,6% em 2025, o valor mais alto desde 2010.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Milhares de pessoas acamparam no Rossio e no Porto a pedir a reversão da lei das rendas.",
+      "src": "DN",
+      "url": "https://www.dn.pt/sociedade/com-chaves-no-ar-e-montenegro-no-centro-dos-protestos-acampada-pela-habitao-chega-a-lisboa",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "Mais habitação pública e travão às rendas: teto de 2% ao ano nas subidas, IMI agravado em casas devolutas e IMT mais alto para estrangeiros não residentes.",
+    "propostas": [
+     {
+      "t": "Teto de 2% por ano na subida das rendas",
+      "p": "Pacote de janeiro de 2026"
+     },
+     {
+      "t": "IMT +10% para estrangeiros sem residência",
+      "p": "Pacote de janeiro de 2026"
+     },
+     {
+      "t": "Câmaras podem endividar-se para construir",
+      "p": "Pacote de janeiro de 2026"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Projetos de lei e propostas de alteração"
+     },
+     {
+      "k": "Financiamento",
+      "v": "CGD, Banco de Fomento e BEI, além do PRR"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O parque público é de 2% contra 12% na média europeia, segundo o PS.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/habitao-ps-quer-agravar-imi-a-devolutos-imt-a-estrangeiros-e-cmaras-a-endividar-se-para-poder-construir",
+      "campo": "PS"
+     },
+     {
+      "t": "O Governo admite rever a lei das rendas com o PS.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Tetos às rendas podem reduzir a oferta de casas para arrendar; o Governo aposta em incentivos fiscais aos senhorios.",
+      "src": "DN",
+      "url": "https://www.dn.pt/pol%C3%ADtica/miranda-sarmento-na-ar-para-entregar-o-oramento",
+      "campo": "governo"
+     },
+     {
+      "t": "Os governos do PS (2015–2024) estiveram em funções durante a maior parte da subida dos preços.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "Aliviar impostos de quem compra ou arrenda casa e travar a lei das rendas do Governo; culpa os governos de Costa e Montenegro pela crise.",
+    "propostas": [
+     {
+      "t": "Deduções de IRS por rendas e crédito +50%",
+      "p": "Pacote de emergência, 18/10"
+     },
+     {
+      "t": "Isenção de IMI na habitação própria até 350 mil €",
+      "p": "Chumbada por PS e PSD"
+     },
+     {
+      "t": "Rever benefícios fiscais a estrangeiros ricos",
+      "p": "Pacote de emergência"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Pacote legislativo proposto aos outros partidos"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado; Ventura admite risco para o excedente"
+     }
+    ],
+    "pro": [
+     {
+      "t": "As famílias de classe média pagam IMI sobre a casa onde vivem enquanto os preços sobem.",
+      "src": "DN Madeira",
+      "url": "https://www.dnoticias.pt/2026/1/14/477284-deputado-do-chega-acusa-ps-e-psd-de-chumbarem-isencao-de-imi-para-habitacao/",
+      "campo": "Chega"
+     },
+     {
+      "t": "O Chega diz que a lei das rendas pode provocar subidas e despejos.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O Chega absteve-se na lei das rendas na generalidade e agora diz que não passará sem mudanças.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Deduções de IRS maiores ajudam pouco quem não paga IRS e não aumentam a oferta de casas.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao",
+      "campo": "imprensa"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "Os preços das casas subiram 17,6% em 2025, contra 5,5% na UE.",
+    "A habitação pública é cerca de 2% do parque.",
+    "O OE 2027 prevê 2.003 M€ para habitação pública e apoio à renda."
+   ],
+   "valores": [
+    "Se a prioridade é aumentar a oferta (construção) ou travar preços (tetos às rendas).",
+    "Se o Estado deve construir e gerir mais habitação ou incentivar privados.",
+    "Quanto limitar a compra de casas por estrangeiros e fundos."
+   ]
+  },
+  "debate_atual": "A nova lei do arrendamento está em especialidade, e o ministro admitiu rever pontos com o PS. Os protestos no Rossio continuam.",
+  "debate_atual_src": {
+   "label": "RTP",
+   "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, prc_hpi_a: índice de preços da habitação",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_a/default/table"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, prc_hicp_aind: rendas (CP041)",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: habitação no OE 2027",
+    "url": "https://www.dn.pt/pol%C3%ADtica/miranda-sarmento-na-ar-para-entregar-o-oramento"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: propostas do PS para a habitação",
+    "url": "https://www.dn.pt/política/habitao-ps-quer-agravar-imi-a-devolutos-imt-a-estrangeiros-e-cmaras-a-endividar-se-para-poder-construir"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: pacote de emergência do Chega",
+    "url": "https://www.dn.pt/política/ventura-prope-pacote-legislativo-de-emergncia-para-enfrentar-a-crise-na-habitao"
+   },
+   {
+    "tier": "N3",
+    "label": "RTP: Pinto Luz e a lei das rendas",
+    "url": "https://www.rtp.pt/noticias/economia/ministro-da-habitacao-admite-abertura-para-rever-lei-das-rendas-com-o-ps_n1773025"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: acampada no Rossio",
+    "url": "https://www.dn.pt/sociedade/com-chaves-no-ar-e-montenegro-no-centro-dos-protestos-acampada-pela-habitao-chega-a-lisboa"
+   }
+  ]
+ },
+ "saude": {
+  "titulo": "Saúde e SNS",
+  "tese": "O orçamento da saúde desce 1,5% em 2027 por causa do fim do PRR, mas sobe 2,9% sem ele. O investimento cai um terço e 1,56 milhões de utentes continuam sem médico de família.",
+  "kpis": [
+   {
+    "v": "17.858 M€",
+    "l": "Despesa da saúde, 2027",
+    "s": "−1,5% · sem PRR: +2,9%",
+    "src": "OE 2027"
+   },
+   {
+    "v": "1,56 M",
+    "l": "Utentes sem médico de família",
+    "s": "2025 · +41 mil face a 2024",
+    "src": "CFP"
+   },
+   {
+    "v": "85,4%",
+    "l": "Meta de utentes com médico, 2027",
+    "s": "a meta anterior era 98% em 2026",
+    "src": "QGR do SNS"
+   },
+   {
+    "v": "−33%",
+    "l": "Investimento na saúde, 2027",
+    "s": "de 1.022 M€ para 678 M€",
+    "src": "OE 2027"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "despesa_saude",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Despesa pública em saúde, % do PIB",
+    "sub": "Portugal e UE-27, 2010 a 2024",
+    "yMin": 5,
+    "yMax": 9,
+    "yStep": 1,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "xStep": 2
+   },
+   {
+    "t": "hbar",
+    "titulo": "Onde gasta o SNS em 2027",
+    "sub": "Milhões de euros",
+    "fonte": "OE 2027 (via Notícias ao Minuto)",
+    "dec": 0,
+    "itens": [
+     [
+      "Bens e serviços (−4,5%)",
+      8436
+     ],
+     [
+      "Pessoal (+5,2%)",
+      8184
+     ],
+     [
+      "Investimento (−33%)",
+      678
+     ]
+    ]
+   },
+   {
+    "t": "timeline",
+    "titulo": "Como mudou a meta dos médicos de família",
+    "sub": "Percentagem de utentes com médico atribuído",
+    "fonte": "Sábado, QGR do SNS",
+    "itens": [
+     [
+      "2024",
+      "86% (real)"
+     ],
+     [
+      "Meta antiga 2025",
+      "91%"
+     ],
+     [
+      "Meta antiga 2026",
+      "98%"
+     ],
+     [
+      "Nova meta 2027",
+      "85,37%"
+     ]
+    ]
+   }
+  ],
+  "contexto": [
+   "A despesa do SNS foi de 16.962 M€ em 2025, com um défice de 1.035 M€, muito acima dos 217 M€ previstos no orçamento, segundo o CFP.",
+   "Em 2027 o PRR deixa de financiar obras e equipamentos. Por isso a despesa total desce 1,5%, mas a despesa sem PRR sobe 2,9%. O investimento cai de 1.022 para 678 M€.",
+   "Os utentes inscritos voltaram a subir para cerca de 10,7 milhões. Cerca de 70% dos que não têm médico de família vivem na região de Lisboa e Vale do Tejo.",
+   "O Quadro Global de Referência do SNS, assinado pelos ministros das Finanças e da Saúde, baixou a meta de cobertura por médico de família para 85,37% até 2027."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "O SNS não está a falhar: mais despesa com pessoal, mais 462 mil utentes com médico de família e 3 mil camas de cuidados continuados, com controlo de custos.",
+    "propostas": [
+     {
+      "t": "Pessoal da saúde +5,2%",
+      "p": "OE 2027"
+     },
+     {
+      "t": "Mais 462 mil utentes com médico de família",
+      "p": "Citado pela Ordem dos Médicos"
+     },
+     {
+      "t": "Mais 3 mil camas de cuidados continuados",
+      "p": "Citado pela Ordem dos Médicos"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "OE 2027 e plano plurianual de investimento na saúde"
+     },
+     {
+      "k": "Poupança",
+      "v": "Bens e serviços −4,5% (compras centralizadas)"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Sem PRR, a despesa da saúde sobe 2,9% em 2027.",
+      "src": "Notícias ao Minuto",
+      "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A ministra diz que todos os indicadores assistenciais melhoraram face a 2024.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/portugal/detalhe/ministra-diz-que-todos-os-numeros-indicam-que-o-sns-nao-esta-a-falhar",
+      "campo": "governo"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O bastonário da Ordem dos Médicos fala do primeiro corte desde a troika e de um \"orçamento travão\" da recuperação do SNS.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/oe2027-bastonario-da-ordem-dos-medicos-critica-proposta-contraditoria-e-de-retrocesso_n1770720",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A meta de cobertura por médico de família caiu de 98% para 85,37%.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/ciencia---saude/detalhe/percentagem-de-utentes-com-medico-de-familia-atribuido-deve-manter-se-ate-2027",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "O Governo falhou na saúde e a ministra perdeu autoridade; o PS exige saber como se financiam hospitais e centros de saúde depois do PRR e recusa privatizar a saúde.",
+    "propostas": [
+     {
+      "t": "Financiar os projetos de saúde do PRR por concluir",
+      "p": "Condição para viabilizar"
+     },
+     {
+      "t": "Não dar respaldo orçamental à privatização da saúde",
+      "p": "Carneiro, setembro"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Condições de viabilização e propostas na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O investimento da saúde cai 33% em 2027, de 1.022 para 678 M€.",
+      "src": "Notícias ao Minuto",
+      "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O número de utentes sem médico de família subiu 41 mil em 2025.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "A despesa do SNS sem PRR sobe 2,9%, o que contraria a ideia de corte.",
+      "src": "Notícias ao Minuto",
+      "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O défice do SNS melhorou 534 M€ em 2025 face a 2024.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "Articular o público e o privado para garantir acesso, seja onde for; culpa o Governo e a imigração pela pressão no SNS.",
+    "propostas": [
+     {
+      "t": "Articulação entre privado e público",
+      "p": "Ventura, 2025"
+     },
+     {
+      "t": "Limitar acesso de estrangeiros ao SNS",
+      "p": "Proposta de 2024"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Projetos de lei e propostas de alteração"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Há 1,56 milhões de utentes sem médico de família, como Ventura tem dito.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A meta de cobertura foi revista em baixa.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/ciencia---saude/detalhe/percentagem-de-utentes-com-medico-de-familia-atribuido-deve-manter-se-ate-2027",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Ventura atribui a pressão no SNS à imigração sem apresentar dados.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/especiais/ventura-aponta-o-dedo-ao-governo-e-aos-imigrantes-para-crise-no-sns-rocha-defende-subsistemas-de-saude_e1648720",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Os utentes inscritos subiram 680 mil em 10 anos, o que inclui portugueses e estrangeiros.",
+      "src": "Observador",
+      "url": "https://observador.pt/2026/04/01/utentes-inscritos-nos-centros-de-saude-aumentaram-680-mil-em-10-anos/",
+      "campo": "imprensa"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "A despesa da saúde desce 1,5% em 2027, mas sobe 2,9% sem o PRR.",
+    "1,56 milhões de utentes não têm médico de família (2025).",
+    "O investimento cai de 1.022 para 678 M€."
+   ],
+   "valores": [
+    "Que papel dar ao setor privado e social na resposta do SNS.",
+    "Se o investimento pós-PRR deve ser pago com dívida, receita ou cortes.",
+    "Como repartir médicos entre regiões, com 70% das faltas em Lisboa e Vale do Tejo."
+   ]
+  },
+  "debate_atual": "A ministra da Saúde e o ministro das Finanças são ouvidos na especialidade entre 29 de outubro e 6 de novembro.",
+  "debate_atual_src": {
+   "label": "Assembleia da República",
+   "url": "https://www.parlamento.pt/Paginas/2026/outubro/Orcamento-do-Estado-para-2026.aspx"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10a_exp: despesa pública por função (COFOG GF07)",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"
+   },
+   {
+    "tier": "N1*",
+    "label": "CFP: Evolução do SNS em 2025 (via RTP)",
+    "url": "https://www.rtp.pt/noticias/pais/sns-com-mais-utentes-e-defice-de-1035-milhoes-de-euros-em-2025_n1750169"
+   },
+   {
+    "tier": "N1*",
+    "label": "QGR do SNS, Diário da República (via Sábado)",
+    "url": "https://www.sabado.pt/ciencia---saude/detalhe/percentagem-de-utentes-com-medico-de-familia-atribuido-deve-manter-se-ate-2027"
+   },
+   {
+    "tier": "N3",
+    "label": "Notícias ao Minuto: saúde no OE 2027",
+    "url": "https://www.noticiasaominuto.com/pais/3063545/reducao-de-1-5-no-orcamento-da-saude-no-oe2027"
+   },
+   {
+    "tier": "N3",
+    "label": "RTP: bastonário da Ordem dos Médicos",
+    "url": "https://www.rtp.pt/noticias/economia/oe2027-bastonario-da-ordem-dos-medicos-critica-proposta-contraditoria-e-de-retrocesso_n1770720"
+   },
+   {
+    "tier": "N3",
+    "label": "Sábado: a ministra e os números do SNS",
+    "url": "https://www.sabado.pt/portugal/detalhe/ministra-diz-que-todos-os-numeros-indicam-que-o-sns-nao-esta-a-falhar"
+   },
+   {
+    "tier": "N3",
+    "label": "RTP: Ventura e o SNS",
+    "url": "https://www.rtp.pt/noticias/especiais/ventura-aponta-o-dedo-ao-governo-e-aos-imigrantes-para-crise-no-sns-rocha-defende-subsistemas-de-saude_e1648720"
+   }
+  ]
+ },
+ "crescimento": {
+  "titulo": "Crescimento e emprego",
+  "tese": "Portugal cresce acima da UE desde 2021 e tem a taxa de emprego mais alta de sempre. O Governo prevê 2,1% em 2027, acima de todas as instituições, apoiado num salto do investimento privado e no emprego.",
+  "kpis": [
+   {
+    "v": "1,9%",
+    "l": "Crescimento do PIB, 2025",
+    "s": "UE: 1,4%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "79,6%",
+    "l": "Taxa de emprego (20–64), 2025",
+    "s": "UE: 76,1% · máximo da série",
+    "src": "Eurostat"
+   },
+   {
+    "v": "6,0%",
+    "l": "Desemprego, 2025",
+    "s": "UE: 6,0%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "+10%",
+    "l": "Investimento privado em 2027",
+    "s": "previsão do Governo, \"maior subida da década\"",
+    "src": "OE 2027"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "pib",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Crescimento real do PIB",
+    "sub": "Portugal e UE-27, 2000 a 2025",
+    "yMin": -10,
+    "yMax": 8,
+    "yStep": 2,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "linha",
+    "serie": "desemprego",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Taxa de desemprego",
+    "sub": "Portugal e UE-27, 2009 a 2025",
+    "yMin": 0,
+    "yMax": 18,
+    "yStep": 3,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 4
+   },
+   {
+    "t": "prev",
+    "titulo": "Crescimento e emprego: Governo face às instituições",
+    "sub": "Losango: Governo. Pontos: cada instituição.",
+    "fonte": "OE 2027, BdP, FMI, CE, OCDE",
+    "itens": [
+     [
+      "pib",
+      "2027"
+     ],
+     [
+      "pib",
+      "2026"
+     ],
+     [
+      "emprego",
+      "2027"
+     ],
+     [
+      "desemprego",
+      "2027"
+     ]
+    ]
+   },
+   {
+    "t": "linha",
+    "serie": "taxa_emprego",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Taxa de emprego, 20 a 64 anos",
+    "sub": "Portugal e UE-27, 2010 a 2025",
+    "yMin": 60,
+    "yMax": 82,
+    "yStep": 4,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   }
+  ],
+  "contexto": [
+   "Depois da queda de 8,2% em 2020, Portugal cresceu acima da UE todos os anos: 5,6% em 2021, 7,0% em 2022, 3,1% em 2023, 2,7% em 2024 e 1,9% em 2025.",
+   "O Governo prevê 2,3% em 2026 e 2,1% em 2027. Para 2027, apoia-se numa subida de mais de 10% do investimento privado, enquanto o consumo privado abranda de 3,1% para 2,1%.",
+   "O emprego cresceu com a imigração. A UTAO nota que a população em idade ativa aumentou 28 mil pessoas por trimestre em 2025 e só 10 mil em 2026, o que torna difícil o emprego crescer 1,4% em 2027.",
+   "O programa da AD apontava para crescimentos de 3%. O PS diz que só governos seus atingiram esse valor."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "Crescer acima de 2% com investimento privado, IRC mais baixo e contas certas; a economia já cresce acima da média europeia.",
+    "propostas": [
+     {
+      "t": "PIB de 2,1% em 2027",
+      "p": "Relatório do OE"
+     },
+     {
+      "t": "Investimento privado +10%",
+      "p": "Relatório do OE"
+     },
+     {
+      "t": "Prémios de produtividade isentos se os salários subirem 4,5%",
+      "p": "OE 2027"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "IRC mais baixo, incentivos fiscais, fundos europeus"
+     },
+     {
+      "k": "Risco",
+      "v": "Abrandamento da imigração e do consumo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Portugal cresceu 1,9% em 2025, acima dos 1,4% da UE.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP considera o cenário estatisticamente plausível.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O FMI prevê 1,9% em 2027 e inflação de 3,0%, contra 2,1% e 2,3% do Governo.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A UTAO considera o crescimento do emprego de 1,4% difícil de conciliar com menos imigração.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "O Governo volta a falhar o crescimento de 3% que prometeu; o PS reclama ser o único a tê-lo conseguido e pede apoios ao custo de vida.",
+    "propostas": [
+     {
+      "t": "Mecanismos de apoio aos combustíveis e ao cabaz",
+      "p": "Brilhante Dias, 28/09"
+     },
+     {
+      "t": "Concluir os projetos do PRR",
+      "p": "Condição para viabilizar"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O programa da AD apontava para 3% e o OE 2027 prevê cerca de 2%.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Os anos com crescimento de 3% ou mais desde 1996 foram todos com governos do PS (1996–2000, 2017, 2021–2023).",
+      "src": "Banco Mundial",
+      "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Os governos de Cavaco Silva (PSD) tiveram crescimentos de 4% a 7,5% entre 1986 e 1991.",
+      "src": "Banco Mundial",
+      "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Os 5,6% e 7,0% de 2021 e 2022 foram recuperação da queda de 8,2% em 2020.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "O orçamento não responde ao custo de vida e prevê um \"brutal aumento\" dos preços; liga a pressão nos serviços à imigração.",
+    "propostas": [
+     {
+      "t": "IVA mais baixo nos combustíveis e no cabaz",
+      "p": "Propostas de alteração"
+     },
+     {
+      "t": "Isenção de portagens",
+      "p": "Propostas de alteração"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Cerca de 2.000 M€/ano para o IVA, segundo o Governo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O FMI prevê inflação de 3,0% em 2027, bem acima dos 2,3% do Governo.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP vê potencial subestimação da inflação em 2026 e 2027.",
+      "src": "Postal",
+      "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O emprego que sustenta o crescimento depende da imigração, que o Chega quer travar.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027",
+      "campo": "imprensa"
+     },
+     {
+      "t": "As descidas de IVA levariam a défice, segundo o Governo.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "Portugal cresce acima da UE desde 2021.",
+    "A taxa de emprego (79,6%) é a mais alta da série e está acima da UE.",
+    "A previsão de 2,1% para 2027 é a mais alta entre as instituições."
+   ],
+   "valores": [
+    "Quanto peso dar à imigração no crescimento do emprego.",
+    "Se a prioridade é o investimento empresarial (IRC) ou o rendimento disponível (IVA, salários).",
+    "Que crescimento é realista sem o PRR."
+   ]
+  },
+  "debate_atual": "O Banco de Portugal e o FMI reviram em alta o crescimento de 2026 em outubro, mas mantêm 2027 abaixo do Governo.",
+  "debate_atual_src": {
+   "label": "RTP",
+   "url": "https://www.rtp.pt/noticias/economia/fmi-reve-em-alta-crescimento-de-portugal-para-21-este-ano-e-19-em-2027_n1771310"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, nama_10_gdp: PIB em volume",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, une_rt_a e lfsi_emp_a: desemprego e emprego",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table"
+   },
+   {
+    "tier": "N1",
+    "label": "Banco Mundial: crescimento real do PIB de Portugal desde 1980",
+    "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT"
+   },
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico (via CNN Portugal)",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: investimento privado no cenário do OE",
+    "url": "https://www.dn.pt/economia/oe2027-governo-prev-crescimento-superior-a-2-apoiado-em-subida-explosiva-do-investimento-privado"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: UTAO e a imigração",
+    "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: PS e o crescimento de 3%",
+    "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: FMI contradiz cenário do OE",
+    "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"
+   }
+  ]
+ }
+}

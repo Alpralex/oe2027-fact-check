@@ -1,0 +1,59 @@
+{
+ "sessoes": {
+  "0": "Antes do debate",
+  "1": "Sessão de 27/10",
+  "2": "Sessão de 28/10"
+ },
+ "lede": "Verificámos {n} afirmações sobre factos e números do Orçamento do Estado para 2027: {nf} sobre factos e {np} previsões do Governo, comparadas com as das instituições independentes. Comece pelo placar, veja as previsões ou pesquise um assunto.",
+ "aviso": "**Pré-visualização.** O debate na generalidade decorre a 27 e 28 de outubro. Por agora, as fichas verificam as metas do OE 2027 e declarações feitas antes do debate; os dossiês por tema mostram as posições do Governo, do PS e do Chega. As afirmações do plenário entram depois do debate.",
+ "dados_ate": "24/10/2026",
+ "min_placar": 5,
+ "verificadores": [
+  {
+   "k": "poligrafo",
+   "nome": "Polígrafo"
+  },
+  {
+   "k": "observador",
+   "nome": "Observador"
+  },
+  {
+   "k": "publico",
+   "nome": "Público"
+  }
+ ],
+ "documentos": [
+  {
+   "k": "AR",
+   "tier": "N1",
+   "label": "Assembleia da República: Proposta de Lei n.º 110/XVII/2.ª e calendário do OE 2027",
+   "url": "https://www.parlamento.pt/Paginas/2026/outubro/Orcamento-do-Estado-para-2026.aspx"
+  },
+  {
+   "k": "VÍDEO",
+   "tier": "N1",
+   "label": "Canal Parlamento: emissão do debate",
+   "url": "https://canal.parlamento.pt/"
+  },
+  {
+   "k": "EUROSTAT",
+   "tier": "N1",
+   "label": "Eurostat: finanças públicas, contas nacionais, emprego e preços",
+   "url": "https://ec.europa.eu/eurostat/databrowser/"
+  },
+  {
+   "k": "UTAO",
+   "tier": "N3",
+   "label": "Observador: apreciação da UTAO à proposta",
+   "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"
+  },
+  {
+   "k": "CFP",
+   "tier": "N3",
+   "label": "Postal: parecer do CFP às previsões do OE 2027",
+   "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/"
+  }
+ ],
+ "limitacoes": "Os valores do relatório do OE 2027 e das previsões das instituições foram lidos em reproduções da imprensa e ficam por confirmar no documento original. As séries do Eurostat foram lidas diretamente na API a 24/10/2026 (notificação orçamental de outubro). As previsões da Comissão Europeia e da OCDE são de maio e junho de 2026, anteriores à proposta. O CFP não entra no quadro de previsões porque não encontrámos números comparáveis. A transcrição oficial (Diário da Assembleia da República) sai dias depois do debate; até lá as frases vêm do vídeo.",
+ "rodape": "Pré-visualização de 24 de outubro de 2026. Debate na generalidade a 27 e 28 de outubro; votação final global a 24 de novembro."
+}

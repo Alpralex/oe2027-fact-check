@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Checagem do OE 2027</title>
+<meta name="description" content="Checagem independente das afirmações sobre factos e números no debate do Orçamento do Estado para 2027 na Assembleia da República.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: painel de checagem — barra fixa com navegação e filtros globais; visão geral → tema → ficha (drill-down), ficha abre em painel lateral */
+/* Paleta dos vereditos validada (validate_palette.js) para daltonismo nos dois temas. Âmbar fica reservado à interface e à série principal dos gráficos. */
+:root{
+  --bg:#F4F2EE; --surface:#FFFFFF; --surface-2:#F8F7F4; --ink:#1A1814; --muted:#5E5A52; --faint:#8C877D; --line:#DDD9D1;
+  --accent:#A34F00; --accent-ink:#FFFFFF; --accent-soft:#FBEBD6; --accent-2:#5C2D00;
+  --v:#1F7A35; --vr:#1666AA; --i:#9A6C00; --e:#7444B4; --f:#C13C3B; --n:#00969F; --nv:#7C8490;
+  --v-bg:#E3F1E6; --vr-bg:#E1ECF7; --i-bg:#F6EDD6; --e-bg:#EEE6F7; --f-bg:#F8E2E1; --n-bg:#DDF2F3; --nv-bg:#ECEEF1;
+  --p-mp:#256ABF; --p-p:#6DA7EC; --p-c:#8F8B84; --p-o:#EC835A; --p-mo:#C13C3B;
+  --band:rgba(163,79,0,.05); --scrim:rgba(26,24,20,.42);
+  --shadow:0 1px 2px rgba(26,24,20,.06),0 4px 14px rgba(26,24,20,.05);
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-ui:"Archivo",system-ui,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12110F; --surface:#1B1A17; --surface-2:#22201C; --ink:#EDEAE4; --muted:#A8A296; --faint:#77726A; --line:#33302A;
+  --accent:#F2A33A; --accent-ink:#12110F; --accent-soft:#3A2A14; --accent-2:#FFD9A3;
+  --v:#3D9A4C; --vr:#4A8FE0; --i:#B98712; --e:#9A7AE0; --f:#E0625C; --n:#21A8B0; --nv:#9AA2AE;
+  --v-bg:#17301D; --vr-bg:#172A42; --i-bg:#33280E; --e-bg:#2A2140; --f-bg:#3A1B1A; --n-bg:#123234; --nv-bg:#262626;
+  --p-mp:#3987E5; --p-p:#86B6EF; --p-c:#8F8B84; --p-o:#EC835A; --p-mo:#E66767;
+  --band:rgba(242,163,58,.06); --scrim:rgba(0,0,0,.6);
+  --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12110F; --surface:#1B1A17; --surface-2:#22201C; --ink:#EDEAE4; --muted:#A8A296; --faint:#77726A; --line:#33302A;
+  --accent:#F2A33A; --accent-ink:#12110F; --accent-soft:#3A2A14; --accent-2:#FFD9A3;
+  --v:#3D9A4C; --vr:#4A8FE0; --i:#B98712; --e:#9A7AE0; --f:#E0625C; --n:#21A8B0; --nv:#9AA2AE;
+  --v-bg:#17301D; --vr-bg:#172A42; --i-bg:#33280E; --e-bg:#2A2140; --f-bg:#3A1B1A; --n-bg:#123234; --nv-bg:#262626;
+  --p-mp:#3987E5; --p-p:#86B6EF; --p-c:#8F8B84; --p-o:#EC835A; --p-mo:#E66767;
+  --band:rgba(242,163,58,.06); --scrim:rgba(0,0,0,.6);
+  --shadow:0 1px 2px rgba(0,0,0,.4); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;padding-block:0 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+body.lock{overflow:hidden}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button{font:inherit;color:inherit}
+.wrap{max-width:1280px;margin:0 auto}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+
+/* Barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:20px;min-height:56px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex-shrink:0;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand .nums{display:flex;gap:3px}
+.brand .nums span{font:700 13px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:4px;padding:3px 5px}
+.brand b{font:800 18px var(--f-display);font-stretch:75%;white-space:nowrap}
+.brand small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.04em}
+.nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav::-webkit-scrollbar{display:none}
+.nav button{appearance:none;background:none;border:0;border-bottom:3px solid transparent;padding:16px 12px 13px;font:600 15px var(--f-ui);color:var(--muted);cursor:pointer;white-space:nowrap}
+.nav button[aria-current="page"]{color:var(--ink);border-color:var(--accent)}
+.nav button .ct{font:500 11px var(--f-mono);margin-left:5px;color:var(--faint)}
+
+/* Trilha */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted);padding-block:14px 0}
+.crumbs button{appearance:none;background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font:600 13px var(--f-ui)}
+.crumbs span[aria-current]{color:var(--ink);font-weight:600}
+.crumbs i{font-style:normal;color:var(--faint)}
+
+/* Faixa de filtros globais */
+.fbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:14px}
+.fbar .grp{display:flex;align-items:center;gap:8px;min-width:0}
+.fbar .lab{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.seg-ctl{display:inline-grid;grid-auto-flow:column;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:2px;gap:2px}
+.seg-ctl button{appearance:none;border:0;background:none;border-radius:6px;padding:5px 10px;font:600 14px var(--f-ui);color:var(--muted);cursor:pointer;white-space:nowrap}
+.seg-ctl button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+select{font:15px var(--f-ui);padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.search-wrap{position:relative;flex:1;min-width:180px}
+.search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--muted);fill:none;stroke-width:2}
+.search{width:100%;font:15px var(--f-ui);padding:7px 10px 7px 32px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.active{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}
+.active:empty{display:none}
+.tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 6px 3px 10px;font:600 13px var(--f-ui)}
+.tag button{appearance:none;border:0;background:var(--surface-2);width:20px;height:20px;border-radius:50%;cursor:pointer;color:var(--muted);line-height:1}
+.mfilter{display:none;margin-top:14px}
+.linkbtn{appearance:none;background:none;border:0;padding:0;font:600 13px var(--f-ui);color:var(--accent);cursor:pointer}
+
+/* Grade e blocos */
+.view{display:grid;gap:18px;margin-top:18px}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-h h2{font-size:22px;font-stretch:80%;font-weight:750}
+.sec-h p{color:var(--muted);font-size:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:14px;min-width:0}
+.panel h3{font-size:17px;font-stretch:85%;font-weight:700}
+.panel .sub{color:var(--muted);font-size:14px;margin-top:-8px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grid-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px}
+.grid-ch{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.grid2.atop{align-items:start}
+.claims{align-content:start}
+
+.hero{margin-top:22px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:end;padding-block:4px 6px}
+.hero h1{font-size:clamp(32px,4.6vw,54px);line-height:1;font-weight:800;font-stretch:72%;margin-top:10px}
+.hero h1 span{color:var(--muted);font-weight:650}
+.hero .lede{color:var(--muted);font-size:17px;max-width:62ch;margin-top:12px}
+.howto{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.howto summary{cursor:pointer;font:600 15px var(--f-ui)}
+.howto .kv{margin-top:12px;font-size:14px}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:2px;align-content:start;min-width:0}
+.kpi .l{font:500 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font:800 30px var(--f-display);font-stretch:72%;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:13px;color:var(--muted)}
+.kpi .src{font:500 10px var(--f-mono);color:var(--faint);margin-top:4px}
+.kpi .split{display:flex;gap:14px;flex-wrap:wrap}
+.kpi .split div{display:grid}
+.kpi .split b{font:800 26px var(--f-display);font-stretch:72%;font-variant-numeric:tabular-nums}
+.kpi .split small{font:600 12px var(--f-ui);color:var(--muted)}
+button.kpi{appearance:none;text-align:left;cursor:pointer}
+button.kpi:hover{border-color:var(--accent)}
+
+/* Placar */
+.board{display:grid;gap:12px}
+.board-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;align-items:center}
+.ballot{display:grid;grid-template-columns:38px auto;gap:9px;align-items:center}
+.num{font:700 18px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:6px;height:38px;display:grid;place-items:center}
+.who{font:700 17px var(--f-display);font-stretch:80%;line-height:1.1}
+.who small{display:block;font:400 12px var(--f-ui);color:var(--muted)}
+.bar{display:flex;height:38px;border-radius:6px;overflow:hidden;gap:2px;background:var(--surface)}
+.seg{border:0;padding:0;cursor:pointer;display:grid;place-items:center;color:var(--surface);font:700 12px var(--f-mono);min-width:0;transition:filter .15s}
+.seg:hover,.seg:focus-visible{filter:brightness(1.1)}
+.seg span{overflow:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.legend b{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* Matriz tema × veredito */
+.mx{display:grid;gap:4px}
+.mx-row{display:grid;grid-template-columns:minmax(150px,210px) 40px minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid var(--line)}
+.mx-row:last-child{border-bottom:0}
+.mx-head{font:500 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.mx-name{appearance:none;background:none;border:0;padding:0;text-align:left;cursor:pointer;font:600 14px var(--f-ui);color:var(--ink);display:flex;gap:8px;align-items:center;min-width:0}
+.mx-name:hover{color:var(--accent)}
+.mx-name .dz{font:700 9px var(--f-mono);letter-spacing:.05em;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 4px}
+.mx-n{font:600 13px var(--f-mono);color:var(--muted);text-align:right}
+.mini{display:flex;height:16px;gap:2px;min-width:0}
+.mini button{border:0;padding:0;cursor:pointer;min-width:3px;border-radius:2px}
+.mini button:hover{filter:brightness(1.12)}
+.mini .zero{font:500 11px var(--f-mono);color:var(--faint)}
+
+/* Cartões de tema */
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.tlegend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.tlegend i,.tc-nums i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tcard{appearance:none;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:14px;cursor:pointer;align-content:start;font:inherit;color:inherit}
+.tcard:hover,.tcard:focus-visible{border-color:var(--accent)}
+.tcard:hover .tc-cta{text-decoration:underline}
+.tc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.tc-top h3{font-size:20px;font-stretch:80%;line-height:1.15}
+.tc-count{font:800 24px var(--f-display);font-stretch:72%;text-align:right;line-height:1}
+.tc-count small{display:block;font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.tc-tese{font-size:14px;color:var(--muted);line-height:1.45}
+.tc-rows{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:12px}
+.tc-row{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center}
+.tc-who{display:flex;align-items:center;gap:6px;font:600 14px var(--f-ui)}
+.tc-score{justify-self:end;font-size:13px;color:var(--muted)}
+.tc-score b{font:700 15px var(--f-mono);color:var(--ink)}
+.tc-bar{grid-column:1 / -1;display:flex;gap:2px;height:12px;border-radius:3px;overflow:hidden}
+.tc-bar i{display:block;min-width:4px}
+.tc-nums{grid-column:1 / -1;display:flex;gap:14px;font:600 12px var(--f-mono);color:var(--muted)}
+.tc-none{justify-self:end;font-size:13px;color:var(--faint)}
+.tc-cta{font:600 14px var(--f-ui);color:var(--accent)}
+
+/* Dossiê */
+.dz-head{display:grid;gap:10px;padding-block:6px}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.dz-head h1{font-size:clamp(30px,4.4vw,48px);line-height:1;font-weight:800;font-stretch:72%}
+.dz-head .tese{font-size:18px;max-width:70ch;color:var(--muted)}
+.prose{display:grid;gap:10px;max-width:72ch}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:10px;display:grid;align-content:start;min-width:0}
+.side-h{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.side-h .num{width:34px;height:34px;font-size:15px}
+.side-h h3{font-size:19px;font-stretch:80%}
+.side-b{display:grid;gap:16px;padding:16px 18px 18px}
+.lbl{font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.blk{display:grid;gap:8px}
+.planlist{display:flex;flex-wrap:wrap;gap:6px}
+.planlist span{font-size:13px;border:1px solid var(--line);background:var(--surface-2);border-radius:6px;padding:2px 8px}
+.planlist span i{font:500 11px var(--f-mono);font-style:normal;color:var(--muted);margin-left:5px}
+.mech{display:grid;gap:8px}
+.mech div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;font-size:15px}
+.mech b{font:600 13px var(--f-ui);color:var(--muted)}
+.crit{display:grid;gap:8px}
+.crit li{list-style:none;display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:15px}
+.crit ul{margin:0;padding:0;display:grid;gap:10px}
+.crit .ic{width:22px;height:22px;border-radius:5px;display:grid;place-items:center;font:700 13px var(--f-mono)}
+.crit .pro .ic{background:var(--v-bg);color:var(--v)}
+.crit .con .ic{background:var(--f-bg);color:var(--f)}
+.crit small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.campo{font:700 9px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:3px;padding:0 4px;color:var(--muted);margin-left:4px;vertical-align:1px}
+.fv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.fv ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 12px;font-size:15px}
+.claims{display:grid;gap:6px}
+.claim{appearance:none;width:100%;text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;cursor:pointer}
+.claim:hover{border-color:var(--accent)}
+.claim .t{font-size:15px;min-width:0}
+.claim .t small{display:block;color:var(--muted);font-size:13px}
+
+/* Gráficos */
+.chart{position:relative;min-width:0}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.chart .grid line{stroke:var(--line);stroke-width:1}
+.chart .ax{stroke:var(--line)}
+.chart .lab-end{font-weight:700;font-size:12px}
+.chart .gov{fill:var(--band)}
+.chart .govt{font-size:10px;fill:var(--faint)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);border-radius:6px;padding:7px 10px;font:500 12px var(--f-mono);line-height:1.45;white-space:nowrap;z-index:5;transform:translate(-50%,calc(-100% - 10px))}
+.tip[hidden]{display:none}
+.ch-legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted)}
+.ch-legend i{display:inline-block;width:18px;height:0;border-top:2px solid;vertical-align:4px;margin-right:6px}
+.ch-legend i.dash{border-top-style:dashed}
+.ch-legend i.box{width:10px;height:10px;border:0;border-radius:2px;vertical-align:-1px}
+.ch-foot{font:500 11px var(--f-mono);color:var(--faint)}
+.rank{display:grid;gap:3px}
+.rank-row{display:grid;grid-template-columns:130px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:13px}
+.rank-row .bar2{height:14px;display:flex;align-items:center;position:relative}
+.rank-row .bar2 span{display:block;height:12px;border-radius:0 3px 3px 0;background:var(--faint);opacity:.55}
+.rank-row.me .bar2 span{background:var(--accent);opacity:1}
+.rank-row.me{font-weight:700}
+.rank-row.reg{font-style:italic;color:var(--muted)}
+.rank-row.reg .bar2 span{background:transparent;border:1.5px dashed var(--muted);opacity:1;height:10px}
+.rank-row .neg{background:var(--faint);opacity:.35}
+.rank-row b{font:600 12px var(--f-mono);text-align:right}
+
+.metas{display:grid;gap:22px;padding-top:6px}
+.meta-h{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:15px}
+.meta-h i{font-style:normal;color:var(--muted);font-size:12px;margin-left:6px}
+.meta-bar{position:relative;height:16px;background:var(--surface-2);border:1px solid var(--line);border-radius:4px}
+.meta-bar span{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:3px 0 0 3px}
+.meta-bar i{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--ink)}
+.casos{display:grid;gap:8px}
+.caso{appearance:none;text-align:left;font:inherit;color:inherit;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:12px;align-items:start;cursor:pointer}
+.caso:hover{border-color:var(--accent)}
+.caso-st{font:700 11px var(--f-mono);letter-spacing:.03em;text-transform:uppercase;color:var(--c);border:1.5px solid var(--c);border-radius:4px;padding:2px 6px;justify-self:start}
+.caso-t b{display:block;font-size:15px}
+.caso-t small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.caso-id{font-size:12px;color:var(--accent)}
+@media (max-width:700px){.caso{grid-template-columns:1fr}.caso-id{justify-self:start}}
+.g1tag{display:inline-block;font:700 11px var(--f-mono);letter-spacing:.03em;text-transform:uppercase;color:var(--c);border:1.5px solid var(--c);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.divt td:first-child{min-width:230px}
+.divt td:nth-child(n+5){white-space:nowrap}
+.divt td:nth-child(2),.divt td:nth-child(3),.divt td:nth-child(4){min-width:110px;font-size:13px;color:var(--muted)}
+a.claim{text-decoration:none;color:inherit}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.tl li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.tl li:last-child{border-bottom:0}
+.tl-y{font-weight:700;color:var(--accent)}
+/* Lista de alegações (tabela) */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);white-space:nowrap}
+th button{appearance:none;background:none;border:0;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;cursor:pointer}
+th button[aria-sort]::after{content:" ↕";color:var(--faint)}
+th button[aria-sort="ascending"]::after{content:" ↑";color:var(--accent)}
+th button[aria-sort="descending"]::after{content:" ↓";color:var(--accent)}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--surface-2)}
+tbody tr:last-child td{border-bottom:0}
+td.id{font:700 13px var(--f-mono);white-space:nowrap}
+td.q{min-width:260px}
+td.q small{display:block;color:var(--muted);font-size:12px}
+.cb{font:700 11px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 5px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--cbg);color:var(--c);border-radius:6px;padding:2px 8px 2px 3px;font:700 13px var(--f-ui);white-space:nowrap}
+.pill .g{width:18px;height:18px;border-radius:4px;background:var(--c);color:var(--surface);display:grid;place-items:center;font-size:11px}
+.tier{display:inline-block;text-align:center;font:700 10px var(--f-mono);padding:1px 5px;border-radius:4px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tier.N1{color:var(--v);border-color:var(--v)}
+.tier.N1s{color:var(--vr);border-color:var(--vr);border-style:dashed}
+.tier.N2{color:var(--accent);border-color:var(--accent)}
+.tier.N4{color:var(--e);border-color:var(--e);border-style:dotted}
+.rev{font:600 11px var(--f-mono);color:var(--muted);white-space:nowrap}
+.rev.p{color:var(--accent)}
+.listhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.listhead p{color:var(--muted);font-size:14px}
+.listhead b{color:var(--ink);font-family:var(--f-mono)}
+.empty{padding:36px;text-align:center;color:var(--muted)}
+
+/* Painel lateral da ficha */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--surface);z-index:41;display:grid;grid-template-rows:auto minmax(0,1fr) auto;box-shadow:-8px 0 30px rgba(0,0,0,.18);
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.dr-top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dr-top .id{font:700 14px var(--f-mono)}
+.dr-top .sp{flex:1}
+.iconbtn{appearance:none;border:1px solid var(--line);background:var(--surface);border-radius:8px;min-width:36px;height:36px;padding:0 10px;cursor:pointer;font:600 14px var(--f-ui);color:var(--ink)}
+.iconbtn:disabled{opacity:.4;cursor:default}
+.dr-body{overflow-y:auto;padding:18px 20px 28px;display:grid;gap:18px;align-content:start}
+.dr-foot{display:flex;justify-content:space-between;gap:10px;padding:10px 16px;border-top:1px solid var(--line)}
+.quote{font-size:19px;line-height:1.45;margin:0}
+.quote::before{content:"“";color:var(--muted)} .quote::after{content:"”";color:var(--muted)}
+.meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.chg{font-size:13px;color:var(--muted)}
+.chg s{color:var(--faint)}
+.seal{font-size:12px;border:1px dashed var(--line);border-radius:4px;padding:1px 6px;color:var(--muted)}
+.conc{display:inline-flex;gap:3px;align-items:center;font:500 11px var(--f-mono);color:var(--muted)}
+.conc i{width:7px;height:14px;border-radius:2px;background:var(--line)}
+.conc i.on{background:var(--ink)}
+.conc .div{color:var(--e);font-weight:700;margin-left:4px}
+.resumo{font-size:17px;font-weight:600}
+.subs{display:grid;gap:6px}
+.subrow{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:start;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2)}
+.subrow.central{border-color:var(--ink)}
+.subrow .st{display:grid;gap:3px;justify-items:start}
+.subrow .ty{font:500 10px var(--f-mono);color:var(--muted);letter-spacing:.05em}
+.subrow .r{font:700 11px var(--f-mono);border-radius:4px;padding:1px 6px;color:var(--surface);background:var(--c)}
+.subrow small{color:var(--muted);display:block}
+.dados{font:500 12px var(--f-mono);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:8px 10px;white-space:pre-wrap;word-break:break-word}
+.srcs{display:grid;gap:7px}
+.src{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:baseline;font-size:15px}
+.src a{word-break:break-word}
+.src .host{font:500 11px var(--f-mono);color:var(--muted);margin-left:6px;word-break:break-all}
+.agency{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.agency div{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:13px}
+.agency b{display:block;font:500 10px var(--f-mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+
+/* Metodologia */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.step{border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:6px;background:var(--surface-2);align-content:start}
+.step .mono{font-size:12px;color:var(--accent);font-weight:700}
+.step p{font-size:14px;color:var(--muted)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;align-items:baseline}
+.rule td:first-child{font-family:var(--f-mono);font-weight:700}
+.mtab{min-width:640px}
+footer{margin-top:40px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:16px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:9px 16px;border-radius:8px;font-weight:600;font-size:14px;z-index:60}
+
+@media (max-width:1000px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-hero,.grid2,.grid-ch,.cols,.fv,.hero{grid-template-columns:1fr}
+  .brand small{display:none}
+}
+@media (max-width:700px){
+  .top-in{flex-wrap:wrap;gap:0}
+  .brand{padding-top:10px}
+  .nav{flex-basis:100%}
+  .nav button{padding:10px 10px 9px}
+  .mx-row{grid-template-columns:minmax(0,1fr) 30px;row-gap:4px}
+  .mx-row .mini{grid-column:1 / -1}
+  .mx-head .h-cand{display:none}
+  .board-row{grid-template-columns:1fr}
+  .seg span{display:none}
+  .steps{grid-template-columns:1fr}
+  .mech div{grid-template-columns:1fr;gap:2px}
+  .rank-row{grid-template-columns:96px minmax(0,1fr) 46px}
+  .fbar .search-wrap{flex-basis:100%}
+  .mfilter{display:inline-flex;align-items:center;gap:6px}
+  .fbar[data-open="0"]{display:none}
+  .claim{grid-template-columns:auto minmax(0,1fr)}
+  .claim .pill{grid-column:2}
+  .kpi .v{font-size:26px}
+  .aleg{overflow:visible;border:0;background:none}
+  .aleg thead{display:none}
+  .aleg table,.aleg tbody{display:block}
+  .aleg tbody{display:grid;gap:8px}
+  .aleg tr{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .aleg td{border:0;padding:0;background:none!important}
+  .aleg td.q{min-width:0}
+  .aleg td:nth-child(3){display:none}
+  .aleg td:nth-child(4),.aleg td:nth-child(5){grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* Acrescentos OE 2027 */
+[hidden]{display:none!important}
+table,.mx,.board,.tcard,.kpi,.fc{font-family:var(--f-ui)}
+.brand .nums span{background:var(--accent);color:var(--accent-ink)}
+.cb{background:var(--ink);color:var(--surface)}
+.banner{margin-top:14px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:10px 14px;font:500 14px var(--f-ui);color:var(--ink)}
+.banner b{color:var(--accent-2)}
+/* Previsões: intervalo das instituições independentes + ponto do Governo */
+.fc{display:grid;gap:4px}
+.fc-row{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr) minmax(130px,auto);gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.fc-row:last-child{border-bottom:0}
+.fc-name{font:600 14px var(--f-ui)}
+.fc-name small{display:block;font:500 11px var(--f-mono);color:var(--muted);letter-spacing:.03em}
+.fc-track{position:relative;height:34px}
+.fc-axis{position:absolute;left:0;right:0;top:16px;height:2px;background:var(--line)}
+.fc-range{position:absolute;top:10px;height:14px;background:var(--surface-2);border:1.5px solid var(--muted);border-radius:4px}
+.fc-dot{position:absolute;top:11px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--faint);border:2px solid var(--surface);cursor:default}
+.fc-gov{position:absolute;top:8px;width:18px;height:18px;margin-left:-9px;transform:rotate(45deg);background:var(--accent);border:2px solid var(--surface);border-radius:3px}
+.fc-tick{position:absolute;top:26px;font:500 10px var(--f-mono);color:var(--faint);transform:translateX(-50%)}
+.fc-v{justify-self:end}
+.fc-legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);font-family:var(--f-ui)}
+.fc-legend i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px}
+.fc-legend .g{background:var(--accent);transform:rotate(45deg) scale(.85);border-radius:2px}
+.fc-legend .d{background:var(--faint);border-radius:50%}
+.fc-legend .r{background:var(--surface-2);border:1.5px solid var(--muted);border-radius:3px;width:22px}
+.fc-tbl td,.fc-tbl th{text-align:right}
+.fc-tbl td:first-child,.fc-tbl th:first-child{text-align:left}
+.fc-tbl .gov{font-weight:700;color:var(--accent-2)}
+.old{color:var(--faint);font-size:11px}
+.ptag{display:inline-block;font:700 11px var(--f-mono);background:var(--ink);color:var(--surface);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.ptag.gov{background:var(--accent);color:var(--accent-ink)}
+.pos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;align-items:start}
+@media (max-width:700px){
+  .fc-row{grid-template-columns:1fr;gap:6px}
+  .fc-v{justify-self:start}
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .banner b,:root:not([data-theme="light"]) .fc-tbl .gov{color:var(--accent)}}
+:root[data-theme="dark"] .banner b,:root[data-theme="dark"] .fc-tbl .gov{color:var(--accent)}
+.ballot .ptag{justify-self:start;align-self:center}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <button class="brand" data-go="visao" aria-label="Ir para a visão geral">
+      <span class="nums"><span>OE</span><span>27</span></span>
+      <span><b>Checagem do OE 2027</b><small id="brand-sub">ASSEMBLEIA DA REPÚBLICA · 27–28.OUT.2026 · GENERALIDADE</small></span>
+    </button>
+    <nav class="nav" id="nav" aria-label="Secções">
+      <button data-go="visao">Visão geral</button>
+      <button data-go="previsoes">Previsões</button>
+      <button data-go="temas">Temas<span class="ct" id="ct-temas"></span></button>
+      <button data-go="alegacoes">Afirmações<span class="ct" id="ct-aleg"></span></button>
+      <button data-go="divergencias">Divergências</button>
+      <button data-go="metodo">Como verificámos</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="crumbs" id="crumbs" aria-label="Está em"></div>
+
+  <div class="hero" id="hero">
+    <div class="hero-t">
+      <div class="eyebrow"><span>Verificação independente</span><span id="eyebrow-data">Debate na generalidade, 27 e 28/10/2026</span><span>Proposta de Lei n.º 110/XVII/2.ª</span></div>
+      <h1 id="h-visao">O que é facto no debate <span>do Orçamento do Estado 2027</span></h1>
+      <p class="lede" id="lede"></p>
+    </div>
+    <details class="howto" id="howto">
+      <summary>Como ler os vereditos</summary>
+      <div class="kv" id="scale2"></div>
+    </details>
+  </div>
+  <div class="banner" id="banner" hidden></div>
+  <div id="fbar-wrap">
+    <button class="mfilter iconbtn" id="mfilter" aria-expanded="false" aria-controls="fbar">Filtros <span class="mono" id="mfcount"></span></button>
+    <div class="fbar" id="fbar" role="search" aria-label="Filtros">
+      <div class="grp"><span class="lab">Tipo</span>
+        <div class="seg-ctl" id="f-tipo">
+          <button data-v="all" aria-pressed="true">Todas</button>
+          <button data-v="facto" aria-pressed="false">Factos</button>
+          <button data-v="previsao" aria-pressed="false">Previsões</button>
+        </div>
+      </div>
+      <div class="grp"><label class="lab" for="f-partido">Quem</label><select id="f-partido"></select></div>
+      <div class="grp"><label class="lab" for="f-tema">Tema</label><select id="f-tema"></select></div>
+      <div class="grp"><label class="lab" for="f-cat">Veredito</label><select id="f-cat"></select></div>
+      <div class="grp"><label class="lab" for="f-src">Fonte</label>
+        <select id="f-src">
+          <option value="all">Todas</option>
+          <option value="n1">Com fonte oficial aberta (N1)</option>
+          <option value="non1">Sem fonte oficial aberta</option>
+        </select>
+      </div>
+      <div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="search" id="q" type="search" placeholder="Pesquisar: IRS, dívida, PRR, SNS…" aria-label="Pesquisar afirmações"></div>
+    </div>
+    <div class="active" id="active"></div>
+  </div>
+
+  <main>
+    <!-- VISÃO GERAL -->
+    <section class="view" id="v-visao" aria-labelledby="h-visao">
+      <div class="kpis" id="kpis"></div>
+      <div class="grid-hero">
+        <div class="panel">
+          <div class="sec-h"><h3>Factos: vereditos por bancada</h3><button class="linkbtn" data-go="alegacoes">Ver lista</button></div>
+          <p class="sub" id="board-sub">Clique num troço da barra para ver essas afirmações.</p>
+          <div class="board" id="board"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div class="panel">
+          <div class="sec-h"><h3>Previsões do Governo face às instituições</h3><button class="linkbtn" data-go="previsoes">Ver detalhe</button></div>
+          <p class="sub">O losango é a previsão do Governo; a caixa vai da previsão mais baixa à mais alta das instituições independentes.</p>
+          <div class="fc" id="fc-mini"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="sec-h"><h3>Vereditos por tema</h3><p>Clique no nome do tema para abrir o dossiê, ou num troço da barra para ver as afirmações.</p></div>
+        <div class="mx" id="matrix"></div>
+      </div>
+      <div class="panel">
+        <div class="sec-h"><h3>Qualidade da melhor fonte de cada ficha</h3></div>
+        <p class="sub">Nível da fonte mais forte que sustenta o veredito. Clique para filtrar.</p>
+        <div class="board" id="tierboard"></div>
+        <div class="legend" id="tierlegend"></div>
+      </div>
+    </section>
+
+    <!-- PREVISÕES -->
+    <section class="view" id="v-previsoes" hidden>
+      <div class="panel">
+        <h2 style="font-size:24px;font-stretch:80%">As previsões do Governo face às das instituições</h2>
+        <p class="prose">Uma previsão não é verdadeira nem falsa no dia em que é feita. Por isso não lhe damos um veredito de verdade: comparamo-la com as previsões mais recentes do Banco de Portugal, do Conselho das Finanças Públicas, da Comissão Europeia, do FMI e da OCDE. Fica "dentro do consenso" se estiver entre a mais baixa e a mais alta.</p>
+        <div class="fc-legend"><span><i class="g"></i>Governo (OE 2027)</span><span><i class="d"></i>Cada instituição</span><span><i class="r"></i>Intervalo das instituições</span></div>
+        <div class="fc" id="fc-full"></div>
+      </div>
+      <div class="panel">
+        <h3>Os números, instituição a instituição</h3>
+        <p class="sub" id="fc-sub"></p>
+        <div class="tbl-wrap"><table class="mtab fc-tbl" id="fc-table"></table></div>
+      </div>
+    </section>
+
+    <!-- TEMAS -->
+    <section class="view" id="v-temas" hidden>
+      <div class="sec-h"><h2>Temas do debate</h2><p>Cada tema mostra quantas afirmações de cada lado estão corretas. Abra o dossiê para ver os dados oficiais e as posições.</p></div>
+      <div class="tlegend" id="tlegend" aria-label="Legenda"></div>
+      <div class="tcards" id="tcards"></div>
+    </section>
+
+    <!-- DOSSIÊ -->
+    <section class="view" id="v-dossie" hidden></section>
+
+    <!-- AFIRMAÇÕES -->
+    <section class="view" id="v-alegacoes" hidden>
+      <div class="listhead"><p id="resultinfo"></p><div style="display:flex;gap:14px"><label class="lab" for="f-sort" style="font:500 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);align-self:center">Ordenar</label><select id="f-sort"><option value="debate">Ordem do debate</option><option value="grave">Mais graves primeiro</option><option value="good">Mais corretas primeiro</option><option value="tema">Por tema</option></select></div></div>
+      <div class="tbl-wrap aleg"><table>
+        <thead><tr><th>ID</th><th>Afirmação</th><th>Tema</th><th>Veredito</th><th>Melhor fonte</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+    </section>
+
+    <!-- DIVERGÊNCIAS -->
+    <section class="view" id="v-divergencias" hidden>
+      <div class="panel">
+        <h2 style="font-size:24px;font-stretch:80%">Onde os verificadores discordam</h2>
+        <p id="div-resumo"></p>
+        <div class="tbl-wrap"><table class="mtab divt">
+          <thead id="divhead"></thead>
+          <tbody id="divtable"></tbody>
+        </table></div>
+        <p class="sub" style="margin:0">Clique numa linha para abrir a ficha. Um traço (—) indica que o verificador não analisou a frase.</p>
+      </div>
+    </section>
+
+    <!-- METODOLOGIA -->
+    <section class="view" id="v-metodo" hidden>
+      <div class="panel">
+        <h2 style="font-size:24px;font-stretch:80%">Como esta verificação foi feita</h2>
+        <div class="steps">
+          <div class="step"><span class="mono">1 · TRANSCRIÇÃO</span><h3>A frase literal</h3><p>Cada afirmação é registada a partir do vídeo do Canal Parlamento, com o minuto, e confirmada depois no Diário da Assembleia da República.</p></div>
+          <div class="step"><span class="mono">2 · VERIFICADORES</span><h3>Vereditos cruzados</h3><p>Comparamos com o Polígrafo, o Observador Fact Check e o Público, e registamos onde discordam.</p></div>
+          <div class="step"><span class="mono">3 · FONTE PRIMÁRIA</span><h3>O dado na origem</h3><p>INE, Eurostat, Banco de Portugal, DGO, IGCP, CFP, UTAO e o próprio relatório do OE 2027, abertos diretamente.</p></div>
+        </div>
+        <h3 style="font-size:19px">Factos e previsões</h3>
+        <p>Frases sobre o passado ou o presente recebem um veredito de verdade. Frases sobre o futuro (crescimento, saldo, dívida, emprego) são comparadas com as previsões das instituições independentes. Um risco apontado pelo CFP ou pela UTAO aparece na ficha como nota, sem mudar o veredito.</p>
+        <h3 style="font-size:19px">Regras de equilíbrio</h3>
+        <p>O mesmo molde de ficha para o Governo e para todas as bancadas. Bancadas com menos de 5 afirmações verificadas aparecem na lista, mas não no placar, para evitar percentagens sem base. Não há ranking de "quem mente mais": o placar mostra vereditos, não notas. Fontes partidárias ou de grupos parlamentares ficam marcadas como N4 e nunca contam como confirmação.</p>
+        <h3 style="font-size:19px">A régua dos factos</h3>
+        <p>Cada afirmação é decomposta em subafirmações (número, data, autoria, existência, causa). A subafirmação central decide o veredito, e cada uma é julgada por esta régua:</p>
+        <div class="tbl-wrap"><table class="rule mtab">
+          <thead><tr><th>Tipo</th><th>Verdadeiro</th><th>Impreciso</th><th>Exagerado</th><th>Falso</th></tr></thead>
+          <tbody>
+            <tr><td>NÚMERO</td><td>desvio até 5%</td><td>desvio de 5% a 20%</td><td>mais de 20%, direção certa</td><td>direção errada ou sem base</td></tr>
+            <tr><td>DATA</td><td>ano correto</td><td>erro até 1 ano</td><td>—</td><td>erro maior ou governo trocado</td></tr>
+            <tr><td>AUTORIA</td><td>correta</td><td>partilhada, apresentada como exclusiva</td><td>—</td><td>trocada</td></tr>
+            <tr><td>EXISTÊNCIA</td><td>documentada</td><td>documentada em parte</td><td>—</td><td>inexistente ou desmentida</td></tr>
+            <tr><td>CAUSA</td><td colspan="4">recebe o selo "causalidade não demonstrada", sem baixar o veredito</td></tr>
+          </tbody>
+        </table></div>
+        <h3 style="font-size:19px">A régua das previsões</h3>
+        <div class="kv" id="scale-prev"></div>
+        <div class="kv">
+          <span class="tier">CONFIRMAÇÃO</span><span>Pelo menos uma fonte oficial aberta diretamente (N1) e mais duas fontes N1 a N3 independentes entre si. Fontes N4 nunca contam.</span>
+          <span class="tier">CONTRAPROVA</span><span>Antes de fechar, procura dirigida pela melhor evidência a favor de quem falou.</span>
+        </div>
+        <h3 style="font-size:19px">Níveis de fonte</h3>
+        <div class="kv">
+          <span class="tier N1">N1</span><span>Dado ou documento oficial, aberto diretamente: INE, Eurostat, Banco de Portugal, DGO, relatório do OE, parecer do CFP ou da UTAO, Diário da República.</span>
+          <span class="tier N1s">N1*</span><span>Documento oficial citado por outra fonte e não aberto diretamente.</span>
+          <span class="tier N2">N2</span><span>Verificador com metodologia publicada.</span>
+          <span class="tier">N3</span><span>Imprensa profissional ou centro de estudos sem alinhamento partidário declarado.</span>
+          <span class="tier N4">N4</span><span>Partido, grupo parlamentar ou site de autoria individual. Registado, nunca conta para confirmar.</span>
+        </div>
+        <h3 style="font-size:19px">Escala de vereditos</h3>
+        <div class="kv" id="scale"></div>
+        <h3 style="font-size:19px">Documentos e verificadores</h3>
+        <div class="kv" id="docs"></div>
+        <h3 style="font-size:19px">Limitações</h3>
+        <p id="limites"></p>
+      </div>
+    </section>
+  </main>
+  <footer id="rodape"></footer>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-modal="true" role="dialog" aria-labelledby="dr-id">
+  <div class="dr-top"><span class="id" id="dr-id"></span><span class="sp"></span><button class="iconbtn" id="dr-copy">Copiar ligação</button><button class="iconbtn" id="dr-close" aria-label="Fechar ficha">✕</button></div>
+  <div class="dr-body" id="dr-body"></div>
+  <div class="dr-foot"><button class="iconbtn" id="dr-prev">← Anterior</button><span class="rev" id="dr-pos" style="align-self:center"></span><button class="iconbtn" id="dr-next">Seguinte →</button></div>
+</aside>
+<div class="toast" id="toast" hidden></div>
+
+<script type="application/json" id="meta">__META__</script>
+<script type="application/json" id="data">__FICHAS__</script>
+<script type="application/json" id="partidos">__PARTIDOS__</script>
+<script type="application/json" id="temas">__TEMAS__</script>
+<script type="application/json" id="dossies">__DOSSIES__</script>
+<script type="application/json" id="series">__SERIES__</script>
+<script type="application/json" id="previsoes">__PREVISOES__</script>
+<script>
+(function(){
+const J = id => JSON.parse(document.getElementById(id).textContent);
+const META = J('meta'), DATA = J('data'), PART = J('partidos'), TEMAS = J('temas'), DZ = J('dossies'), S = J('series'), PV = J('previsoes');
+const TNAME = Object.fromEntries(TEMAS);
+const PBY = Object.fromEntries(PART.map(p=>[p.k,p]));
+const CAMPOS = [['governo','Governo, PSD e CDS-PP'],['oposicao','Oposição']];
+
+/* Vereditos de factos e de previsões */
+const CATS_F = [
+  {k:'V', name:'Verdadeiro', g:'✓', sev:0},
+  {k:'VR',name:'Verdadeiro com ressalva', g:'✓', sev:1},
+  {k:'I', name:'Impreciso / falta contexto', g:'≈', sev:2},
+  {k:'E', name:'Exagerado ou subestimado', g:'↕', sev:3},
+  {k:'F', name:'Falso', g:'✕', sev:5},
+  {k:'N', name:'Insustentável / não comprovado', g:'!', sev:4},
+  {k:'NV',name:'Não verificável', g:'?', sev:-1}];
+const CATS_P = [
+  {k:'MP',name:'Muito pessimista', g:'⇊', sev:3, p:'mp'},
+  {k:'P', name:'Pessimista', g:'↓', sev:2, p:'p'},
+  {k:'C', name:'Dentro do consenso', g:'=', sev:0, p:'c'},
+  {k:'O', name:'Otimista', g:'↑', sev:2, p:'o'},
+  {k:'MO',name:'Muito otimista', g:'⇈', sev:3, p:'mo'},
+  {k:'SC',name:'Sem consenso suficiente', g:'?', sev:-1, p:'c'}];
+const CAT = Object.fromEntries([...CATS_F,...CATS_P].map(c=>[c.k,c]));
+const isPrev = k => CATS_P.some(c=>c.k===k);
+const ccol = k => isPrev(k) ? `var(--p-${CAT[k].p})` : `var(--${k.toLowerCase()})`;
+const cvar = k => isPrev(k) ? `--c:var(--ink);--cbg:color-mix(in srgb,var(--p-${CAT[k].p}) 18%,var(--surface));--cg:var(--p-${CAT[k].p})` : `--c:var(--${k.toLowerCase()});--cbg:var(--${k.toLowerCase()}-bg);--cg:var(--${k.toLowerCase()})`;
+const DESC_F = {V:'O dado confere com as fontes.',VR:'Confere, mas com um pormenor que muda a leitura.',I:'Mistura acerto e erro, ou omite contexto essencial.',E:'Número na direção certa, mas inflacionado ou reduzido.',F:'Contrariado pelas fontes.',N:'Acusação sem prova disponível, ou contrariada pelos factos.',NV:'Não há dado público que permita verificar.'};
+const DESC_P = {C:'Entre a previsão mais baixa e a mais alta das instituições independentes.',O:'Mais favorável do que todas as instituições, até ao limiar do indicador.',MO:'Mais favorável do que todas as instituições, para lá do limiar.',P:'Menos favorável do que todas as instituições, até ao limiar.',MP:'Menos favorável do que todas as instituições, para lá do limiar.',SC:'Menos de duas instituições publicaram previsão comparável.'};
+const TIERS = [['N1','Oficial aberta','var(--v)'],['N1*','Oficial citada','var(--vr)'],['N2','Verificador','var(--accent)'],['N3','Imprensa','var(--faint)'],['N4','Partidária ou individual','var(--e)'],['—','Sem fonte','var(--line)']];
+const TRANK = {'N1':0,'N1*':1,'N2':2,'N3':3,'N4':4,'—':5};
+const TLAB = {'N1':'Oficial','N1*':'Oficial (citada)','N2':'Verificador','N3':'Imprensa','N4':'Partidária ou opinião','—':'Sem fonte'};
+const tcls = t => ({'N1':'N1','N1*':'N1s','N2':'N2','N4':'N4'}[t]||'');
+const tierTag = t => `<span class="tier ${tcls(t)}" title="Nível ${t}">${TLAB[t]}</span>`;
+const AGS = META.verificadores || [];
+
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>');
+const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const fmt = (n,d=1) => Number(n).toLocaleString('pt-PT',{minimumFractionDigits:d,maximumFractionDigits:d});
+const host = u => { try{ return new URL(u).hostname.replace(/^www\d*\./,''); }catch(e){ return ''; } };
+const ptag = k => { const p=PBY[k]||{sigla:k}; return `<span class="ptag ${p.campo==='governo'&&k==='GOV'?'gov':''}" title="${esc(p.nome||k)}">${esc(p.sigla)}</span>`; };
+
+/* Previsões: classificação face ao intervalo das instituições independentes */
+const INST = Object.fromEntries(PV.instituicoes.map(i=>[i.k,i]));
+function fcRange(ind, ano){
+  const row = (PV.valores[ind]||{})[ano]||{};
+  const vals = Object.entries(row).filter(([k,v])=>k!=='GOV' && v!=null);
+  if(!vals.length) return null;
+  const nums = vals.map(x=>x[1]);
+  return {gov:row.GOV, lo:Math.min(...nums), hi:Math.max(...nums), vals};
+}
+function classify(ind, ano, valor){
+  const I = PV.indicadores[ind], r = fcRange(ind, ano);
+  if(!r || r.vals.length<2) return 'SC';
+  const v = valor ?? r.gov, lim = I.limiar ?? 0.5;
+  if(v >= r.lo-1e-9 && v <= r.hi+1e-9) return 'C';
+  const above = v > r.hi, dist = above ? v-r.hi : r.lo-v, good = (I.bom==='alto') === above;
+  return good ? (dist>lim+1e-9?'MO':'O') : (dist>lim+1e-9?'MP':'P');
+}
+
+DATA.forEach((d,i)=>{
+  d.order = i;
+  if(d.tipo==='previsao' && d.prev) d.cat = classify(d.prev.ind, d.prev.ano, d.prev.valor);
+  d.srcs = (d.sources||[]).slice().sort((a,b)=>TRANK[a.tier]-TRANK[b.tier]);
+  d.best = d.srcs.length ? d.srcs[0].tier : '—';
+  d.campo = (PBY[d.partido]||{}).campo || 'oposicao';
+  d.hay = norm([d.id,d.quote,d.short,d.orador,(PBY[d.partido]||{}).nome,TNAME[d.tema],d.resumo,d.contra,(d.analise||[]).join(' '),(d.subs||[]).map(s=>s.txt+' '+(s.nota||'')).join(' ')].join(' '));
+});
+const BYID = Object.fromEntries(DATA.map(d=>[d.id,d]));
+const FACTOS = () => DATA.filter(d=>d.tipo!=='previsao');
+
+/* Estado */
+const state = {view:'visao', dz:null, q:'', partido:'all', tipo:'all', tema:'all', cat:'all', src:'all', sort:'debate', ficha:null};
+const pass = (d, skip) =>
+  (skip==='partido'||state.partido==='all'||d.partido===state.partido||(state.partido.startsWith('c:')&&d.campo===state.partido.slice(2))) &&
+  (skip==='tipo'||state.tipo==='all'||(state.tipo==='previsao')===(d.tipo==='previsao')) &&
+  (skip==='tema'||state.tema==='all'||d.tema===state.tema) &&
+  (skip==='cat'||state.cat==='all'||d.cat===state.cat||(state.cat==='VVR'&&(d.cat==='V'||d.cat==='VR'))||(state.cat==='FE'&&(d.cat==='F'||d.cat==='E'))||(state.cat==='FORA'&&isPrev(d.cat)&&!['C','SC'].includes(d.cat))) &&
+  (state.src==='all'||(state.src==='n1'&&d.best==='N1')||(state.src==='non1'&&d.best!=='N1')||(state.src.startsWith('t:')&&d.best===state.src.slice(2))) &&
+  (!state.q || norm(state.q.trim()).split(/\s+/).every(t=>d.hay.includes(t)));
+const filtered = () => {
+  let out = DATA.filter(d=>pass(d));
+  const sev = d => CAT[d.cat].sev<0?9:CAT[d.cat].sev;
+  if(state.sort==='grave') out.sort((a,b)=>CAT[b.cat].sev-CAT[a.cat].sev||a.order-b.order);
+  if(state.sort==='good') out.sort((a,b)=>sev(a)-sev(b)||a.order-b.order);
+  if(state.sort==='tema') out.sort((a,b)=>TEMAS.findIndex(t=>t[0]===a.tema)-TEMAS.findIndex(t=>t[0]===b.tema)||a.order-b.order);
+  return out;
+};
+
+/* Roteamento por âncora */
+const VIEWS = ['visao','previsoes','temas','alegacoes','divergencias','metodo'];
+function go(view, opts={}){
+  if(!document.getElementById('drawer').hidden){ document.getElementById('drawer').hidden=true; document.getElementById('scrim').hidden=true; document.body.classList.remove('lock'); state.ficha=null; }
+  if(DZ[view]){ state.view='dossie'; state.dz=view; }
+  else { state.view = VIEWS.includes(view)?view:'visao'; state.dz=null; }
+  if(!opts.keepScroll) window.scrollTo({top:0});
+  setHash(); render();
+}
+function setHash(){
+  const h = state.ficha || (state.view==='dossie'?state.dz:state.view);
+  try{ history.replaceState(null,'','#'+h); }catch(e){}
+}
+function fromHash(){
+  const h = decodeURIComponent((location.hash||'').slice(1));
+  if(BYID[h]){ state.view = DZ[BYID[h].tema] ? 'dossie' : 'alegacoes'; state.dz = state.view==='dossie'?BYID[h].tema:null; render(); openFicha(h); return; }
+  closeFicha();
+  if(DZ[h]){ state.view='dossie'; state.dz=h; }
+  else if(VIEWS.includes(h)) state.view=h;
+  render();
+}
+
+/* Filtros */
+function renderControls(){
+  const temaSel = document.getElementById('f-tema'), pSel = document.getElementById('f-partido');
+  if(!temaSel.options.length){
+    temaSel.innerHTML = `<option value="all">Todos</option>`+TEMAS.map(([k,n])=>`<option value="${k}">${esc(n)}</option>`).join('');
+    pSel.innerHTML = `<option value="all">Todos</option>`+CAMPOS.map(([k,n])=>`<option value="c:${k}">${esc(n)}</option>`).join('')+`<optgroup label="Por bancada">`+PART.filter(p=>DATA.some(d=>d.partido===p.k)).map(p=>`<option value="${p.k}">${esc(p.nome)}</option>`).join('')+`</optgroup>`;
+    document.getElementById('f-cat').innerHTML = `<option value="all">Todos</option><optgroup label="Factos"><option value="VVR">Verdadeiro (com ou sem ressalva)</option><option value="FE">Falso ou exagerado</option>`+CATS_F.map(c=>`<option value="${c.k}">${esc(c.name)}</option>`).join('')+`</optgroup><optgroup label="Previsões"><option value="FORA">Fora do consenso</option>`+CATS_P.map(c=>`<option value="${c.k}">${esc(c.name)}</option>`).join('')+`</optgroup>`;
+  }
+  temaSel.value = state.tema; pSel.value = state.partido; document.getElementById('f-cat').value = state.cat;
+  const srcSel = document.getElementById('f-src');
+  if(state.src.startsWith('t:') && !srcSel.querySelector(`option[value="${state.src}"]`)){ const o=document.createElement('option'); o.value=state.src; o.textContent='Melhor fonte: '+state.src.slice(2); srcSel.appendChild(o); }
+  srcSel.value = state.src;
+  document.getElementById('f-sort').value = state.sort;
+  const q=document.getElementById('q'); if(q.value!==state.q) q.value=state.q;
+  document.querySelectorAll('#f-tipo button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===state.tipo));
+  const tags=[];
+  if(state.tipo!=='all') tags.push(['tipo',state.tipo==='facto'?'Só factos':'Só previsões']);
+  if(state.partido!=='all') tags.push(['partido',pSel.options[pSel.selectedIndex]?.textContent||state.partido]);
+  if(state.tema!=='all') tags.push(['tema',TNAME[state.tema]]);
+  if(state.cat!=='all') tags.push(['cat',({VVR:'Verdadeiro (com ou sem ressalva)',FE:'Falso ou exagerado',FORA:'Previsão fora do consenso'})[state.cat]||CAT[state.cat].name]);
+  if(state.src!=='all') tags.push(['src',srcSel.options[srcSel.selectedIndex].textContent]);
+  if(state.q) tags.push(['q','“'+state.q+'”']);
+  document.getElementById('mfcount').textContent = tags.length?'· '+tags.length:'';
+  document.getElementById('active').innerHTML = tags.length ? tags.map(([k,l])=>`<span class="tag">${esc(l)}<button data-clear="${k}" aria-label="Remover filtro ${esc(l)}">×</button></span>`).join('')+`<button class="linkbtn" data-clear="all">Limpar filtros</button>` : '';
+  const n = filtered().length;
+  document.getElementById('ct-aleg').textContent = n===DATA.length ? DATA.length : `${n}/${DATA.length}`;
+  document.getElementById('ct-temas').textContent = TEMAS.length;
+}
+function drill(patch){ Object.assign(state,patch); go('alegacoes'); }
+
+/* KPIs */
+function renderKPIs(){
+  const base = DATA.filter(d=>pass(d,'tipo')), f = base.filter(d=>d.tipo!=='previsao'), p = base.filter(d=>d.tipo==='previsao');
+  const pct = (rows,fn) => rows.length?Math.round(rows.filter(fn).length/rows.length*100):0;
+  const fora = p.filter(d=>!['C','SC'].includes(d.cat)).length;
+  document.getElementById('kpis').innerHTML = `
+    <button class="kpi" data-kpi="all"><span class="l">Afirmações verificadas</span><span class="v">${base.length}</span><span class="s">${f.length} factos · ${p.length} previsões</span></button>
+    <button class="kpi" data-kpi="VVR"><span class="l">Factos corretos</span><span class="v">${f.length?pct(f,d=>d.cat==='V'||d.cat==='VR')+'%':'—'}</span><span class="s">verdadeiros, com ou sem ressalva</span></button>
+    <button class="kpi" data-kpi="FE"><span class="l">Factos falsos ou exagerados</span><span class="v">${f.length?pct(f,d=>d.cat==='F'||d.cat==='E')+'%':'—'}</span><span class="s">dos ${f.length} factos verificados</span></button>
+    <button class="kpi" data-kpi="FORA"><span class="l">Previsões fora do consenso</span><span class="v">${fora}<span style="font-size:18px;color:var(--muted)"> / ${p.length}</span></span><span class="s">acima ou abaixo de todas as instituições</span></button>`;
+}
+
+/* Placar por bancada (só factos, bancadas com 5 ou mais) */
+const MINP = META.min_placar || 5;
+function stackRow(k, label, sub, rows, keys, colorOf, labelOf, onPick){
+  const tot = rows.length;
+  const row = document.createElement('div'); row.className='board-row';
+  row.innerHTML = `<div class="ballot" style="grid-template-columns:auto auto">${PBY[k]?ptag(k):''}<span class="who">${esc(label)}<small>${esc(sub)}</small></span></div>`;
+  const bar = document.createElement('div'); bar.className='bar'; bar.setAttribute('role','group'); bar.setAttribute('aria-label',label);
+  keys.forEach(([c,n])=>{
+    if(!n) return;
+    const b=document.createElement('button'); b.className='seg';
+    b.style.cssText=`flex:${n} 1 0;background:${colorOf(c)}`;
+    b.title=`${label}: ${n} × ${labelOf(c)} (${Math.round(n/tot*100)}%)`; b.setAttribute('aria-label',b.title);
+    b.innerHTML=`<span>${n}</span>`; b.onclick=()=>onPick(k,c); bar.appendChild(b);
+  });
+  if(!tot) bar.innerHTML='<span class="empty" style="padding:8px">Nenhuma afirmação com estes filtros</span>';
+  row.appendChild(bar); return row;
+}
+function renderBoards(){
+  const board=document.getElementById('board'), tb=document.getElementById('tierboard'); board.innerHTML=''; tb.innerHTML='';
+  const f = FACTOS().filter(d=>pass(d,'partido'));
+  const keys = PART.filter(p=>f.filter(d=>d.partido===p.k).length>=MINP).filter(p=>state.partido==='all'||state.partido===p.k||state.partido==='c:'+p.campo);
+  const fora = PART.filter(p=>!keys.includes(p) && f.some(d=>d.partido===p.k));
+  keys.forEach(p=>{
+    const rows=f.filter(d=>d.partido===p.k);
+    board.appendChild(stackRow(p.k, p.nome, `${rows.length} factos`, rows, CATS_F.map(c=>[c.k,rows.filter(d=>d.cat===c.k).length]), c=>`var(--${c.toLowerCase()})`, c=>CAT[c].name, (k,c)=>drill({partido:k,cat:c,tipo:'facto'})));
+  });
+  if(!keys.length) board.innerHTML = `<p class="empty" style="padding:16px">O placar aparece quando uma bancada tiver pelo menos ${MINP} factos verificados.</p>`;
+  document.getElementById('board-sub').textContent = fora.length ? `Clique num troço da barra para ver essas afirmações. Com menos de ${MINP} factos, fora do placar: ${fora.map(p=>p.sigla).join(', ')}.` : 'Clique num troço da barra para ver essas afirmações.';
+  const all = DATA.filter(d=>pass(d,'partido'));
+  CAMPOS.forEach(([c,n])=>{
+    const rows = all.filter(d=>d.campo===c);
+    tb.appendChild(stackRow(c==='governo'?'GOV':'OPO', n, `${rows.length} fichas`, rows, TIERS.map(t=>[t[0],rows.filter(d=>d.best===t[0]).length]), k=>TIERS.find(t=>t[0]===k)[2], k=>'melhor fonte '+k+' · '+TIERS.find(t=>t[0]===k)[1], (_,k)=>drill({partido:'c:'+c,src:'t:'+k})));
+  });
+  document.getElementById('legend').innerHTML = CATS_F.map(k=>`<span><b style="background:var(--${k.k.toLowerCase()})"></b>${k.name}</span>`).join('');
+  document.getElementById('tierlegend').innerHTML = TIERS.map(t=>`<span><b style="background:${t[2]}"></b>${t[0]} · ${t[1]}</span>`).join('');
+}
+
+/* Matriz tema × veredito (factos e previsões em colunas separadas) */
+function miniBar(rows, cats, tema, tipo){
+  if(!rows.length) return `<div class="mini"><span class="zero">—</span></div>`;
+  return `<div class="mini" role="group">`+cats.map(k=>{
+    const n=rows.filter(d=>d.cat===k.k).length; if(!n) return '';
+    return `<button style="flex:${n} 1 0;background:${ccol(k.k)}" title="${esc(TNAME[tema])}: ${n} × ${k.name}" aria-label="${esc(TNAME[tema])}: ${n} ${k.name}" data-mx="${tema}|${tipo}|${k.k}"></button>`;
+  }).join('')+`</div>`;
+}
+function renderMatrix(){
+  let html = `<div class="mx-row mx-head"><span>Tema</span><span style="text-align:right">n</span><span class="h-cand">Factos</span><span class="h-cand">Previsões</span></div>`;
+  TEMAS.forEach(([k,n])=>{
+    const rows = DATA.filter(d=>d.tema===k && pass(d,'tema'));
+    if(!rows.length && !DZ[k]) return;
+    html += `<div class="mx-row"><button class="mx-name" data-tema="${k}">${esc(n)}${DZ[k]?'<span class="dz">DOSSIÊ</span>':''}</button><span class="mx-n">${rows.length}</span>${miniBar(rows.filter(d=>d.tipo!=='previsao'),CATS_F,k,'facto')}${miniBar(rows.filter(d=>d.tipo==='previsao'),CATS_P,k,'previsao')}</div>`;
+  });
+  document.getElementById('matrix').innerHTML = html;
+}
+
+/* Cartões de tema */
+const GRUPOS=[['ok','Factos corretos',['V','VR'],'var(--v)'],['meio','Imprecisos ou exagerados',['I','E'],'var(--i)'],['mal','Falsos ou insustentáveis',['F','N'],'var(--f)'],['prev','Previsões',CATS_P.map(c=>c.k),'var(--p-c)'],['nv','Não verificáveis',['NV'],'var(--nv)']];
+function campoRow(rows,c,label){
+  const tot=rows.length;
+  if(!tot) return `<div class="tc-row empty-row"><span class="tc-who">${esc(label)}</span><span class="tc-none">Sem afirmações neste tema</span></div>`;
+  const g=GRUPOS.map(([k,l,cats,col])=>[k,l,col,rows.filter(d=>cats.includes(d.cat)).length]).filter(x=>x[3]);
+  const f=rows.filter(d=>d.tipo!=='previsao'), ok=f.filter(d=>d.cat==='V'||d.cat==='VR').length;
+  return `<div class="tc-row"><span class="tc-who">${esc(label)}</span>
+    <span class="tc-score">${f.length?`<b>${ok}</b> de ${f.length} factos corretos`:`${tot} previsões`}</span>
+    <span class="tc-bar" role="img" aria-label="${esc(label)}: ${g.map(x=>x[3]+' '+x[1].toLowerCase()).join(', ')}">${g.map(([k,l,col,n])=>`<i style="flex:${n} 1 0;background:${col}" title="${n} ${l.toLowerCase()}"></i>`).join('')}</span>
+    <span class="tc-nums">${g.map(([k,l,col,n])=>`<span><i style="background:${col}"></i>${n}</span>`).join('')}</span></div>`;
+}
+function renderTemas(){
+  document.getElementById('tlegend').innerHTML = GRUPOS.map(([k,l,c,col])=>`<span><i style="background:${col}"></i>${l}</span>`).join('');
+  const lista = TEMAS.map(([k,n])=>[k,n,DATA.filter(d=>d.tema===k && pass(d,'tema'))]).sort((a,b)=>(!!DZ[b[0]])-(!!DZ[a[0]])||b[2].length-a[2].length);
+  document.getElementById('tcards').innerHTML = lista.map(([k,n,rows])=>{
+    const D=DZ[k], tese=D?D.tese.split('. ')[0].replace(/\.$/,'')+'.':'Este tema ainda não tem dossiê. As afirmações estão na lista.';
+    return `<button class="tcard" data-tema="${k}">
+      <div class="tc-top"><h3>${esc(n)}</h3><span class="tc-count mono">${rows.length}<small>afirmações</small></span></div>
+      <p class="tc-tese">${esc(tese)}</p>
+      <div class="tc-rows">${CAMPOS.map(([c,l])=>campoRow(rows.filter(d=>d.campo===c),c,l)).join('')}</div>
+      <span class="tc-cta">${D?'Abrir dossiê →':'Ver afirmações →'}</span></button>`;
+  }).join('');
+}
+
+/* Tabela de afirmações */
+const pill = k => `<span class="pill" style="${cvar(k)}"><span class="g" style="background:var(--cg)">${CAT[k].g}</span>${CAT[k].name}</span>`;
+const quem = d => `${ptag(d.partido)} ${esc(d.orador||'')}${d.sessao!=null?' · '+esc(META.sessoes[d.sessao]||''):''}`;
+function renderRows(){
+  const rows = filtered();
+  document.getElementById('resultinfo').innerHTML = `<b>${rows.length}</b> de ${DATA.length} afirmações`;
+  document.getElementById('rows').innerHTML = rows.length ? rows.map(d=>`<tr data-id="${d.id}" tabindex="0" aria-label="Abrir ficha ${d.id}"><td class="id">${d.id}</td><td class="q">${esc(d.short)}<small>${quem(d)}</small></td><td>${esc(TNAME[d.tema])}</td><td>${pill(d.cat)}</td><td>${tierTag(d.best)}</td></tr>`).join('') : `<tr><td colspan="5"><div class="empty">Nenhuma afirmação com estes filtros. <button class="linkbtn" data-clear="all">Limpar filtros</button></div></td></tr>`;
+}
+
+/* Divergências com os verificadores */
+function renderDiv(){
+  const comAg = DATA.filter(d=>d.agencias && Object.keys(d.agencias).length);
+  document.getElementById('divhead').innerHTML = `<tr><th>Afirmação</th>${AGS.map(a=>`<th>${esc(a.nome)}</th>`).join('')}<th>Esta verificação</th></tr>`;
+  document.getElementById('div-resumo').textContent = comAg.length ? `${comAg.length} das ${DATA.length} afirmações desta verificação também foram analisadas por pelo menos um verificador. A última coluna mostra o nosso veredito, depois de consultar a fonte primária.` : 'Os verificadores ainda não publicaram análises do debate. Esta tabela é preenchida à medida que publicarem.';
+  document.getElementById('divtable').innerHTML = comAg.length ? comAg.map(d=>`<tr data-id="${d.id}" tabindex="0"><td><b class="mono">${d.id}</b> ${esc(d.short)}</td>${AGS.map(a=>{ const v=d.agencias[a.k]; return `<td>${v?`<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.v)}</a>`:'—'}</td>`; }).join('')}<td>${pill(d.cat)}</td></tr>`).join('') : `<tr><td colspan="${AGS.length+2}"><div class="empty">Sem dados ainda.</div></td></tr>`;
+  document.getElementById('scale').innerHTML = document.getElementById('scale2').innerHTML = CATS_F.map(k=>`${pill(k.k)}<span>${DESC_F[k.k]}</span>`).join('') + CATS_P.map(k=>`${pill(k.k)}<span>${DESC_P[k.k]}</span>`).join('');
+  document.getElementById('scale-prev').innerHTML = Object.entries(PV.indicadores).map(([k,I])=>`<span class="tier">${esc(I.curto||I.nome)}</span><span>${esc(I.nome)}: melhor quando ${I.bom==='alto'?'mais alto':'mais baixo'}; limiar de ${fmt(I.limiar??0.5,1)} ${esc(I.unid_limiar||'p.p.')} entre "otimista" e "muito otimista".</span>`).join('');
+}
+
+/* Previsões */
+function fcRow(ind, ano, opts={}){
+  const I = PV.indicadores[ind], r = fcRange(ind, ano); if(!r) return '';
+  const all = [...r.vals.map(x=>x[1]), r.gov].filter(v=>v!=null);
+  let lo = Math.min(...all), hi = Math.max(...all); const pad = Math.max((hi-lo)*0.25, I.passo||0.2); lo-=pad; hi+=pad;
+  const X = v => ((v-lo)/(hi-lo)*100).toFixed(2)+'%';
+  const k = classify(ind, ano);
+  const dots = r.vals.map(([i,v])=>`<span class="fc-dot" style="left:${X(v)}" title="${esc(INST[i].nome)}: ${fmt(v,I.dec??1)}${esc(I.unid)} (${esc(INST[i].quando)})"></span>`).join('');
+  const ticks = [r.lo, r.hi].filter((v,j,a)=>a.indexOf(v)===j).map(v=>`<span class="fc-tick" style="left:${X(v)}">${fmt(v,I.dec??1)}</span>`).join('');
+  return `<div class="fc-row"><div class="fc-name">${esc(I.nome)} ${ano}<small>GOVERNO ${fmt(r.gov,I.dec??1)}${esc(I.unid)} · ${r.vals.length} INSTITUIÇÕES</small></div>
+    <div class="fc-track" role="img" aria-label="${esc(I.nome)} ${ano}: Governo ${fmt(r.gov,I.dec??1)}${esc(I.unid)}; instituições entre ${fmt(r.lo,I.dec??1)} e ${fmt(r.hi,I.dec??1)}"><span class="fc-axis"></span><span class="fc-range" style="left:${X(r.lo)};width:calc(${X(r.hi)} - ${X(r.lo)})"></span>${dots}${ticks}<span class="fc-gov" style="left:${X(r.gov)}" title="Governo: ${fmt(r.gov,I.dec??1)}${esc(I.unid)}"></span></div>
+    <div class="fc-v">${opts.button?`<button class="linkbtn" data-cat-prev="${k}" style="text-decoration:none">${pill(k)}</button>`:pill(k)}</div></div>`;
+}
+function renderPrev(mini){
+  const lista = PV.destaque;
+  if(mini){ document.getElementById('fc-mini').innerHTML = lista.slice(0,5).map(([i,a])=>fcRow(i,a)).join(''); return; }
+  document.getElementById('fc-full').innerHTML = lista.map(([i,a])=>fcRow(i,a)).join('');
+  const insts = PV.instituicoes;
+  const anos = [...new Set(lista.map(x=>x[1]))];
+  let html = `<thead><tr><th>Indicador</th>${insts.map(i=>`<th>${esc(i.curto)}</th>`).join('')}<th>Veredito</th></tr></thead><tbody>`;
+  lista.forEach(([ind,ano])=>{ const I=PV.indicadores[ind], row=PV.valores[ind][ano]||{};
+    html += `<tr><td>${esc(I.nome)} ${ano} <span class="old">${esc(I.unid)}</span></td>${insts.map(i=>`<td class="${i.k==='GOV'?'gov':''}">${row[i.k]!=null?fmt(row[i.k],I.dec??1):'—'}</td>`).join('')}<td>${pill(classify(ind,ano))}</td></tr>`; });
+  html += `</tbody>`;
+  document.getElementById('fc-table').innerHTML = html;
+  document.getElementById('fc-sub').innerHTML = insts.filter(i=>i.k!=='GOV').map(i=>`<b>${esc(i.curto)}</b>: <a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.fonte)}</a> (${esc(i.quando)})${i.antiga?' <span class="old">anterior à proposta</span>':''}`).join(' · ') + '. As previsões anteriores à proposta podem não incorporar dados recentes.';
+}
+
+/* Gráficos (SVG desenhado à mão, uma escala por eixo) */
+function tipFor(box){ let t=box.querySelector('.tip'); if(!t){ t=document.createElement('div'); t.className='tip'; t.hidden=true; box.appendChild(t);} return t; }
+function lineChart(box, cfg){
+  const W=Math.max(320,Math.round(box.clientWidth||760)), narrow=W<560, H=narrow?250:300, ml=narrow?38:44, mr=narrow?78:92, mt=22, mb=34, iw=W-ml-mr, ih=H-mt-mb, n=cfg.x.length;
+  const xt=(cfg.xTicks||[]).filter((_,j)=>!narrow||j%2===0);
+  const X=i=>ml+(n<=1?0:i/(n-1)*iw), Y=v=>mt+ih-(v-cfg.yMin)/(cfg.yMax-cfg.yMin)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.aria)}">`;
+  (cfg.bands||[]).forEach(([a,b,l],j)=>{ if(j%2===0) s+=`<rect class="gov" x="${X(a)}" y="${mt}" width="${Math.max(0,X(b)-X(a))}" height="${ih}"/>`; if(X(b)-X(a)>(narrow?40:56)) s+=`<text class="govt" x="${(X(a)+X(b))/2}" y="${mt-8}" text-anchor="middle">${esc(l)}</text>`; });
+  s+=`<g class="grid">`; for(let v=cfg.yMin; v<=cfg.yMax+1e-9; v+=cfg.yStep){ s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${cfg.fmtY(v)}</text>`; } s+=`</g>`;
+  xt.forEach(i=>{ s+=`<text x="${X(i)}" y="${H-12}" text-anchor="middle">${esc(cfg.fmtX(cfg.x[i]))}</text>`; });
+  cfg.series.forEach(se=>{
+    let d='',pen=false; se.vals.forEach((v,i)=>{ if(v==null){pen=false;return;} d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)+' '; pen=true; });
+    s+=`<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2" ${se.dash?'stroke-dasharray="5 4"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
+    let li=se.vals.length-1; while(li>0&&se.vals[li]==null) li--;
+    s+=`<circle cx="${X(li)}" cy="${Y(se.vals[li])}" r="4" fill="${se.color}" stroke="var(--surface)" stroke-width="2"/>`;
+    s+=`<text class="lab-end" x="${X(li)+8}" y="${Y(se.vals[li])+(se.dy||0)+4}" style="fill:var(--ink)">${esc(se.end||'')}</text>`;
+  });
+  s+=`<line class="cross" x1="0" x2="0" y1="${mt}" y2="${mt+ih}" stroke="var(--muted)" stroke-width="1" visibility="hidden"/>`;
+  s+=`<rect x="${ml}" y="${mt}" width="${iw}" height="${ih}" fill="transparent" class="hit"/></svg>`;
+  box.innerHTML=s;
+  const svg=box.querySelector('svg'), cross=svg.querySelector('.cross'), tip=tipFor(box);
+  const move=e=>{
+    const r=svg.getBoundingClientRect(), px=(e.touches?e.touches[0].clientX:e.clientX)-r.left, sx=px*(W/r.width);
+    const i=Math.max(0,Math.min(n-1,Math.round((sx-ml)/iw*(n-1)))); const x=X(i);
+    cross.setAttribute('x1',x); cross.setAttribute('x2',x); cross.setAttribute('visibility','visible');
+    tip.innerHTML = `<b>${esc(cfg.x[i])}</b><br>`+cfg.series.map(se=>se.vals[i]==null?'':`${esc(se.name)}: ${cfg.fmtV(se.vals[i])}`).filter(Boolean).join('<br>');
+    tip.hidden=false; tip.style.left=(x*r.width/W)+'px'; tip.style.top=(mt*r.height/H+8)+'px';
+  };
+  svg.querySelector('.hit').addEventListener('pointermove',move);
+  svg.querySelector('.hit').addEventListener('pointerleave',()=>{ tip.hidden=true; cross.setAttribute('visibility','hidden'); });
+}
+function barChart(box, cfg){
+  const W=Math.max(320,Math.round(box.clientWidth||760)), narrow=W<560, H=narrow?240:280, ml=narrow?38:44, mr=12, mt=22, mb=30, iw=W-ml-mr, ih=H-mt-mb, n=cfg.x.length;
+  const bw=iw/n, Y=v=>mt+ih-(v-cfg.yMin)/(cfg.yMax-cfg.yMin)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.aria)}">`;
+  (cfg.bands||[]).forEach(([a,b,l],j)=>{ const x0=ml+a*bw, x1=ml+(b+1)*bw; if(j%2===0) s+=`<rect class="gov" x="${x0}" y="${mt}" width="${x1-x0}" height="${ih}"/>`; if(x1-x0>(narrow?40:56)) s+=`<text class="govt" x="${(x0+x1)/2}" y="${mt-8}" text-anchor="middle">${esc(l)}</text>`; });
+  s+=`<g class="grid">`; for(let v=cfg.yMin; v<=cfg.yMax+1e-9; v+=cfg.yStep){ s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${cfg.fmtY(v)}</text>`; } s+=`</g>`;
+  if(cfg.ref!=null) s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(cfg.ref)}" y2="${Y(cfg.ref)}" stroke="var(--ink)" stroke-dasharray="4 4"/><text x="${ml+iw}" y="${Y(cfg.ref)-5}" text-anchor="end" style="fill:var(--ink)">${esc(cfg.refLabel||'')}</text>`;
+  const pad=Math.min(4,bw*.18);
+  cfg.vals.forEach((v,i)=>{ if(v==null) return; const x=ml+i*bw+pad, w=Math.max(2,bw-2*pad), y0=Y(Math.max(0,cfg.yMin)), y=Y(v);
+    const col = v<0?'var(--faint)':'var(--accent)';
+    s+=`<rect class="bar-m" data-i="${i}" x="${x}" y="${Math.min(y,y0)}" width="${w}" height="${Math.max(1,Math.abs(y0-y))}" rx="2" fill="${col}"/>`; });
+  cfg.x.forEach((k,i)=>{ if((cfg.labelEvery&&i%cfg.labelEvery===0)||i===n-1) s+=`<text x="${ml+i*bw+bw/2}" y="${H-10}" text-anchor="middle">${esc(cfg.fmtX(k))}</text>`; });
+  s+=`</svg>`; box.innerHTML=s;
+  const svg=box.querySelector('svg'), tip=tipFor(box);
+  svg.addEventListener('pointermove',e=>{ const m=e.target.closest('.bar-m'); if(!m){ tip.hidden=true; return; } const i=+m.dataset.i, r=svg.getBoundingClientRect(); tip.innerHTML=`<b>${esc(cfg.x[i])}</b><br>${esc(cfg.name)}: ${cfg.fmtV(cfg.vals[i])}`; tip.hidden=false; tip.style.left=((ml+(i+.5)*bw)*r.width/W)+'px'; tip.style.top=(Y(Math.max(cfg.vals[i],0))*r.height/H)+'px'; });
+  svg.addEventListener('pointerleave',()=>tip.hidden=true);
+}
+const COLS = ['var(--accent)','var(--muted)'];
+function chartLinha(box,c){
+  const se=S[c.serie], x=se.x.map(String), n=x.length, step=c.xStep||5;
+  lineChart(box,{aria:c.titulo,x,xTicks:x.map((_,i)=>i).filter(i=>(+x[i])%step===0||i===n-1),fmtX:k=>k,yMin:c.yMin,yMax:c.yMax,yStep:c.yStep,fmtY:v=>fmt(v,0)+(c.unid_eixo||''),fmtV:v=>fmt(v,c.dec??1)+(c.unid||''),
+    bands:(c.bandas||[]).map(([a,b,l])=>[Math.max(0,x.indexOf(String(a))),x.indexOf(String(b))<0?n-1:x.indexOf(String(b)),l]),
+    series:c.chaves.map((k,j)=>({name:se.nomes[k]||k,vals:se[k],color:COLS[j],dash:j>0,end:(se.nomes[k]||k)+' '+fmt(se[k][se[k].length-1],c.dec??1)}))});
+}
+function chartBarras(box,c){
+  const se=S[c.serie], x=se.x.map(String);
+  barChart(box,{aria:c.titulo,name:se.nomes[c.chave]||c.chave,x,vals:se[c.chave],yMin:c.yMin,yMax:c.yMax,yStep:c.yStep,fmtY:v=>fmt(v,0)+(c.unid_eixo||''),fmtV:v=>fmt(v,c.dec??1)+(c.unid||''),fmtX:k=>"'"+k.slice(2),labelEvery:c.labelEvery||3,ref:c.ref,refLabel:c.refLabel});
+}
+function chartPrev(box,c){ box.innerHTML = `<div class="fc">${c.itens.map(([i,a])=>fcRow(i,a)).join('')}</div>`; }
+function chartTimeline(box,c){ box.innerHTML=`<ol class="tl">${c.itens.map(([a,t])=>`<li><span class="tl-y mono">${esc(a)}</span><span>${esc(t)}</span></li>`).join('')}</ol>`; }
+function chartHbar(box,c){
+  const max=Math.max(...c.itens.map(i=>Math.abs(i[1])));
+  box.innerHTML=`<div class="rank" role="list">${c.itens.map(([l,v,k])=>`<div class="rank-row ${k==='pt'?'me':''}" role="listitem"><span>${esc(l)}</span><span class="bar2"><span style="width:${Math.abs(v)/max*100}%"></span></span><b>${fmt(v,c.dec??1)}</b></div>`).join('')}</div>`;
+}
+const CHARTS = {linha:chartLinha,barras:chartBarras,prev:chartPrev,timeline:chartTimeline,hbar:chartHbar};
+const legendFor = c => c.t==='linha' && c.chaves.length>1 ? c.chaves.map((k,j)=>`<span><i class="${j?'dash':''}" style="border-color:${COLS[j]}"></i>${esc(S[c.serie].nomes[k]||k)}</span>`).join('') : c.t==='prev' ? '<span><i class="box" style="background:var(--accent);transform:rotate(45deg) scale(.8)"></i>Governo</span><span><i class="box" style="background:var(--faint);border-radius:50%"></i>Instituições</span>' : '';
+
+/* Dossiê */
+function critList(items, cls, ic){ return `<ul>`+items.map(c=>`<li class="${cls}"><span class="ic">${ic}</span><span>${esc(c.t)}<small><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.src)}</a>${c.campo&&c.campo!=='imprensa'?`<span class="campo">${esc(c.campo)}</span>`:''}</small></span></li>`).join('')+`</ul>`; }
+function posHTML(P){
+  const p = PBY[P.partido]||{nome:P.partido};
+  return `<div class="side"><div class="side-h">${ptag(P.partido)}<h3>${esc(p.nome)}</h3></div><div class="side-b">
+    <div class="blk"><span class="lbl">O que defende</span><p>${esc(P.defende)}</p></div>
+    ${P.propostas&&P.propostas.length?`<div class="blk"><span class="lbl">Propostas</span><div class="planlist">${P.propostas.map(x=>`<span>${esc(x.t)}${x.p?`<i>${esc(x.p)}</i>`:''}</span>`).join('')}</div></div>`:''}
+    ${P.mecanismo&&P.mecanismo.length?`<div class="blk"><span class="lbl">Como faria (mecanismo)</span><div class="mech">${P.mecanismo.map(m=>`<div><b>${esc(m.k)}</b><span>${esc(m.v)}</span></div>`).join('')}</div></div>`:''}
+    ${P.pro&&P.pro.length?`<div class="blk crit"><span class="lbl">Argumentos a favor</span>${critList(P.pro,'pro','+')}</div>`:''}
+    ${P.contra&&P.contra.length?`<div class="blk crit"><span class="lbl">Críticas</span>${critList(P.contra,'con','−')}</div>`:''}
+  </div></div>`;
+}
+function renderDossie(){
+  const k=state.dz, D=DZ[k], el=document.getElementById('v-dossie');
+  const rows = DATA.filter(d=>d.tema===k && pass(d,'tema'));
+  const claimRow = d => `<button class="claim" data-id="${d.id}">${ptag(d.partido)}<span class="t">${esc(d.short)}<small>${d.id} · ${esc(d.resumo||'')}</small></span>${pill(d.cat)}</button>`;
+  const charts = `<div class="${D.charts.length>1?'grid2 atop':''}">`+D.charts.map((c,i)=>`<div class="panel"><h3>${esc(c.titulo)}</h3><p class="sub">${esc(c.sub||'')}</p>${legendFor(c)?`<div class="ch-legend">${legendFor(c)}</div>`:''}<div class="chart" id="ch-${i}"></div><p class="ch-foot">Fonte: ${esc(c.fonte||(S[c.serie]||{}).fonte||'')}</p></div>`).join('')+`</div>`;
+  el.innerHTML = `
+    <div class="dz-head"><div class="eyebrow"><span>Dossiê do tema</span><span>${rows.length} afirmações</span><span>dados até ${esc(META.dados_ate)}</span></div><h1>${esc(D.titulo)}</h1><p class="tese">${esc(D.tese)}</p></div>
+    <div class="kpis">${D.kpis.map(x=>`<div class="kpi"><span class="l">${esc(x.l)}</span><span class="v">${esc(x.v)}</span><span class="s">${esc(x.s)}</span><span class="src">FONTE: ${esc(x.src)}</span></div>`).join('')}</div>
+    ${charts}
+    <div class="panel"><h3>Contexto</h3><div class="prose">${D.contexto.map(p=>`<p>${esc(p)}</p>`).join('')}</div></div>
+    <div class="panel"><div class="sec-h"><h3>O que foi dito</h3><button class="linkbtn" data-drill-tema="${k}">Ver na tabela</button></div><div class="grid2 atop">${CAMPOS.map(([c,l])=>`<div class="claims"><span class="lbl">${esc(l)}</span>${rows.filter(d=>d.campo===c).map(claimRow).join('')||'<p class="sub">Nenhuma com os filtros atuais.</p>'}</div>`).join('')}</div></div>
+    ${D.posicoes&&D.posicoes.length?`<div class="sec-h"><h2>Onde está a discussão</h2><p>Mesmo molde para o Governo e para os dois maiores partidos da oposição (PS e Chega), com o mesmo número de argumentos e de críticas. Críticas marcadas por campo quando a fonte tem posição política.</p></div><div class="pos">${D.posicoes.map(posHTML).join('')}</div>`:''}
+    ${D.fato_valor?`<div class="panel"><h3>O que os dados resolvem e o que é escolha de valores</h3><div class="fv"><div class="blk"><span class="lbl">Os dados resolvem</span><ul>${D.fato_valor.fatos.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div><div class="blk"><span class="lbl">É escolha de valores</span><ul>${D.fato_valor.valores.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div></div>${D.debate_atual?`<p class="note">${esc(D.debate_atual)}${D.debate_atual_src?` <a href="${esc(D.debate_atual_src.url)}" target="_blank" rel="noopener">${esc(D.debate_atual_src.label)}</a>`:''}</p>`:''}</div>`:''}
+    <div class="panel"><h3>Fontes do dossiê</h3><div class="srcs">${D.fontes.map(srcHTML).join('')}</div></div>`;
+  D.charts.forEach((c,i)=>CHARTS[c.t](el.querySelector('#ch-'+i),c));
+}
+
+/* Ficha no painel lateral */
+function srcHTML(s){
+  const h=host(s.url||''); const label=s.label||h||'fonte';
+  return `<div class="src">${tierTag(s.tier)}<div>${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(label)}</a><span class="host">${esc(h)}</span>`:`<span>${esc(label)}</span><span class="host">sem ligação direta</span>`}${s.note?` <span class="host">${esc(s.note)}</span>`:''}</div></div>`;
+}
+function concMeter(c){
+  if(!c || c==='-') return `<span class="conc">sem fontes suficientes</span>`;
+  const n=parseInt(c)||0, div=String(c).includes('div');
+  return `<span class="conc" title="${n} de 3 verificações concordam">${[0,1,2].map(i=>`<i class="${i<n?'on':''}"></i>`).join('')}<span style="margin-left:5px">${n}/3 concordam</span>${div?'<span class="div">divergência</span>':''}</span>`;
+}
+let navList=[];
+function openFicha(id, list){
+  const d=BYID[id]; if(!d) return;
+  navList = list || (filtered().some(x=>x.id===id)?filtered():DATA);
+  state.ficha=id; setHash();
+  const idx=navList.findIndex(x=>x.id===id);
+  const subs = d.subs&&d.subs.length ? `<div class="blk"><span class="lbl">Subafirmações</span><div class="subs">${d.subs.map(s=>`<div class="subrow ${s.central?'central':''}"><div class="st"><span class="ty">${esc(s.t)}${s.central?' · central':''}</span>${CAT[s.res]?`<span class="r" style="--c:${ccol(s.res)}">${CAT[s.res].name.split(' /')[0]}</span>`:`<span class="seal">selo</span>`}</div><div><p>${esc(s.txt)}</p>${s.nota?`<small>${esc(s.nota)}</small>`:''}</div></div>`).join('')}</div></div>` : '';
+  const prev = d.tipo==='previsao'&&d.prev ? `<div class="blk"><span class="lbl">A previsão face às instituições</span><div class="fc">${fcRow(d.prev.ind,d.prev.ano)}</div></div>` : '';
+  const dar = d.sessao>0 ? `<span class="seal">${d.dar?'conferida no Diário da AR':'a conferir no Diário da AR'}</span>` : '';
+  const ags = AGS.filter(a=>d.agencias&&d.agencias[a.k]);
+  document.getElementById('dr-id').textContent = `${d.id} · ${(PBY[d.partido]||{}).nome||d.partido}`;
+  document.getElementById('dr-body').innerHTML = `
+    <div class="meta">${ptag(d.partido)}<span>${esc(d.orador||'')}${d.cargo?', '+esc(d.cargo):''}</span><span>·</span><span>${esc(META.sessoes[d.sessao]||'')}${d.minuto?' · min. '+esc(d.minuto):''}</span><span>·</span><button class="linkbtn" data-tema-open="${d.tema}">${esc(TNAME[d.tema])}${DZ[d.tema]?' → dossiê':''}</button></div>
+    <p class="quote">${esc(d.quote)}</p>
+    ${d.fonte_frase?`<p class="sub" style="margin:0">Frase registada em <a href="${esc(d.fonte_frase.url)}" target="_blank" rel="noopener">${esc(d.fonte_frase.label)}</a></p>`:''}
+    <div class="meta">${pill(d.cat)}${d.tipo!=='previsao'?concMeter(d.conc):''}${(d.seals||[]).map(s=>`<span class="seal">${esc(s)}</span>`).join('')}${dar}</div>
+    ${d.resumo?`<p class="resumo">${esc(d.resumo)}</p>`:''}
+    ${prev}
+    ${d.analise&&d.analise.length?`<div class="blk"><span class="lbl">Análise</span><div class="prose">${d.analise.map(p=>`<p>${md(p)}</p>`).join('')}</div></div>`:''}
+    ${subs}
+    ${d.riscos&&d.riscos.length?`<div class="blk"><span class="lbl">Riscos apontados (não mudam o veredito)</span><div class="prose">${d.riscos.map(p=>`<p class="note">${md(p)}</p>`).join('')}</div></div>`:''}
+    ${d.contra?`<div class="blk"><span class="lbl">Contraprova</span><p class="note">${esc(d.contra)}</p></div>`:''}
+    ${d.dados?`<div class="blk"><span class="lbl">Dado e cálculo</span><div class="dados">${esc(d.dados)}</div></div>`:''}
+    <div class="blk"><span class="lbl">Fontes, da mais forte para a mais fraca</span><div class="srcs">${d.srcs.map(srcHTML).join('')||'<p class="sub">Sem fontes registadas.</p>'}</div></div>
+    ${ags.length?`<div class="blk"><span class="lbl">Outros verificadores</span><div class="srcs">${ags.map(a=>`<div class="src"><span class="tier N2">${esc(a.nome)}</span><div><a href="${esc(d.agencias[a.k].url)}" target="_blank" rel="noopener">${esc(d.agencias[a.k].v)}</a></div></div>`).join('')}</div></div>`:''}`;
+  document.getElementById('dr-pos').textContent = idx>=0?`${idx+1} de ${navList.length}`:'';
+  document.getElementById('dr-prev').disabled = idx<=0; document.getElementById('dr-next').disabled = idx<0||idx>=navList.length-1;
+  const dr=document.getElementById('drawer'), sc=document.getElementById('scrim');
+  if(dr.hidden){ dr.hidden=false; sc.hidden=false; document.body.classList.add('lock'); document.getElementById('dr-close').focus(); }
+  document.getElementById('dr-body').scrollTop=0;
+}
+function closeFicha(){ const dr=document.getElementById('drawer'); if(dr.hidden) return; dr.hidden=true; document.getElementById('scrim').hidden=true; document.body.classList.remove('lock'); state.ficha=null; setHash(); }
+
+/* Trilha */
+function renderCrumbs(){
+  const parts=[['visao','Visão geral']];
+  if(state.view==='previsoes') parts.push(['previsoes','Previsões']);
+  if(state.view==='temas') parts.push(['temas','Temas']);
+  if(state.view==='dossie') parts.push(['temas','Temas'],[state.dz,DZ[state.dz].titulo]);
+  if(state.view==='alegacoes'){ if(state.tema!=='all') parts.push(['temas','Temas'],[DZ[state.tema]?state.tema:'temas',TNAME[state.tema]]); parts.push(['alegacoes','Afirmações']); }
+  if(state.view==='divergencias') parts.push(['divergencias','Divergências']);
+  if(state.view==='metodo') parts.push(['metodo','Como verificámos']);
+  document.getElementById('crumbs').innerHTML = parts.map((p,i)=>i===parts.length-1?`<span aria-current="page">${esc(p[1])}</span>`:`<button data-go="${p[0]}">${esc(p[1])}</button><i>›</i>`).join('');
+}
+
+/* Textos fixos vindos dos metadados */
+function renderStatic(){
+  const nf = FACTOS().length, np = DATA.length-nf;
+  document.getElementById('lede').textContent = META.lede.replace('{n}',DATA.length).replace('{nf}',nf).replace('{np}',np);
+  const b = document.getElementById('banner'); if(META.aviso){ b.hidden=false; b.innerHTML = md(META.aviso); }
+  document.getElementById('docs').innerHTML = META.documentos.map(x=>`<span class="tier ${tcls(x.tier)}">${esc(x.k)}</span><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join('');
+  document.getElementById('limites').textContent = META.limitacoes;
+  document.getElementById('rodape').textContent = META.rodape;
+}
+
+function render(){
+  ['visao','previsoes','temas','dossie','alegacoes','divergencias','metodo'].forEach(v=>document.getElementById('v-'+v).hidden = state.view!==v);
+  document.getElementById('hero').hidden = state.view!=='visao';
+  document.getElementById('crumbs').hidden = state.view==='visao';
+  document.getElementById('fbar-wrap').hidden = !['visao','temas','alegacoes','dossie'].includes(state.view);
+  document.querySelectorAll('#nav button').forEach(b=>{ const on = b.dataset.go===state.view || (state.view==='dossie'&&b.dataset.go==='temas'); on?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'); });
+  renderControls(); renderCrumbs();
+  if(state.view==='visao'){ renderKPIs(); renderBoards(); renderPrev(true); renderMatrix(); renderDiv(); }
+  if(state.view==='previsoes') renderPrev(false);
+  if(state.view==='temas') renderTemas();
+  if(state.view==='dossie') renderDossie();
+  if(state.view==='alegacoes') renderRows();
+  if(state.view==='divergencias'||state.view==='metodo') renderDiv();
+}
+
+/* Eventos */
+function toast(t){ const el=document.getElementById('toast'); el.textContent=t; el.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>el.hidden=true,2200); }
+document.addEventListener('click', e=>{
+  const t=e.target.closest('button,tr[data-id]'); if(!t) return;
+  if(t.dataset.go){ go(t.dataset.go); return; }
+  if(t.dataset.clear){ const k=t.dataset.clear; if(k==='all') Object.assign(state,{partido:'all',tipo:'all',tema:'all',cat:'all',src:'all',q:''}); else state[k]= k==='q'?'':'all'; render(); return; }
+  if(t.dataset.tema){ const k=t.dataset.tema; if(DZ[k]) go(k); else drill({tema:k}); return; }
+  if(t.dataset.temaOpen){ const k=t.dataset.temaOpen; closeFicha(); if(DZ[k]) go(k); else drill({tema:k}); return; }
+  if(t.dataset.drillTema){ drill({tema:t.dataset.drillTema}); return; }
+  if(t.dataset.mx){ const [tema,tipo,k]=t.dataset.mx.split('|'); drill({tema,tipo,cat:k}); return; }
+  if(t.dataset.catPrev){ drill({tipo:'previsao',cat:t.dataset.catPrev}); return; }
+  if(t.dataset.kpi){ const k=t.dataset.kpi; if(k==='all') drill({}); else if(k==='FORA') drill({tipo:'previsao',cat:'FORA'}); else drill({tipo:'facto',cat:k}); return; }
+  if(t.dataset.id){ const list = state.view==='dossie' ? DATA.filter(d=>d.tema===state.dz&&pass(d,'tema')) : null; openFicha(t.dataset.id, list); return; }
+  if(t.closest('#f-tipo')){ state.tipo=t.dataset.v; if(state.cat!=='all' && (state.tipo==='facto')===isPrev(state.cat)) state.cat='all'; render(); return; }
+});
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeFicha();
+  if(e.key==='Enter' && e.target.matches('tr[data-id]')) e.target.click();
+  if(!document.getElementById('drawer').hidden && (e.key==='ArrowRight'||e.key==='ArrowLeft') && !e.target.matches('input,select')){ (e.key==='ArrowRight'?document.getElementById('dr-next'):document.getElementById('dr-prev')).click(); }
+});
+document.getElementById('fbar').dataset.open='0';
+document.getElementById('mfilter').onclick=e=>{ const f=document.getElementById('fbar'), o=f.dataset.open!=='1'; f.dataset.open=o?'1':'0'; e.currentTarget.setAttribute('aria-expanded',o); };
+document.getElementById('scrim').onclick=closeFicha;
+document.getElementById('dr-close').onclick=closeFicha;
+document.getElementById('dr-prev').onclick=()=>{ const i=navList.findIndex(x=>x.id===state.ficha); if(i>0) openFicha(navList[i-1].id,navList); };
+document.getElementById('dr-next').onclick=()=>{ const i=navList.findIndex(x=>x.id===state.ficha); if(i>=0&&i<navList.length-1) openFicha(navList[i+1].id,navList); };
+document.getElementById('dr-copy').onclick=()=>{ const u=location.href.split('#')[0]+'#'+state.ficha; navigator.clipboard.writeText(u).then(()=>toast('Ligação da ficha copiada'),()=>toast('Copie o endereço: #'+state.ficha)); };
+[['f-partido','partido'],['f-tema','tema'],['f-cat','cat'],['f-src','src'],['f-sort','sort']].forEach(([id,k])=>document.getElementById(id).addEventListener('change',e=>{ state[k]=e.target.value; render(); }));
+let qt; document.getElementById('q').addEventListener('input',e=>{ clearTimeout(qt); qt=setTimeout(()=>{ state.q=e.target.value; render(); },150); });
+let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(state.view==='dossie') renderDossie(); },200); });
+window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(h!==(state.ficha||state.dz||state.view)) fromHash(); });
+renderStatic();
+fromHash();
+})();
+</script>
+</body>
+</html>

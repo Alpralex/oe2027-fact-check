@@ -1,0 +1,385 @@
+[
+ {
+  "partido": "GOV",
+  "orador": "Proposta do OE 2027",
+  "cargo": "Ministério das Finanças",
+  "sessao": 0,
+  "tipo": "previsao",
+  "fonte_frase": {
+   "label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)",
+   "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+  },
+  "id": "P01",
+  "tema": "crescimento",
+  "quote": "O PIB cresce 2,1% em termos reais em 2027.",
+  "short": "PIB cresce 2,1% em 2027",
+  "prev": {
+   "ind": "pib",
+   "ano": "2027"
+  },
+  "resumo": "A previsão do Governo é a mais alta: o FMI aponta 1,9%, o Banco de Portugal e a Comissão Europeia 1,8% e a OCDE 1,7%.",
+  "analise": [
+   "O Governo prevê que o crescimento abrande de 2,3% em 2026 para 2,1% em 2027. Todas as instituições preveem abrandamento, mas mais forte.",
+   "O cenário apoia-se numa subida de mais de 10% do investimento privado em termos reais, que o próprio relatório apresenta como a maior da última década."
+  ],
+  "riscos": [
+   "A UTAO prevê um abrandamento do consumo privado, do consumo público e do investimento, mais acentuado neste último.",
+   "O CFP considera o cenário plausível, mas vê risco de o crescimento ficar abaixo do previsto."
+  ],
+  "sources": [
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico e orçamental",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027",
+    "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"
+   },
+   {
+    "tier": "N1*",
+    "label": "Banco de Portugal, Boletim Económico de outubro de 2026",
+    "url": "https://www.forbespt.com/?p=196632"
+   },
+   {
+    "tier": "N1*",
+    "label": "FMI, World Economic Outlook de outubro de 2026",
+    "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"
+   },
+   {
+    "tier": "N1*",
+    "label": "Comissão Europeia, previsões da primavera de 2026",
+    "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"
+   },
+   {
+    "tier": "N1*",
+    "label": "OCDE, Economic Outlook de junho de 2026",
+    "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"
+   },
+   {
+    "tier": "N3",
+    "label": "Observador: UTAO questiona previsões para emprego e preços",
+    "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"
+   }
+  ]
+ },
+ {
+  "partido": "GOV",
+  "orador": "Proposta do OE 2027",
+  "cargo": "Ministério das Finanças",
+  "sessao": 0,
+  "tipo": "previsao",
+  "fonte_frase": {
+   "label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)",
+   "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+  },
+  "id": "P02",
+  "tema": "fiscal",
+  "quote": "As contas públicas fecham 2027 com um excedente de 0,1% do PIB.",
+  "short": "Excedente de 0,1% do PIB em 2027",
+  "prev": {
+   "ind": "saldo",
+   "ano": "2027"
+  },
+  "resumo": "Nenhuma instituição prevê excedente em 2027: a OCDE aponta um défice de 0,1%, a Comissão Europeia 0,4% e o Banco de Portugal 0,5%.",
+  "analise": [
+   "As previsões da Comissão Europeia, da OCDE e do Banco de Portugal são de maio e junho e assumem políticas inalteradas, ou seja, não incorporam as medidas da proposta. Por isso a distância face ao Governo deve ser lida com cuidado.",
+   "Portugal registou excedentes em 2023 (1,1%), 2024 (0,7%) e 2025 (0,7%), segundo o Eurostat."
+  ],
+  "sources": [
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico e orçamental",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027",
+    "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"
+   },
+   {
+    "tier": "N1*",
+    "label": "Banco de Portugal, Boletim Económico de junho de 2026",
+    "url": "https://www.forbespt.com/banco-de-portugal-preve-defice-de-02-este-ano-e-de-05-em-2027/"
+   },
+   {
+    "tier": "N1*",
+    "label": "Comissão Europeia, previsões da primavera de 2026",
+    "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"
+   },
+   {
+    "tier": "N1*",
+    "label": "OCDE, Economic Outlook de junho de 2026",
+    "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10dd_edpt1: saldo das administrações públicas",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table"
+   }
+  ]
+ },
+ {
+  "partido": "GOV",
+  "orador": "Proposta do OE 2027",
+  "cargo": "Ministério das Finanças",
+  "sessao": 0,
+  "tipo": "previsao",
+  "fonte_frase": {
+   "label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)",
+   "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+  },
+  "id": "P03",
+  "tema": "fiscal",
+  "quote": "A dívida pública desce para 84,5% do PIB em 2027.",
+  "short": "Dívida desce para 84,5% do PIB em 2027",
+  "prev": {
+   "ind": "divida",
+   "ano": "2027"
+  },
+  "resumo": "Está dentro do intervalo das instituições, que vai de 82,5% (Banco de Portugal) a 86,0% (Comissão Europeia).",
+  "analise": [
+   "A dívida pública caiu de 134,1% do PIB em 2020 para 89,2% em 2025, segundo o Eurostat. O Governo prevê 87,5% em 2026 e 84,5% em 2027.",
+   "As diferenças entre instituições refletem sobretudo o crescimento nominal esperado e o saldo orçamental, que pesam no rácio."
+  ],
+  "sources": [
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico e orçamental",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027",
+    "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"
+   },
+   {
+    "tier": "N1*",
+    "label": "Banco de Portugal, Boletim Económico de junho de 2026",
+    "url": "https://www.forbespt.com/banco-de-portugal-preve-defice-de-02-este-ano-e-de-05-em-2027/"
+   },
+   {
+    "tier": "N1*",
+    "label": "Comissão Europeia, previsões da primavera de 2026",
+    "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"
+   },
+   {
+    "tier": "N1*",
+    "label": "OCDE, Economic Outlook de junho de 2026",
+    "url": "https://www.rtp.pt/noticias/economia/ocde-preve-saldo-orcamental-nulo-em-portugal-em-2026-e-defice-em-2027_n1745197"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10dd_edpt1: dívida bruta consolidada",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table"
+   }
+  ]
+ },
+ {
+  "partido": "GOV",
+  "orador": "Proposta do OE 2027",
+  "cargo": "Ministério das Finanças",
+  "sessao": 0,
+  "tipo": "previsao",
+  "fonte_frase": {
+   "label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)",
+   "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+  },
+  "id": "P04",
+  "tema": "precos",
+  "quote": "A inflação, medida pelo IHPC, desce para 2,3% em 2027.",
+  "short": "Inflação de 2,3% em 2027",
+  "prev": {
+   "ind": "ihpc",
+   "ano": "2027"
+  },
+  "resumo": "Está no limite inferior do intervalo: igual à Comissão Europeia, abaixo do Banco de Portugal (2,4%) e do FMI (3,0%).",
+  "analise": [
+   "O Governo prevê uma descida de 2,9% em 2026 para 2,3% em 2027."
+  ],
+  "riscos": [
+   "O CFP vê potencial subestimação da inflação em 2026 e em 2027.",
+   "A UTAO nota que o Governo assume o preço do petróleo mais alto entre as instituições (86 dólares por barril, contra 79,2 em média) e, ainda assim, projeta a inflação mais baixa."
+  ],
+  "sources": [
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico e orçamental",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027",
+    "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"
+   },
+   {
+    "tier": "N1*",
+    "label": "Banco de Portugal, Boletim Económico de outubro de 2026",
+    "url": "https://www.forbespt.com/?p=196632"
+   },
+   {
+    "tier": "N1*",
+    "label": "FMI, World Economic Outlook de outubro de 2026",
+    "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"
+   },
+   {
+    "tier": "N1*",
+    "label": "Comissão Europeia, previsões da primavera de 2026",
+    "url": "https://eco.sapo.pt/2026/05/21/mais-pessimista-do-que-governo-bruxelas-preve-crescimento-de-17-e-defice-de-01/"
+   },
+   {
+    "tier": "N3",
+    "label": "Postal: CFP alerta para subestimação da inflação",
+    "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/"
+   },
+   {
+    "tier": "N3",
+    "label": "Observador: UTAO questiona previsões para emprego e preços",
+    "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"
+   }
+  ]
+ },
+ {
+  "partido": "GOV",
+  "orador": "Proposta do OE 2027",
+  "cargo": "Ministério das Finanças",
+  "sessao": 0,
+  "tipo": "previsao",
+  "fonte_frase": {
+   "label": "Relatório do OE 2027, quadro do cenário macroeconómico (via CNN Portugal)",
+   "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+  },
+  "id": "P05",
+  "tema": "crescimento",
+  "quote": "O emprego cresce 1,4% em 2027.",
+  "short": "Emprego cresce 1,4% em 2027",
+  "prev": {
+   "ind": "emprego",
+   "ano": "2027"
+  },
+  "resumo": "Só o Banco de Portugal publicou uma previsão comparável (0,7%), por isso não há intervalo. A UTAO diz que o valor do Governo é o mais alto das instituições de referência, que vão de 0,4% a 1,3%.",
+  "analise": [
+   "Para crescer 1,4%, o emprego precisa de uma subida da população ativa de 1,3%, o que obriga a taxa de participação a passar de 69,7% para 70,2%.",
+   "A população em idade ativa aumentou em média 28 mil pessoas por trimestre em 2025 e apenas 10 mil em 2026, segundo a UTAO."
+  ],
+  "riscos": [
+   "A UTAO considera a previsão difícil de conciliar com o abrandamento da imigração líquida. Se o emprego crescer menos, a receita fiscal e contributiva fica abaixo do previsto."
+  ],
+  "sources": [
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico e orçamental",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027",
+    "note": "valores lidos na reprodução da CNN Portugal; abrir o relatório no conector"
+   },
+   {
+    "tier": "N1*",
+    "label": "Banco de Portugal, Boletim Económico de outubro de 2026",
+    "url": "https://www.forbespt.com/?p=196632"
+   },
+   {
+    "tier": "N3",
+    "label": "Observador: UTAO questiona previsões para emprego e preços",
+    "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"
+   },
+   {
+    "tier": "N3",
+    "label": "ECO: UTAO duvida da previsão de crescimento do emprego",
+    "url": "https://eco.sapo.pt/2026/10/19/utao-duvida-da-previsao-de-crescimento-do-emprego-na-proposta-de-oe2027/"
+   }
+  ]
+ },
+ {
+  "id": "F01",
+  "partido": "GOV",
+  "orador": "Joaquim Miranda Sarmento",
+  "cargo": "Ministro de Estado e das Finanças",
+  "sessao": 0,
+  "tipo": "facto",
+  "tema": "fiscal",
+  "cat": "V",
+  "quote": "Portugal foi o terceiro país europeu que mais reduziu dívida.",
+  "short": "Portugal foi o 3.º país europeu que mais reduziu a dívida",
+  "fonte_frase": {
+   "label": "Jornal Económico, reações à entrega do OE 2027",
+   "url": "https://jornaleconomico.sapo.pt/noticias/%F0%9F%94%B4-governo-entrega-oe2027-saiba-quais-as-prioridades-para-o-proximo-ano/"
+  },
+  "resumo": "Entre 2024 e 2025, Portugal foi o 3.º país da UE que mais reduziu a dívida em pontos do PIB, atrás da Grécia e de Chipre. Em variação relativa fica em 5.º.",
+  "analise": [
+   "Segundo o Eurostat (notificação de outubro de 2026), a dívida pública portuguesa desceu de 93,0% para 89,2% do PIB entre 2024 e 2025, uma redução de 3,8 pontos. Só a Grécia (−8,1) e Chipre (−7,8) reduziram mais; a Irlanda ficou logo atrás (−3,6).",
+   "A medida habitual para comparar países é a variação em pontos do PIB, e nessa medida a frase está certa.",
+   "Em variação relativa (percentagem da própria dívida), Portugal fica em 5.º, atrás de Chipre, da Irlanda, da Dinamarca e da Grécia. A frase não diz qual das medidas usa, mas na mais comum está **Verdadeira**."
+  ],
+  "subs": [
+   {
+    "t": "NÚM",
+    "central": true,
+    "txt": "Terceiro país europeu que mais reduziu dívida",
+    "res": "V",
+    "nota": "3.º na UE em pontos do PIB entre 2024 e 2025"
+   }
+  ],
+  "seals": [],
+  "contra": "Testámos a variação relativa, em que Portugal desce para 5.º. Os dados de 2025 ainda podem ser revistos na notificação de abril de 2027.",
+  "dados": "Eurostat gov_10dd_edpt1, % do PIB, 2024 → 2025: EL 153,5 → 145,4 (−8,1) · CY 60,1 → 52,3 (−7,8) · PT 93,0 → 89,2 (−3,8) · IE 38,4 → 34,8 (−3,6) · DK 29,9 → 27,2 (−2,7).",
+  "conc": "—",
+  "sources": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10dd_edpt1: dívida bruta consolidada por país",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table",
+    "note": "lido pela API do Eurostat a 24/10/2026"
+   },
+   {
+    "tier": "N3",
+    "label": "Jornal Económico",
+    "url": "https://jornaleconomico.sapo.pt/noticias/%F0%9F%94%B4-governo-entrega-oe2027-saiba-quais-as-prioridades-para-o-proximo-ano/"
+   }
+  ]
+ },
+ {
+  "id": "F02",
+  "partido": "PS",
+  "orador": "Eurico Brilhante Dias",
+  "cargo": "Presidente do Grupo Parlamentar do PS",
+  "sessao": 0,
+  "tipo": "facto",
+  "tema": "crescimento",
+  "cat": "I",
+  "quote": "Só um Governo do PS conseguiu fazer crescer a economia portuguesa a 3%.",
+  "short": "Só governos do PS fizeram a economia crescer 3%",
+  "fonte_frase": {
+   "label": "DN, 28/09/2026",
+   "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"
+  },
+  "resumo": "Desde 1996, todos os anos com crescimento de 3% ou mais foram com governos do PS. Mas os governos de Cavaco Silva (PSD) cresceram acima de 3% entre 1987 e 1991.",
+  "analise": [
+   "Segundo o Banco Mundial, o PIB real cresceu 6,4% em 1987, 7,5% em 1988, 6,4% em 1989, 4,0% em 1990 e 4,4% em 1991, com governos do PSD liderados por Cavaco Silva. A frase, tomada à letra, é falsa.",
+   "Se se olhar só para os últimos 30 anos, os anos com 3% ou mais foram 1996 a 2000, 2017 e 2021 a 2023, todos com governos do PS.",
+   "Os 5,6% e 7,0% de 2021 e 2022 foram recuperação da queda de 8,2% em 2020. A frase tem um fundo verdadeiro para o período recente, mas omite os anos 80 e 90: fica como **Impreciso**."
+  ],
+  "subs": [
+   {
+    "t": "NÚM",
+    "central": true,
+    "txt": "Só governos do PS cresceram 3%",
+    "res": "F",
+    "nota": "PSD cresceu 4% a 7,5% em 1987–1991"
+   },
+   {
+    "t": "CTX",
+    "central": false,
+    "txt": "Desde 1996, os anos com 3% ou mais foram com o PS",
+    "res": "V",
+    "nota": "1996–2000, 2017, 2021–2023"
+   }
+  ],
+  "seals": [],
+  "contra": "Procurámos anos com crescimento de 3% ou mais com governos do PSD depois de 1995: não há nenhum.",
+  "dados": "Banco Mundial, PIB real (%): 1987 6,4 · 1988 7,5 · 1989 6,4 · 1990 4,0 · 1991 4,4 · 1998 4,8 · 2017 3,5 · 2021 5,6 · 2022 7,0 · 2023 3,1 · 2024 2,7 · 2025 1,9.",
+  "conc": "—",
+  "sources": [
+   {
+    "tier": "N1",
+    "label": "Banco Mundial: crescimento real do PIB de Portugal",
+    "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+    "note": "série 1961–2025"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, nama_10_gdp: PIB em volume",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: PS diz que Governo volta a falhar crescimento de 3%",
+    "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"
+   }
+  ]
+ }
+]
