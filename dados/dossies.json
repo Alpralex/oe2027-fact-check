@@ -83,6 +83,38 @@
     ]
    },
    {
+    "t": "linha",
+    "serie": "juros",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Juros da dívida pública, % do PIB",
+    "sub": "Portugal e UE-27, 2000 a 2025. O OE 2027 prevê uma subida de 23,2% em euros.",
+    "yMin": 0,
+    "yMax": 5,
+    "yStep": 1,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "linha",
+    "serie": "despesa_total",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Despesa pública total, % do PIB",
+    "sub": "Portugal e UE-27, 2000 a 2025",
+    "yMin": 40,
+    "yMax": 55,
+    "yStep": 5,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
     "t": "hbar",
     "titulo": "Quem mais reduziu a dívida entre 2024 e 2025",
     "sub": "Variação em pontos percentuais do PIB, países da UE",
@@ -293,7 +325,7 @@
       "campo": "imprensa"
      },
      {
-      "t": "O Governo classifica a descida da idade da reforma como \"inaceitável\" pelo custo para a Segurança Social.",
+      "t": "Montenegro considera \"inaceitável\" a descida da idade da reforma.",
       "src": "ECO",
       "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/",
       "campo": "governo"
@@ -354,6 +386,676 @@
     "tier": "N3",
     "label": "RTP: reações à proposta",
     "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470"
+   }
+  ]
+ },
+ "crescimento": {
+  "titulo": "Crescimento e emprego",
+  "tese": "Portugal cresce acima da UE desde 2021 e tem a taxa de emprego mais alta de sempre. O Governo prevê 2,1% em 2027, acima de todas as instituições, apoiado num salto do investimento privado e no emprego.",
+  "kpis": [
+   {
+    "v": "1,9%",
+    "l": "Crescimento do PIB, 2025",
+    "s": "UE: 1,4%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "79,6%",
+    "l": "Taxa de emprego (20–64), 2025",
+    "s": "UE: 76,1% · máximo da série",
+    "src": "Eurostat"
+   },
+   {
+    "v": "6,0%",
+    "l": "Desemprego, 2025",
+    "s": "UE: 6,0%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "+10%",
+    "l": "Investimento privado em 2027",
+    "s": "previsão do Governo, \"maior subida da década\"",
+    "src": "OE 2027"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "pib",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Crescimento real do PIB",
+    "sub": "Portugal e UE-27, 2000 a 2025",
+    "yMin": -10,
+    "yMax": 8,
+    "yStep": 2,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "linha",
+    "serie": "desemprego",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Taxa de desemprego",
+    "sub": "Portugal e UE-27, 2009 a 2025",
+    "yMin": 0,
+    "yMax": 18,
+    "yStep": 3,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 4
+   },
+   {
+    "t": "prev",
+    "titulo": "Crescimento e emprego: Governo face às instituições",
+    "sub": "Losango: Governo. Pontos: cada instituição.",
+    "fonte": "OE 2027, BdP, FMI, CE, OCDE",
+    "itens": [
+     [
+      "pib",
+      "2027"
+     ],
+     [
+      "pib",
+      "2026"
+     ],
+     [
+      "emprego",
+      "2027"
+     ],
+     [
+      "desemprego",
+      "2027"
+     ]
+    ]
+   },
+   {
+    "t": "linha",
+    "serie": "desemp_jovem",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Desemprego jovem, 15 a 24 anos",
+    "sub": "Portugal e UE-27, 2009 a 2025",
+    "yMin": 0,
+    "yMax": 40,
+    "yStep": 10,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 4
+   },
+   {
+    "t": "linha",
+    "serie": "taxa_emprego",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Taxa de emprego, 20 a 64 anos",
+    "sub": "Portugal e UE-27, 2010 a 2025",
+    "yMin": 60,
+    "yMax": 82,
+    "yStep": 4,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   }
+  ],
+  "contexto": [
+   "Depois da queda de 8,2% em 2020, Portugal cresceu acima da UE todos os anos: 5,6% em 2021, 7,0% em 2022, 3,1% em 2023, 2,7% em 2024 e 1,9% em 2025.",
+   "O Governo prevê 2,3% em 2026 e 2,1% em 2027. Para 2027, apoia-se numa subida de mais de 10% do investimento privado, enquanto o consumo privado abranda de 3,1% para 2,1%.",
+   "O emprego cresceu com a imigração. A UTAO nota que a população em idade ativa aumentou 28 mil pessoas por trimestre em 2025 e só 10 mil em 2026, o que torna difícil o emprego crescer 1,4% em 2027.",
+   "O programa da AD apontava para crescimentos de 3%. O PS diz que só governos seus atingiram esse valor."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "Crescer acima de 2% com investimento privado, IRC mais baixo e contas certas; a economia já cresce acima da média europeia.",
+    "propostas": [
+     {
+      "t": "PIB de 2,1% em 2027",
+      "p": "Relatório do OE"
+     },
+     {
+      "t": "Investimento privado +10%",
+      "p": "Relatório do OE"
+     },
+     {
+      "t": "Prémios de produtividade isentos se os salários subirem 4,5%",
+      "p": "OE 2027"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "IRC mais baixo, incentivos fiscais, fundos europeus"
+     },
+     {
+      "k": "Risco",
+      "v": "Abrandamento da imigração e do consumo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Portugal cresceu 1,9% em 2025, acima dos 1,4% da UE.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP considera o cenário estatisticamente plausível.",
+      "src": "RTP",
+      "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O FMI prevê 1,9% em 2027 e inflação de 3,0%, contra 2,1% e 2,3% do Governo.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A UTAO considera o crescimento do emprego de 1,4% difícil de conciliar com menos imigração.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "O Governo volta a falhar o crescimento de 3% que prometeu; o PS reclama ser o único a tê-lo conseguido e pede apoios ao custo de vida.",
+    "propostas": [
+     {
+      "t": "Mecanismos de apoio aos combustíveis e ao cabaz",
+      "p": "Brilhante Dias, 28/09"
+     },
+     {
+      "t": "Concluir os projetos do PRR",
+      "p": "Condição para viabilizar"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O programa da AD apontava para 3% e o OE 2027 prevê cerca de 2%.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Os anos com crescimento de 3% ou mais desde 1996 foram todos com governos do PS (1996–2000, 2017, 2021–2023).",
+      "src": "Banco Mundial",
+      "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Os governos de Cavaco Silva (PSD) tiveram crescimentos de 4% a 7,5% entre 1986 e 1991.",
+      "src": "Banco Mundial",
+      "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Os 5,6% e 7,0% de 2021 e 2022 foram recuperação da queda de 8,2% em 2020.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "O orçamento não responde ao custo de vida e prevê um \"brutal aumento do custo de vida\"; liga a pressão nos serviços à imigração.",
+    "propostas": [
+     {
+      "t": "IVA mais baixo nos combustíveis e no cabaz",
+      "p": "Propostas de alteração"
+     },
+     {
+      "t": "Isenção de portagens",
+      "p": "Propostas de alteração"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Cerca de 2.000 M€/ano para o IVA, segundo o Governo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "O FMI prevê inflação de 3,0% em 2027, bem acima dos 2,3% do Governo.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP vê potencial subestimação da inflação em 2026 e 2027.",
+      "src": "Postal",
+      "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O emprego que sustenta o crescimento depende da imigração, que o Chega quer travar.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027",
+      "campo": "imprensa"
+     },
+     {
+      "t": "As descidas de IVA levariam a défice, segundo o Governo.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "Portugal cresce acima da UE desde 2021.",
+    "A taxa de emprego (79,6%) é a mais alta da série e está acima da UE.",
+    "A previsão de 2,1% para 2027 é a mais alta entre as instituições."
+   ],
+   "valores": [
+    "Quanto peso dar à imigração no crescimento do emprego.",
+    "Se a prioridade é o investimento empresarial (IRC) ou o rendimento disponível (IVA, salários).",
+    "Que crescimento é realista sem o PRR."
+   ]
+  },
+  "debate_atual": "O Banco de Portugal e o FMI reviram em alta o crescimento de 2026 em outubro, mas mantêm 2027 abaixo do Governo.",
+  "debate_atual_src": {
+   "label": "RTP",
+   "url": "https://www.rtp.pt/noticias/economia/fmi-reve-em-alta-crescimento-de-portugal-para-21-este-ano-e-19-em-2027_n1771310"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, nama_10_gdp: PIB em volume",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, une_rt_a e lfsi_emp_a: desemprego e emprego",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table"
+   },
+   {
+    "tier": "N1",
+    "label": "Banco Mundial: crescimento real do PIB de Portugal desde 1980",
+    "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT"
+   },
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico (via CNN Portugal)",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: investimento privado no cenário do OE",
+    "url": "https://www.dn.pt/economia/oe2027-governo-prev-crescimento-superior-a-2-apoiado-em-subida-explosiva-do-investimento-privado"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: UTAO e a imigração",
+    "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: PS e o crescimento de 3%",
+    "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: FMI contradiz cenário do OE",
+    "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"
+   }
+  ]
+ },
+ "precos": {
+  "titulo": "Preços e custo de vida",
+  "tese": "A inflação deve ficar perto de 3% em 2026. O Governo prevê 2,3% em 2027, o FMI 3,0% e o CFP vê o valor subestimado. PS e Chega querem baixar o IVA da comida e dos combustíveis, e o Governo diz que isso leva a défice.",
+  "kpis": [
+   {
+    "v": "2,3%",
+    "l": "Inflação prevista para 2027",
+    "s": "FMI: 3,0% · BdP: 2,4%",
+    "src": "OE 2027"
+   },
+   {
+    "v": "2,9%",
+    "l": "Inflação prevista para 2026",
+    "s": "FMI: 3,2% · BdP: 3,1%",
+    "src": "OE 2027"
+   },
+   {
+    "v": "+2,8%",
+    "l": "Preços da alimentação, 2025",
+    "s": "área do euro: +2,1%",
+    "src": "Eurostat"
+   },
+   {
+    "v": "2.000 M€",
+    "l": "Custo das descidas de IVA pedidas",
+    "s": "por ano, estimativa do Governo",
+    "src": "Ministério das Finanças"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "ihpc",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Inflação (IHPC), variação média anual",
+    "sub": "Portugal e área do euro, 2005 a 2025",
+    "yMin": -2,
+    "yMax": 10,
+    "yStep": 2,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "prev",
+    "titulo": "Inflação: Governo face às instituições",
+    "sub": "Losango: Governo. Pontos: cada instituição.",
+    "fonte": "OE 2027, BdP, FMI, CE",
+    "itens": [
+     [
+      "ihpc",
+      "2027"
+     ],
+     [
+      "ihpc",
+      "2026"
+     ]
+    ]
+   },
+   {
+    "t": "linha",
+    "serie": "ihpc_alim",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Preços da alimentação, variação média anual",
+    "sub": "Portugal e área do euro, 2010 a 2025",
+    "yMin": -2,
+    "yMax": 14,
+    "yStep": 2,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   },
+   {
+    "t": "linha",
+    "serie": "ihpc_energia",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Preços da energia, variação média anual",
+    "sub": "Portugal e área do euro, 2010 a 2025",
+    "yMin": -10,
+    "yMax": 40,
+    "yStep": 10,
+    "unid": "%",
+    "unid_eixo": "%",
+    "xStep": 5
+   }
+  ],
+  "contexto": [
+   "A inflação em Portugal acompanhou a da área do euro: subiu para 8,1% em 2022 e desceu para 2,7% em 2024. A alimentação subiu 13,4% em 2022 e 10% em 2023.",
+   "Em 2026 a subida dos combustíveis, ligada à guerra no Médio Oriente, voltou a puxar pelos preços. O Governo prevê 2,9% em 2026 e 2,3% em 2027.",
+   "A UTAO e o CFP duvidam da descida para 2,3%: o FMI prevê 3,0% e o CFP fala em potencial subestimação em 2026 e 2027.",
+   "PS e Chega propõem IVA a 13% nos combustíveis e IVA zero num cabaz de bens essenciais. Em 2023, o IVA zero num cabaz de bens essenciais vigorou de abril a dezembro."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "A inflação abranda sem medidas que ponham em risco o excedente; recusa baixar o IVA dos combustíveis e da comida.",
+    "propostas": [
+     {
+      "t": "Inflação de 2,3% em 2027",
+      "p": "Cenário macroeconómico"
+     },
+     {
+      "t": "Sem descida do IVA",
+      "p": "Sarmento à Lusa"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Política orçamental neutra; apoios dirigidos"
+     },
+     {
+      "k": "Argumento",
+      "v": "Descer o IVA custa cerca de 2.000 M€ e leva a défice"
+     }
+    ],
+    "pro": [
+     {
+      "t": "A previsão do Governo para 2027 está dentro do intervalo das instituições, que vai de 2,3% a 3,0%.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O ministro estima que as duas descidas de IVA custariam cerca de 2.000 M€ por ano.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O FMI prevê inflação de 3,0% em 2027.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP vê uma potencial subestimação da inflação em 2026 e 2027.",
+      "src": "Postal",
+      "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "Acusa o Governo de \"desistir de responder\" ao aumento do custo de vida e quer baixar temporariamente o IVA dos combustíveis.",
+    "propostas": [
+     {
+      "t": "IVA dos combustíveis de 23% para 13%",
+      "p": "Com o Chega"
+     },
+     {
+      "t": "IVA zero num cabaz de bens essenciais",
+      "p": "Com o Chega"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Cerca de 2.000 M€/ano, segundo o Governo"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Os preços da alimentação subiram 2,8% em 2025, acima da área do euro (2,1%).",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O FMI prevê inflação de 3,0% em 2027, acima do Governo.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O Governo diz que as descidas de IVA levariam o país a défice em 2027.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     },
+     {
+      "t": "A energia caiu 0,2% em 2025, segundo o Eurostat; a subida recente dos combustíveis é de 2026.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "Chama-lhe um \"mau orçamento\" que traz um \"brutal aumento do custo de vida\" e quer IVA zero no cabaz e portagens isentas.",
+    "propostas": [
+     {
+      "t": "IVA zero no cabaz alimentar",
+      "p": "Proposta de alteração"
+     },
+     {
+      "t": "IVA dos combustíveis a 13%",
+      "p": "Proposta de alteração"
+     },
+     {
+      "t": "Isenção de portagens",
+      "p": "Proposta de alteração"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Propostas de alteração"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado pelo partido"
+     }
+    ],
+    "pro": [
+     {
+      "t": "A UTAO questiona a previsão do Governo para os preços.",
+      "src": "Observador",
+      "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O CFP vê uma potencial subestimação da inflação.",
+      "src": "Postal",
+      "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Nenhuma instituição prevê um aumento \"brutal\": as previsões para 2027 vão de 2,3% a 3,0%, abaixo de 2026.",
+      "src": "DN",
+      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O Chega não apresentou o custo das suas propostas de IVA e portagens.",
+      "src": "Jornal Económico",
+      "url": "https://jornaleconomico.sapo.pt/noticias/%F0%9F%94%B4-governo-entrega-oe2027-saiba-quais-as-prioridades-para-o-proximo-ano/",
+      "campo": "imprensa"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "Todas as instituições preveem inflação mais baixa em 2027 do que em 2026.",
+    "O Governo está no limite mais otimista das previsões (2,3%).",
+    "As descidas de IVA pedidas custariam cerca de 2.000 M€ por ano, segundo o Governo."
+   ],
+   "valores": [
+    "Se o Estado deve baixar impostos sobre o consumo quando os preços sobem.",
+    "Se apoios dirigidos aos mais pobres são preferíveis a descidas gerais de IVA.",
+    "Que risco de défice aceitar em troca de alívio nos preços."
+   ]
+  },
+  "debate_atual": "As propostas de IVA de PS e Chega são votadas na especialidade, de 18 a 23 de novembro.",
+  "debate_atual_src": {
+   "label": "Sábado/Lusa",
+   "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, prc_hicp_aind: inflação total, alimentação e energia",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table"
+   },
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: cenário macroeconómico",
+    "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+   },
+   {
+    "tier": "N1*",
+    "label": "FMI, WEO de outubro de 2026 (via DN)",
+    "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"
+   },
+   {
+    "tier": "N3",
+    "label": "Postal: CFP e a inflação",
+    "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/"
+   },
+   {
+    "tier": "N3",
+    "label": "Observador: UTAO questiona previsões",
+    "url": "https://observador.pt/2026/10/20/oe2027-unidade-tecnica-de-apoio-orcamental-questiona-previsoes-para-emprego-e-precos/"
+   },
+   {
+    "tier": "N3",
+    "label": "Sábado/Lusa: custo das descidas de IVA",
+    "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice"
+   },
+   {
+    "tier": "N3",
+    "label": "Público: PS e o custo de vida",
+    "url": "https://www.publico.pt/2026/10/08/politica/noticia/oe2027-ja-aprovado-conselho-ministros-seguro-pede-debate-proficuo-2190657"
+   },
+   {
+    "tier": "N3",
+    "label": "Jornal Económico: reações do Chega",
+    "url": "https://jornaleconomico.sapo.pt/noticias/%F0%9F%94%B4-governo-entrega-oe2027-saiba-quais-as-prioridades-para-o-proximo-ano/"
    }
   ]
  },
@@ -689,6 +1391,343 @@
     "tier": "N3",
     "label": "DN: medidas da proposta",
     "url": "https://www.dn.pt/política/oe2027-leia-aqui-as-principais-medidas-includas-na-proposta-do-governo"
+   }
+  ]
+ },
+ "rendimentos": {
+  "titulo": "Salários e pensões",
+  "tese": "O OE 2027 sobe o salário mínimo para 970 €, aumenta a função pública 2,3% e gasta mais 984 milhões com pensões. A oposição quer mais: o Chega pede reforma aos 65 anos e o PCP critica o valor do salário mínimo e das pensões.",
+  "kpis": [
+   {
+    "v": "970 €",
+    "l": "Salário mínimo em 2027",
+    "s": "920 € em 2026 · +5,4%",
+    "src": "OE 2027"
+   },
+   {
+    "v": "+984 M€",
+    "l": "Despesa extra com pensões e prestações",
+    "s": "face a 2026",
+    "src": "OE 2027 (via CNN Portugal)"
+   },
+   {
+    "v": "720 €",
+    "l": "Valor de referência do CSI em 2027",
+    "s": "+50 € · meta de 870 € em 2029",
+    "src": "Governo"
+   },
+   {
+    "v": "+2,3%",
+    "l": "Aumento da função pública",
+    "s": "mínimo de 60,52 € por mês",
+    "src": "Acordo plurianual"
+   }
+  ],
+  "charts": [
+   {
+    "t": "linha",
+    "serie": "smn",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Salário mínimo, euros por mês em 12 meses",
+    "sub": "Portugal e Espanha, 2012 a 2026. Portugal paga 14 meses, aqui convertidos em 12.",
+    "yMin": 400,
+    "yMax": 1500,
+    "yStep": 200,
+    "unid": "€",
+    "unid_eixo": "€",
+    "xStep": 2,
+    "dec": 0
+   },
+   {
+    "t": "linha",
+    "serie": "pensoes",
+    "chaves": [
+     "PT",
+     "UE"
+    ],
+    "titulo": "Despesa pública com pensões de velhice, % do PIB",
+    "sub": "Portugal e UE-27, 2010 a 2024",
+    "yMin": 8,
+    "yMax": 14,
+    "yStep": 1,
+    "unid": "% do PIB",
+    "unid_eixo": "%",
+    "xStep": 2
+   },
+   {
+    "t": "hbar",
+    "titulo": "O suplemento extraordinário de dezembro de 2026",
+    "sub": "Valor único pago com a pensão, por escalão de pensão mensal",
+    "fonte": "CNN Portugal",
+    "dec": 0,
+    "itens": [
+     [
+      "Até 537,13 €",
+      200
+     ],
+     [
+      "De 537,13 € a 1.074,26 €",
+      150
+     ],
+     [
+      "De 1.074,26 € a 1.611,39 €",
+      100
+     ]
+    ]
+   },
+   {
+    "t": "timeline",
+    "titulo": "O que muda nos rendimentos em 2027",
+    "sub": "Medidas da proposta e acordos já fechados",
+    "fonte": "CNN Portugal, DN, EY",
+    "itens": [
+     [
+      "Jan.",
+      "Salário mínimo de 970 €; função pública +2,3% (mínimo 60,52 €)"
+     ],
+     [
+      "Jan.",
+      "Pensões atualizadas pela lei: cerca de 3% para as pensões até cerca de 1.000 €, segundo os dados conhecidos"
+     ],
+     [
+      "Jan.",
+      "CSI sobe para 720 €; Prestação Social Única substitui 13 prestações (734,3 M€)"
+     ],
+     [
+      "Ano",
+      "IRS: escalões +3,88% e taxas mais baixas até ao 6.º escalão"
+     ]
+    ]
+   }
+  ],
+  "contexto": [
+   "O salário mínimo passou de 485 € em 2014 para 920 € em 2026 (valores pagos 14 vezes por ano). A proposta assume 970 € em 2027, no âmbito do acordo de concertação social.",
+   "As pensões são atualizadas todos os anos por uma fórmula da lei que depende da inflação e do crescimento do PIB. O aumento exato de 2027 só se conhece com a inflação de novembro.",
+   "A despesa com pensões e complementos chega a 26.429,8 M€, cerca de 59% da despesa efetiva. A Segurança Social prevê um excedente de 8.382,7 M€.",
+   "Em 2024, Portugal gastou 10,8% do PIB em pensões de velhice, acima da média da UE (10,6%)."
+  ],
+  "posicoes": [
+   {
+    "partido": "GOV",
+    "defende": "Subir rendimentos sem pôr em causa as contas: salário mínimo de 970 €, pensões pela lei, reforço do CSI e um suplemento único em dezembro.",
+    "propostas": [
+     {
+      "t": "Salário mínimo de 970 €",
+      "p": "OE 2027"
+     },
+     {
+      "t": "CSI a 720 € em 2027 e 870 € em 2029",
+      "p": "Montenegro, Conselho de Ministros na Guarda"
+     },
+     {
+      "t": "Prestação Social Única (734,3 M€)",
+      "p": "OE 2027"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Lei de atualização das pensões, acordo de concertação, OE 2027"
+     },
+     {
+      "k": "Custo",
+      "v": "+984,1 M€ em pensões e prestações face a 2026"
+     }
+    ],
+    "pro": [
+     {
+      "t": "Os beneficiários do CSI que recebem mais de 200 €/mês passaram de 45 mil para 132 mil desde abril de 2024.",
+      "src": "CNN Portugal",
+      "url": "https://cnnportugal.iol.pt/orcamento-do-estado/novidades/oe2027-das-pensoes-ao-irs-estas-sao-as-seis-medidas-que-vao-mexer-com-o-bolso-dos-portugueses/20261008/6ac67dffd34e9a786e75b302",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A despesa com pensões e prestações sobe 984,1 M€ em 2027.",
+      "src": "CNN Portugal",
+      "url": "https://cnnportugal.iol.pt/pensoes/oe-2027/oe-2027-estado-preve-gastar-mais-984-1-milhoes-de-euros-com-pensoes-no-proximo-ano/20261008/6ac7a7a5d34e53c759c75912",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "A EY conclui que o alívio do IRS para as famílias é \"pouco\": no máximo 171 € por ano para um solteiro.",
+      "src": "EY",
+      "url": "https://www.ey.com/pt_pt/services/tax/orcamento-do-estado-2027/oe-2027-e-as-familias-alivio-mas-pouco",
+      "campo": "imprensa"
+     },
+     {
+      "t": "O PCP critica os valores previstos para o salário mínimo e para a atualização das pensões, quando a Segurança Social tem excedente.",
+      "src": "Observador",
+      "url": "https://observador.pt/2026/10/12/pcp-acusa-governo-de-corte-de-30-no-investimento-publico-no-oe2027-e-critica-ps-por-viabilizar-politica-de-desastre/",
+      "campo": "PCP"
+     }
+    ]
+   },
+   {
+    "partido": "PS",
+    "defende": "Viabiliza o orçamento com a condição de não mexer nas pensões, e acusa o Governo de \"desistir de responder\" ao aumento do custo de vida.",
+    "propostas": [
+     {
+      "t": "Não alterar as regras das pensões",
+      "p": "Condição de Carneiro"
+     },
+     {
+      "t": "IVA mais baixo nos combustíveis e no cabaz",
+      "p": "Com o Chega"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Condições de viabilização e propostas na especialidade"
+     },
+     {
+      "k": "Custo",
+      "v": "Não quantificado pelo PS"
+     }
+    ],
+    "pro": [
+     {
+      "t": "A Segurança Social prevê um excedente de 8.382,7 M€ em 2027.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/oe2027-leia-aqui-as-principais-medidas-includas-na-proposta-do-governo",
+      "campo": "imprensa"
+     },
+     {
+      "t": "Com a fórmula da lei, as pensões até cerca de 1.000 € devem subir perto de 3% em 2027.",
+      "src": "CNN Portugal",
+      "url": "https://cnnportugal.iol.pt/orcamento-do-estado/novidades/oe2027-das-pensoes-ao-irs-estas-sao-as-seis-medidas-que-vao-mexer-com-o-bolso-dos-portugueses/20261008/6ac67dffd34e9a786e75b302",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "O PS não apresentou o custo das suas propostas de apoio ao custo de vida; o Governo estima o IVA mais baixo em cerca de 2.000 M€.",
+      "src": "Sábado",
+      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
+      "campo": "governo"
+     },
+     {
+      "t": "Portugal já gasta mais em pensões de velhice, em % do PIB, do que a média da UE.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table",
+      "campo": "imprensa"
+     }
+    ]
+   },
+   {
+    "partido": "CH",
+    "defende": "Permitir a reforma aos 65 anos ou com 40 anos de descontos, como condição para não chumbar o orçamento.",
+    "propostas": [
+     {
+      "t": "Reforma aos 65 anos ou com 40 anos de descontos",
+      "p": "Condição-chave"
+     },
+     {
+      "t": "IVA zero no cabaz alimentar",
+      "p": "Proposta de alteração"
+     }
+    ],
+    "mecanismo": [
+     {
+      "k": "Instrumento",
+      "v": "Proposta de alteração ao OE 2027"
+     },
+     {
+      "k": "Custo",
+      "v": "1,9 mil M€, segundo o próprio Chega"
+     }
+    ],
+    "pro": [
+     {
+      "t": "A idade legal da reforma é hoje de 66 anos e 11 meses e sobe com a esperança de vida.",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/",
+      "campo": "imprensa"
+     },
+     {
+      "t": "A Segurança Social prevê um excedente de 8.382,7 M€ em 2027.",
+      "src": "DN",
+      "url": "https://www.dn.pt/política/oe2027-leia-aqui-as-principais-medidas-includas-na-proposta-do-governo",
+      "campo": "imprensa"
+     }
+    ],
+    "contra": [
+     {
+      "t": "Montenegro considera a proposta \"inaceitável\".",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/",
+      "campo": "governo"
+     },
+     {
+      "t": "O custo de 1,9 mil M€ é uma estimativa do próprio partido, sem cálculo público da Segurança Social.",
+      "src": "ECO",
+      "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/",
+      "campo": "imprensa"
+     }
+    ]
+   }
+  ],
+  "fato_valor": {
+   "fatos": [
+    "O salário mínimo sobe de 920 € para 970 € em 2027.",
+    "A despesa com pensões e prestações aumenta 984,1 M€.",
+    "A Segurança Social prevê um excedente de 8.382,7 M€."
+   ],
+   "valores": [
+    "Se o excedente da Segurança Social deve financiar mais pensões hoje ou reforçar o fundo de reserva.",
+    "Se a idade da reforma deve continuar ligada à esperança de vida.",
+    "Quanto pesar o salário mínimo face à competitividade das empresas."
+   ]
+  },
+  "debate_atual": "O valor exato da atualização das pensões só se conhece depois da inflação de novembro. O suplemento extraordinário é pago com a pensão de dezembro de 2026.",
+  "debate_atual_src": {
+   "label": "CNN Portugal",
+   "url": "https://cnnportugal.iol.pt/orcamento-do-estado/novidades/oe2027-das-pensoes-ao-irs-estas-sao-as-seis-medidas-que-vao-mexer-com-o-bolso-dos-portugueses/20261008/6ac67dffd34e9a786e75b302"
+  },
+  "fontes": [
+   {
+    "tier": "N1",
+    "label": "Eurostat, earn_mw_cur: salário mínimo",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/earn_mw_cur/default/table"
+   },
+   {
+    "tier": "N1",
+    "label": "Eurostat, gov_10a_exp: despesa com pensões de velhice (GF1002)",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"
+   },
+   {
+    "tier": "N1*",
+    "label": "Relatório do OE 2027: despesa com pensões (via CNN Portugal)",
+    "url": "https://cnnportugal.iol.pt/pensoes/oe-2027/oe-2027-estado-preve-gastar-mais-984-1-milhoes-de-euros-com-pensoes-no-proximo-ano/20261008/6ac7a7a5d34e53c759c75912"
+   },
+   {
+    "tier": "N3",
+    "label": "CNN Portugal: seis medidas que mexem com o bolso",
+    "url": "https://cnnportugal.iol.pt/orcamento-do-estado/novidades/oe2027-das-pensoes-ao-irs-estas-sao-as-seis-medidas-que-vao-mexer-com-o-bolso-dos-portugueses/20261008/6ac67dffd34e9a786e75b302"
+   },
+   {
+    "tier": "N3",
+    "label": "DN: principais medidas da proposta",
+    "url": "https://www.dn.pt/política/oe2027-leia-aqui-as-principais-medidas-includas-na-proposta-do-governo"
+   },
+   {
+    "tier": "N3",
+    "label": "ECO: Chega e a idade da reforma",
+    "url": "https://eco.sapo.pt/2026/08/21/chega-ameaca-chumbar-oe2027-baixa-da-idade-da-reforma-e-condicao-chave/"
+   },
+   {
+    "tier": "N3",
+    "label": "Renascença: as condições do PS",
+    "url": "https://rr.pt/noticia/politica/2026/09/09/ps-impoe-quatro-condicoes-para-viabilizar-oe-2027/484755/"
+   },
+   {
+    "tier": "N3",
+    "label": "Observador: PCP critica salário mínimo e pensões",
+    "url": "https://observador.pt/2026/10/12/pcp-acusa-governo-de-corte-de-30-no-investimento-publico-no-oe2027-e-critica-ps-por-viabilizar-politica-de-desastre/"
    }
   ]
  },
@@ -1350,189 +2389,199 @@
    }
   ]
  },
- "crescimento": {
-  "titulo": "Crescimento e emprego",
-  "tese": "Portugal cresce acima da UE desde 2021 e tem a taxa de emprego mais alta de sempre. O Governo prevê 2,1% em 2027, acima de todas as instituições, apoiado num salto do investimento privado e no emprego.",
+ "investimento": {
+  "titulo": "Investimento e PRR",
+  "tese": "O investimento público cai 31% em 2027 porque o PRR acaba; sem ele, sobe 6,8%. O Governo conta com um salto do investimento privado que economistas e patrões duvidam, e a esquerda fala em corte.",
   "kpis": [
    {
-    "v": "1,9%",
-    "l": "Crescimento do PIB, 2025",
-    "s": "UE: 1,4%",
-    "src": "Eurostat"
+    "v": "−31%",
+    "l": "Investimento público em 2027",
+    "s": "de 14.035 M€ para 9.687 M€",
+    "src": "OE 2027 (via ZAP)"
    },
    {
-    "v": "79,6%",
-    "l": "Taxa de emprego (20–64), 2025",
-    "s": "UE: 76,1% · máximo da série",
-    "src": "Eurostat"
+    "v": "+6,8%",
+    "l": "Investimento público sem o PRR",
+    "s": "de 9.069 M€ para 9.687 M€",
+    "src": "OE 2027 (via ZAP)"
    },
    {
-    "v": "6,0%",
-    "l": "Desemprego, 2025",
-    "s": "UE: 6,0%",
+    "v": "2,9%",
+    "l": "Investimento público, % do PIB, 2025",
+    "s": "UE: 3,9%",
     "src": "Eurostat"
    },
    {
     "v": "+10%",
-    "l": "Investimento privado em 2027",
-    "s": "previsão do Governo, \"maior subida da década\"",
+    "l": "Investimento privado previsto em 2027",
+    "s": "a CIP diz que \"não parece exequível\"",
     "src": "OE 2027"
    }
   ],
   "charts": [
    {
     "t": "linha",
-    "serie": "pib",
+    "serie": "inv_publico",
     "chaves": [
      "PT",
      "UE"
     ],
-    "titulo": "Crescimento real do PIB",
+    "titulo": "Investimento público, % do PIB",
     "sub": "Portugal e UE-27, 2000 a 2025",
-    "yMin": -10,
-    "yMax": 8,
-    "yStep": 2,
-    "unid": "%",
+    "yMin": 0,
+    "yMax": 6,
+    "yStep": 1,
+    "unid": "% do PIB",
     "unid_eixo": "%",
     "xStep": 5
    },
    {
     "t": "linha",
-    "serie": "desemprego",
+    "serie": "inv_capital",
     "chaves": [
      "PT",
      "UE"
     ],
-    "titulo": "Taxa de desemprego",
-    "sub": "Portugal e UE-27, 2009 a 2025",
+    "titulo": "Investimento público e desgaste do capital, % do PIB",
+    "sub": "Portugal, 2000 a 2025. Abaixo da linha tracejada, o investimento não chega para repor o que se desgasta.",
     "yMin": 0,
-    "yMax": 18,
-    "yStep": 3,
-    "unid": "%",
+    "yMax": 6,
+    "yStep": 1,
+    "unid": "% do PIB",
     "unid_eixo": "%",
-    "xStep": 4
+    "xStep": 5
    },
    {
-    "t": "prev",
-    "titulo": "Crescimento e emprego: Governo face às instituições",
-    "sub": "Losango: Governo. Pontos: cada instituição.",
-    "fonte": "OE 2027, BdP, FMI, CE, OCDE",
+    "t": "hbar",
+    "titulo": "De onde vem a quebra de 2027",
+    "sub": "Investimento público, milhões de euros",
+    "fonte": "Relatório do OE 2027 (via ZAP)",
+    "dec": 0,
     "itens": [
      [
-      "pib",
-      "2027"
+      "2026: fontes nacionais e outros fundos",
+      9069
      ],
      [
-      "pib",
-      "2026"
+      "2026: PRR",
+      4966
      ],
      [
-      "emprego",
-      "2027"
+      "2027: fontes nacionais e outros fundos",
+      9687
      ],
      [
-      "desemprego",
-      "2027"
+      "2027: PRR",
+      0
      ]
     ]
    },
    {
-    "t": "linha",
-    "serie": "taxa_emprego",
-    "chaves": [
-     "PT",
-     "UE"
-    ],
-    "titulo": "Taxa de emprego, 20 a 64 anos",
-    "sub": "Portugal e UE-27, 2010 a 2025",
-    "yMin": 60,
-    "yMax": 82,
-    "yStep": 4,
-    "unid": "%",
-    "unid_eixo": "%",
-    "xStep": 5
+    "t": "hbar",
+    "titulo": "Grandes investimentos com verba no OE 2027",
+    "sub": "Milhões de euros em 2027",
+    "fonte": "Relatório do OE 2027 (via ZAP)",
+    "dec": 0,
+    "itens": [
+     [
+      "Ferrovia e plano ferroviário nacional",
+      736
+     ],
+     [
+      "dos quais: Corredor Internacional Norte",
+      431
+     ],
+     [
+      "Defesa (investimento)",
+      339
+     ],
+     [
+      "Linha violeta do Metro de Lisboa",
+      338
+     ]
+    ]
    }
   ],
   "contexto": [
-   "Depois da queda de 8,2% em 2020, Portugal cresceu acima da UE todos os anos: 5,6% em 2021, 7,0% em 2022, 3,1% em 2023, 2,7% em 2024 e 1,9% em 2025.",
-   "O Governo prevê 2,3% em 2026 e 2,1% em 2027. Para 2027, apoia-se numa subida de mais de 10% do investimento privado, enquanto o consumo privado abranda de 3,1% para 2,1%.",
-   "O emprego cresceu com a imigração. A UTAO nota que a população em idade ativa aumentou 28 mil pessoas por trimestre em 2025 e só 10 mil em 2026, o que torna difícil o emprego crescer 1,4% em 2027.",
-   "O programa da AD apontava para crescimentos de 3%. O PS diz que só governos seus atingiram esse valor."
+   "O PRR financiou 4.966 M€ de investimento público em 2026 e deixa de pagar em 2027. Por isso o investimento total das administrações públicas cai de 14.035 para 9.687 M€.",
+   "Entre 2012 e 2022, o investimento público português ficou abaixo do desgaste do capital: o stock de escolas, estradas e hospitais encolheu. Só a partir de 2024 voltou a superá-lo.",
+   "O Governo conta com o Portugal 2030 e com parcerias público-privadas para compensar. O Hospital Oriental de Lisboa saiu do PRR e avança por PPP, sem verba no orçamento.",
+   "O cenário macroeconómico prevê mais de 10% de crescimento do investimento privado, o que permitiria ao investimento total continuar a subir."
   ],
   "posicoes": [
    {
     "partido": "GOV",
-    "defende": "Crescer acima de 2% com investimento privado, IRC mais baixo e contas certas; a economia já cresce acima da média europeia.",
+    "defende": "A quebra é o fim do PRR e não desinvestimento: com fontes nacionais o investimento sobe, e o privado, o Portugal 2030 e as PPP compensam.",
     "propostas": [
      {
-      "t": "PIB de 2,1% em 2027",
-      "p": "Relatório do OE"
+      "t": "Investimento público com fontes nacionais +6,8%",
+      "p": "OE 2027"
      },
      {
       "t": "Investimento privado +10%",
-      "p": "Relatório do OE"
+      "p": "Cenário macroeconómico"
      },
      {
-      "t": "Prémios de produtividade isentos se os salários subirem 4,5%",
-      "p": "OE 2027"
+      "t": "Hospital Oriental de Lisboa por PPP",
+      "p": "Ministério das Finanças"
      }
     ],
     "mecanismo": [
      {
       "k": "Instrumento",
-      "v": "IRC mais baixo, incentivos fiscais, fundos europeus"
+      "v": "OE 2027, Portugal 2030, concessões e PPP"
      },
      {
-      "k": "Risco",
-      "v": "Abrandamento da imigração e do consumo"
+      "k": "Compromisso",
+      "v": "Investir acima do desgaste do capital, segundo o ministro"
      }
     ],
     "pro": [
      {
-      "t": "Portugal cresceu 1,9% em 2025, acima dos 1,4% da UE.",
-      "src": "Eurostat",
-      "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+      "t": "Sem o PRR, o investimento público passa de 9.069 para 9.687 M€ (+6,8%).",
+      "src": "ZAP",
+      "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865",
       "campo": "imprensa"
      },
      {
-      "t": "O CFP considera o cenário estatisticamente plausível.",
-      "src": "RTP",
-      "url": "https://www.rtp.pt/noticias/economia/oe2027-governo-elogia-contas-solidas-oposicao-critica-proposta_n1770470",
+      "t": "O investimento público voltou a ficar acima do desgaste do capital em 2024 e 2025.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table",
       "campo": "imprensa"
      }
     ],
     "contra": [
      {
-      "t": "O FMI prevê 1,9% em 2027 e inflação de 3,0%, contra 2,1% e 2,3% do Governo.",
-      "src": "DN",
-      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "t": "Economistas ouvidos pelo Expresso e o presidente da CIP não acreditam na subida do investimento privado.",
+      "src": "Expresso",
+      "url": "https://expresso.pt/orcamento-do-estado/orcamento-do-estado-2027/2026-10-14-governo-espera-que-privados-contrariem-trambolhao-do-investimento-publico-puxando-pelo-pib-economistas-e-presidente-da-cip-nao-acreditam-0109067c",
       "campo": "imprensa"
      },
      {
-      "t": "A UTAO considera o crescimento do emprego de 1,4% difícil de conciliar com menos imigração.",
-      "src": "DN",
-      "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027",
+      "t": "O Banco de Portugal prevê uma quebra do investimento público de cerca de 14% em 2027, menos do que o Governo, porque assume menos execução do PRR em 2026.",
+      "src": "ZAP",
+      "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865",
       "campo": "imprensa"
      }
     ]
    },
    {
     "partido": "PS",
-    "defende": "O Governo volta a falhar o crescimento de 3% que prometeu; o PS reclama ser o único a tê-lo conseguido e pede apoios ao custo de vida.",
+    "defende": "Exige que o Governo garanta o financiamento das escolas, hospitais e centros de saúde que ficam por concluir quando o PRR acabar.",
     "propostas": [
      {
-      "t": "Mecanismos de apoio aos combustíveis e ao cabaz",
-      "p": "Brilhante Dias, 28/09"
+      "t": "Financiamento dos investimentos pós-PRR",
+      "p": "Condição para viabilizar"
      },
      {
-      "t": "Concluir os projetos do PRR",
+      "t": "Apoios às vítimas das tempestades de fevereiro",
       "p": "Condição para viabilizar"
      }
     ],
     "mecanismo": [
      {
       "k": "Instrumento",
-      "v": "Propostas de alteração na especialidade"
+      "v": "Exigências na especialidade"
      },
      {
       "k": "Custo",
@@ -1541,123 +2590,123 @@
     ],
     "pro": [
      {
-      "t": "O programa da AD apontava para 3% e o OE 2027 prevê cerca de 2%.",
-      "src": "DN",
-      "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3",
+      "t": "O PRR deixa de pagar em 2027 e a linha violeta do Metro de Lisboa já saiu do PRR por não ficar pronta a tempo.",
+      "src": "ZAP",
+      "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865",
       "campo": "imprensa"
      },
      {
-      "t": "Os anos com crescimento de 3% ou mais desde 1996 foram todos com governos do PS (1996–2000, 2017, 2021–2023).",
-      "src": "Banco Mundial",
-      "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+      "t": "O investimento público em % do PIB (2,9%) continua abaixo da média da UE (3,9%).",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table",
       "campo": "imprensa"
      }
     ],
     "contra": [
      {
-      "t": "Os governos de Cavaco Silva (PSD) tiveram crescimentos de 4% a 7,5% entre 1986 e 1991.",
-      "src": "Banco Mundial",
-      "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT",
+      "t": "Entre 2016 e 2019, com governos do PS, o investimento público ficou entre 1,6% e 1,9% do PIB e abaixo do desgaste do capital.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table",
       "campo": "imprensa"
      },
      {
-      "t": "Os 5,6% e 7,0% de 2021 e 2022 foram recuperação da queda de 8,2% em 2020.",
-      "src": "Eurostat",
-      "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
-      "campo": "imprensa"
+      "t": "O Governo diz que o investimento financiado por fontes nacionais sobe 6,8%.",
+      "src": "ZAP",
+      "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865",
+      "campo": "governo"
      }
     ]
    },
    {
-    "partido": "CH",
-    "defende": "O orçamento não responde ao custo de vida e prevê um \"brutal aumento\" dos preços; liga a pressão nos serviços à imigração.",
+    "partido": "PCP",
+    "defende": "Fala num \"corte brutal\" de mais de 30% que não se explica só pelo fim do PRR, e defende que o investimento não pode depender de fundos europeus.",
     "propostas": [
      {
-      "t": "IVA mais baixo nos combustíveis e no cabaz",
-      "p": "Propostas de alteração"
+      "t": "Investimento público financiado pelo orçamento nacional",
+      "p": "Paula Santos, 12/10"
      },
      {
-      "t": "Isenção de portagens",
+      "t": "Reabilitação de escolas, hospitais e ferrovia",
       "p": "Propostas de alteração"
      }
     ],
     "mecanismo": [
      {
       "k": "Instrumento",
-      "v": "Propostas de alteração na especialidade"
+      "v": "Propostas de alteração; vota contra o orçamento"
      },
      {
       "k": "Custo",
-      "v": "Cerca de 2.000 M€/ano para o IVA, segundo o Governo"
+      "v": "Não quantificado"
      }
     ],
     "pro": [
      {
-      "t": "O FMI prevê inflação de 3,0% em 2027, bem acima dos 2,3% do Governo.",
-      "src": "DN",
-      "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior",
+      "t": "A quebra de 2027 é de 31%, como diz o PCP.",
+      "src": "ZAP",
+      "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865",
       "campo": "imprensa"
      },
      {
-      "t": "O CFP vê potencial subestimação da inflação em 2026 e 2027.",
-      "src": "Postal",
-      "url": "https://postal.pt/nacional/precos-podem-subir-mais-do-que-o-previsto-em-2027-entidade-independente-deixa-alerta-aos-portugueses/",
+      "t": "O investimento público ficou abaixo do desgaste do capital de 2012 a 2022.",
+      "src": "Eurostat",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table",
       "campo": "imprensa"
      }
     ],
     "contra": [
      {
-      "t": "O emprego que sustenta o crescimento depende da imigração, que o Chega quer travar.",
-      "src": "DN",
-      "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027",
+      "t": "O relatório mostra que quase toda a quebra vem do PRR: sem ele, o investimento sobe 6,8%.",
+      "src": "ZAP",
+      "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865",
       "campo": "imprensa"
      },
      {
-      "t": "As descidas de IVA levariam a défice, segundo o Governo.",
-      "src": "Sábado",
-      "url": "https://www.sabado.pt/dinheiro/detalhe/sarmento-avisa-que-descida-do-iva-nos-combustiveis-e-alimentacao-levaria-pais-a-defice",
-      "campo": "governo"
+      "t": "O PCP não apresentou o custo nem o financiamento das propostas.",
+      "src": "Observador",
+      "url": "https://observador.pt/2026/10/12/pcp-acusa-governo-de-corte-de-30-no-investimento-publico-no-oe2027-e-critica-ps-por-viabilizar-politica-de-desastre/",
+      "campo": "imprensa"
      }
     ]
    }
   ],
   "fato_valor": {
    "fatos": [
-    "Portugal cresce acima da UE desde 2021.",
-    "A taxa de emprego (79,6%) é a mais alta da série e está acima da UE.",
-    "A previsão de 2,1% para 2027 é a mais alta entre as instituições."
+    "O investimento público cai 31% em 2027, quase todo por causa do fim do PRR.",
+    "Sem o PRR, sobe 6,8%.",
+    "Entre 2012 e 2022, o investimento público ficou abaixo do desgaste do capital."
    ],
    "valores": [
-    "Quanto peso dar à imigração no crescimento do emprego.",
-    "Se a prioridade é o investimento empresarial (IRC) ou o rendimento disponível (IVA, salários).",
-    "Que crescimento é realista sem o PRR."
+    "Se o Estado deve investir com dívida quando acabam os fundos europeus.",
+    "Que peso dar às PPP e às concessões nos grandes investimentos.",
+    "Quanto confiar no investimento privado para manter o crescimento."
    ]
   },
-  "debate_atual": "O Banco de Portugal e o FMI reviram em alta o crescimento de 2026 em outubro, mas mantêm 2027 abaixo do Governo.",
+  "debate_atual": "Falta saber quanto do PRR se executa até ao fim de 2026 e como se financiam as obras que não ficarem concluídas.",
   "debate_atual_src": {
-   "label": "RTP",
-   "url": "https://www.rtp.pt/noticias/economia/fmi-reve-em-alta-crescimento-de-portugal-para-21-este-ano-e-19-em-2027_n1771310"
+   "label": "ZAP",
+   "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865"
   },
   "fontes": [
    {
     "tier": "N1",
-    "label": "Eurostat, nama_10_gdp: PIB em volume",
-    "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table"
-   },
-   {
-    "tier": "N1",
-    "label": "Eurostat, une_rt_a e lfsi_emp_a: desemprego e emprego",
-    "url": "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table"
-   },
-   {
-    "tier": "N1",
-    "label": "Banco Mundial: crescimento real do PIB de Portugal desde 1980",
-    "url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=PT"
+    "label": "Eurostat, gov_10a_main: investimento e consumo de capital fixo das administrações públicas",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table"
    },
    {
     "tier": "N1*",
-    "label": "Relatório do OE 2027: cenário macroeconómico (via CNN Portugal)",
-    "url": "https://cnnportugal.iol.pt/interativo/oe-2027"
+    "label": "Relatório do OE 2027: investimento público (via ZAP)",
+    "url": "https://zap.aeiou.pt/fim-da-bazuca-abre-um-buraco-de-43-mil-milhoes-no-investimento-publico-768865"
+   },
+   {
+    "tier": "N3",
+    "label": "Expresso: economistas e CIP duvidam do investimento privado",
+    "url": "https://expresso.pt/orcamento-do-estado/orcamento-do-estado-2027/2026-10-14-governo-espera-que-privados-contrariem-trambolhao-do-investimento-publico-puxando-pelo-pib-economistas-e-presidente-da-cip-nao-acreditam-0109067c"
+   },
+   {
+    "tier": "N3",
+    "label": "Jornal Económico: o fim do PRR",
+    "url": "https://jornaleconomico.sapo.pt/noticias/prr-foi-shot-de-investimento-havera-agora-ressaca/"
    },
    {
     "tier": "N3",
@@ -1666,18 +2715,13 @@
    },
    {
     "tier": "N3",
-    "label": "DN: UTAO e a imigração",
-    "url": "https://www.dn.pt/economia/abrandamento-da-imigrao-pe-em-dvida-previso-do-governo-para-o-emprego-em-2027"
+    "label": "Observador: PCP e o investimento público",
+    "url": "https://observador.pt/2026/10/12/pcp-acusa-governo-de-corte-de-30-no-investimento-publico-no-oe2027-e-critica-ps-por-viabilizar-politica-de-desastre/"
    },
    {
     "tier": "N3",
-    "label": "DN: PS e o crescimento de 3%",
-    "url": "https://www.dn.pt/política/oe2027-ps-reala-que-governo-voltar-a-incumprir-crescimento-econmico-de-3"
-   },
-   {
-    "tier": "N3",
-    "label": "DN: FMI contradiz cenário do OE",
-    "url": "https://www.dn.pt/economia/fmi-contradiz-cenrio-do-oe2027-portugal-cresce-menos-e-inflao-ser-muito-superior"
+    "label": "Renascença: as condições do PS",
+    "url": "https://rr.pt/noticia/politica/2026/09/09/ps-impoe-quatro-condicoes-para-viabilizar-oe-2027/484755/"
    }
   ]
  }

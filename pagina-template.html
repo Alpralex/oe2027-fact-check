@@ -512,7 +512,7 @@ table,.mx,.board,.tcard,.kpi,.fc{font-family:var(--f-ui)}
     <section class="view" id="v-previsoes" hidden>
       <div class="panel">
         <h2 style="font-size:24px;font-stretch:80%">As previsões do Governo face às das instituições</h2>
-        <p class="prose">Uma previsão não é verdadeira nem falsa no dia em que é feita. Por isso não lhe damos um veredito de verdade: comparamo-la com as previsões mais recentes do Banco de Portugal, do Conselho das Finanças Públicas, da Comissão Europeia, do FMI e da OCDE. Fica "dentro do consenso" se estiver entre a mais baixa e a mais alta.</p>
+        <p class="prose">Uma previsão não é verdadeira nem falsa no dia em que é feita. Por isso não lhe damos um veredito de verdade: comparamo-la com as previsões mais recentes do Banco de Portugal, da Comissão Europeia, do FMI e da OCDE. O Conselho das Finanças Públicas e a UTAO entram nas análises, mas não publicaram números comparáveis para todos os indicadores. Fica "dentro do consenso" se estiver entre a mais baixa e a mais alta.</p>
         <div class="fc-legend"><span><i class="g"></i>Governo (OE 2027)</span><span><i class="d"></i>Cada instituição</span><span><i class="r"></i>Intervalo das instituições</span></div>
         <div class="fc" id="fc-full"></div>
       </div>
@@ -884,7 +884,7 @@ function fcRow(ind, ano, opts={}){
   const k = classify(ind, ano);
   const dots = r.vals.map(([i,v])=>`<span class="fc-dot" style="left:${X(v)}" title="${esc(INST[i].nome)}: ${fmt(v,I.dec??1)}${esc(I.unid)} (${esc(INST[i].quando)})"></span>`).join('');
   const ticks = [r.lo, r.hi].filter((v,j,a)=>a.indexOf(v)===j).map(v=>`<span class="fc-tick" style="left:${X(v)}">${fmt(v,I.dec??1)}</span>`).join('');
-  return `<div class="fc-row"><div class="fc-name">${esc(I.nome)} ${ano}<small>GOVERNO ${fmt(r.gov,I.dec??1)}${esc(I.unid)} · ${r.vals.length} INSTITUIÇÕES</small></div>
+  return `<div class="fc-row"><div class="fc-name">${esc(I.nome)} ${ano}<small>GOVERNO ${fmt(r.gov,I.dec??1)}${esc(I.unid)} · ${r.vals.length} ${r.vals.length===1?'INSTITUIÇÃO':'INSTITUIÇÕES'}</small></div>
     <div class="fc-track" role="img" aria-label="${esc(I.nome)} ${ano}: Governo ${fmt(r.gov,I.dec??1)}${esc(I.unid)}; instituições entre ${fmt(r.lo,I.dec??1)} e ${fmt(r.hi,I.dec??1)}"><span class="fc-axis"></span><span class="fc-range" style="left:${X(r.lo)};width:calc(${X(r.hi)} - ${X(r.lo)})"></span>${dots}${ticks}<span class="fc-gov" style="left:${X(r.gov)}" title="Governo: ${fmt(r.gov,I.dec??1)}${esc(I.unid)}"></span></div>
     <div class="fc-v">${opts.button?`<button class="linkbtn" data-cat-prev="${k}" style="text-decoration:none">${pill(k)}</button>`:pill(k)}</div></div>`;
 }
@@ -905,19 +905,23 @@ function renderPrev(mini){
 /* Gráficos (SVG desenhado à mão, uma escala por eixo) */
 function tipFor(box){ let t=box.querySelector('.tip'); if(!t){ t=document.createElement('div'); t.className='tip'; t.hidden=true; box.appendChild(t);} return t; }
 function lineChart(box, cfg){
-  const W=Math.max(320,Math.round(box.clientWidth||760)), narrow=W<560, H=narrow?250:300, ml=narrow?38:44, mr=narrow?78:92, mt=22, mb=34, iw=W-ml-mr, ih=H-mt-mb, n=cfg.x.length;
+  const W=Math.max(320,Math.round(box.clientWidth||760)), narrow=W<560, H=narrow?250:300, ml=narrow?38:44, mr=Math.max(narrow?78:92, 16+7.2*Math.max(0,...cfg.series.map(se=>String(se.end||'').length))), mt=22, mb=34, iw=W-ml-mr, ih=H-mt-mb, n=cfg.x.length;
   const xt=(cfg.xTicks||[]).filter((_,j)=>!narrow||j%2===0);
   const X=i=>ml+(n<=1?0:i/(n-1)*iw), Y=v=>mt+ih-(v-cfg.yMin)/(cfg.yMax-cfg.yMin)*ih;
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(cfg.aria)}">`;
   (cfg.bands||[]).forEach(([a,b,l],j)=>{ if(j%2===0) s+=`<rect class="gov" x="${X(a)}" y="${mt}" width="${Math.max(0,X(b)-X(a))}" height="${ih}"/>`; if(X(b)-X(a)>(narrow?40:56)) s+=`<text class="govt" x="${(X(a)+X(b))/2}" y="${mt-8}" text-anchor="middle">${esc(l)}</text>`; });
   s+=`<g class="grid">`; for(let v=cfg.yMin; v<=cfg.yMax+1e-9; v+=cfg.yStep){ s+=`<line x1="${ml}" x2="${ml+iw}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${cfg.fmtY(v)}</text>`; } s+=`</g>`;
   xt.forEach(i=>{ s+=`<text x="${X(i)}" y="${H-12}" text-anchor="middle">${esc(cfg.fmtX(cfg.x[i]))}</text>`; });
+  const ends=cfg.series.map(se=>{ let li=se.vals.length-1; while(li>0&&se.vals[li]==null) li--; return {se,y:Y(se.vals[li])+(se.dy||0)+4}; }).sort((a,b)=>a.y-b.y);
+  for(let k=1;k<ends.length;k++) if(ends[k].y-ends[k-1].y<14) ends[k].y=ends[k-1].y+14;
+  const over=ends.length?ends[ends.length-1].y-(mt+ih+4):0; if(over>0) ends.forEach(e=>e.y-=over);
+  ends.forEach(e=>e.se._ly=e.y);
   cfg.series.forEach(se=>{
     let d='',pen=false; se.vals.forEach((v,i)=>{ if(v==null){pen=false;return;} d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1)+' '; pen=true; });
     s+=`<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2" ${se.dash?'stroke-dasharray="5 4"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
     let li=se.vals.length-1; while(li>0&&se.vals[li]==null) li--;
     s+=`<circle cx="${X(li)}" cy="${Y(se.vals[li])}" r="4" fill="${se.color}" stroke="var(--surface)" stroke-width="2"/>`;
-    s+=`<text class="lab-end" x="${X(li)+8}" y="${Y(se.vals[li])+(se.dy||0)+4}" style="fill:var(--ink)">${esc(se.end||'')}</text>`;
+    s+=`<text class="lab-end" x="${X(li)+8}" y="${se._ly}" style="fill:var(--ink)">${esc(se.end||'')}</text>`;
   });
   s+=`<line class="cross" x1="0" x2="0" y1="${mt}" y2="${mt+ih}" stroke="var(--muted)" stroke-width="1" visibility="hidden"/>`;
   s+=`<rect x="${ml}" y="${mt}" width="${iw}" height="${ih}" fill="transparent" class="hit"/></svg>`;
@@ -993,7 +997,7 @@ function renderDossie(){
     ${charts}
     <div class="panel"><h3>Contexto</h3><div class="prose">${D.contexto.map(p=>`<p>${esc(p)}</p>`).join('')}</div></div>
     <div class="panel"><div class="sec-h"><h3>O que foi dito</h3><button class="linkbtn" data-drill-tema="${k}">Ver na tabela</button></div><div class="grid2 atop">${CAMPOS.map(([c,l])=>`<div class="claims"><span class="lbl">${esc(l)}</span>${rows.filter(d=>d.campo===c).map(claimRow).join('')||'<p class="sub">Nenhuma com os filtros atuais.</p>'}</div>`).join('')}</div></div>
-    ${D.posicoes&&D.posicoes.length?`<div class="sec-h"><h2>Onde está a discussão</h2><p>Mesmo molde para o Governo e para os dois maiores partidos da oposição (PS e Chega), com o mesmo número de argumentos e de críticas. Críticas marcadas por campo quando a fonte tem posição política.</p></div><div class="pos">${D.posicoes.map(posHTML).join('')}</div>`:''}
+    ${D.posicoes&&D.posicoes.length?`<div class="sec-h"><h2>Onde está a discussão</h2><p>Mesmo molde para o Governo e para os partidos da oposição com propostas no tema, com o mesmo número de argumentos e de críticas. Críticas marcadas por campo quando a fonte tem posição política.</p></div><div class="pos">${D.posicoes.map(posHTML).join('')}</div>`:''}
     ${D.fato_valor?`<div class="panel"><h3>O que os dados resolvem e o que é escolha de valores</h3><div class="fv"><div class="blk"><span class="lbl">Os dados resolvem</span><ul>${D.fato_valor.fatos.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div><div class="blk"><span class="lbl">É escolha de valores</span><ul>${D.fato_valor.valores.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div></div>${D.debate_atual?`<p class="note">${esc(D.debate_atual)}${D.debate_atual_src?` <a href="${esc(D.debate_atual_src.url)}" target="_blank" rel="noopener">${esc(D.debate_atual_src.label)}</a>`:''}</p>`:''}</div>`:''}
     <div class="panel"><h3>Fontes do dossiê</h3><div class="srcs">${D.fontes.map(srcHTML).join('')}</div></div>`;
   D.charts.forEach((c,i)=>CHARTS[c.t](el.querySelector('#ch-'+i),c));
@@ -1005,7 +1009,7 @@ function srcHTML(s){
   return `<div class="src">${tierTag(s.tier)}<div>${s.url?`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(label)}</a><span class="host">${esc(h)}</span>`:`<span>${esc(label)}</span><span class="host">sem ligação direta</span>`}${s.note?` <span class="host">${esc(s.note)}</span>`:''}</div></div>`;
 }
 function concMeter(c){
-  if(!c || c==='-') return `<span class="conc">sem fontes suficientes</span>`;
+  if(!c || c==='-' || c==='—') return `<span class="conc">ainda sem verificações das agências</span>`;
   const n=parseInt(c)||0, div=String(c).includes('div');
   return `<span class="conc" title="${n} de 3 verificações concordam">${[0,1,2].map(i=>`<i class="${i<n?'on':''}"></i>`).join('')}<span style="margin-left:5px">${n}/3 concordam</span>${div?'<span class="div">divergência</span>':''}</span>`;
 }

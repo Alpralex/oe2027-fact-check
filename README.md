@@ -1,6 +1,6 @@
 # Fact-checking a budget debate in 72 hours
 
-A fact-check of Portugal's 2027 State Budget debate (27–28 Oct 2026), published by 31 Oct 2026 with about 50 claims checked (7 pre-debate claims in the current preview).
+A fact-check of Portugal's 2027 State Budget debate (27–28 Oct 2026), published by 31 Oct 2026 with about 50 claims checked (14 pre-debate claims and 8 topic dossiers in the current preview).
 Every claim is checked against official sources (Eurostat, World Bank, the budget report), and the build fails if a claim has none.
 Government forecasts get a computed verdict: they are compared with the range of independent institutions (Banco de Portugal, IMF, European Commission, OECD), not judged by hand.
 The same rules apply to every party: the same verdict scale, and topic dossiers give each side an equal number of arguments for and against.
